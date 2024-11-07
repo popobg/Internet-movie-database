@@ -10,6 +10,6 @@ public class Personne {
 
 
     private LocalDate dateNaissance;
-    
+
     private float taille;
 }
