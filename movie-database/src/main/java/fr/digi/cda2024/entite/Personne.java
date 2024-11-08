@@ -35,13 +35,24 @@ public class Personne {
      */
     @Column(name = "TAILLE")
     private float taille;
-
+    /**
+     * adresse de la personne
+     */
     @ManyToOne
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
     /** Constructeur */
     public Personne() {
+    }
+
+    /**constructeur paremetre*/
+
+    public Personne(String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
+        this.identite = identite;
+        this.dateNaissance = dateNaissance;
+        this.taille = taille;
+        setAdresse(adresse);
     }
 
     /**
@@ -106,5 +117,20 @@ public class Personne {
      */
     public void setTaille(float taille) {
         this.taille = taille;
+    }
+
+    /**
+     * Setter
+     *
+     * @param adresse adresse
+     */
+    public void setAdresse(Adresse adresse) {
+        if (adresse != null) {
+            adresse.getPersonnes().remove(this);
+        }
+        this.adresse = adresse;
+        if (adresse != null) {
+            adresse.getPersonnes().add(this);
+        }
     }
 }

@@ -2,6 +2,7 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -40,9 +41,16 @@ public class Adresse {
     @ManyToOne
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
-
+    /**
+     * listes des personnes presente a l'adresse
+     */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
+    /**attribut present dans tout les constructeur*/
+
+    {
+        personnes = new HashSet<>();
+    }
 
     /** Constructeur */
     public Adresse() {
@@ -99,6 +107,16 @@ public class Adresse {
      */
     public void setVille(String ville) {
         this.ville = ville;
+    }
+
+    /**
+     * Getter
+     *
+     * @return personnes
+     */
+
+    public Set<Personne> getPersonnes() {
+        return personnes;
     }
 
     /**
