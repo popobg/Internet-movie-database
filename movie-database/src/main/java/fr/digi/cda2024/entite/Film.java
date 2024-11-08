@@ -61,9 +61,16 @@ public class Film {
     @ManyToMany(mappedBy = "films")
     private Set<Adresse> adresses;
 
+    /**
+     * listes des acteurs dans le film
+     */
+    @OneToMany(mappedBy = "film")
+    private Set<Personne> acteurs;
+
     /**argument toujours present dans les constructeurs*/
     {
         adresses = new HashSet<>();
+        acteurs = new HashSet<>();
     }
 
     /** Constructeur */
@@ -174,6 +181,31 @@ public class Film {
 
     public Set<Adresse> getAdresses() {
         return adresses;
+    }
+
+    /**
+     * Getter
+     *
+     * @return acteurs
+     */
+
+    public Set<Personne> getActeurs() {
+        return acteurs;
+    }
+
+    /**
+     * rajoute une personne participant au film en tant qu'acteur
+     * @param personne
+     */
+    public void addActeur(Personne personne) {
+        personne.addFilm(this);
+    }
+    /**
+     * supprime une personne participant au film en tant qu'acteur
+     * @param personne
+     */
+    public void removeActeur(Personne personne) {
+        personne.removeFilm(this);
     }
 
     /**

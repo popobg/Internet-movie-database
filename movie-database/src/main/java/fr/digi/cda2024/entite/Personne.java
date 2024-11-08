@@ -2,6 +2,8 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Représente une personne avec un identifiant unique, une identité, une date de naissance et une taille.
@@ -42,6 +44,15 @@ public class Personne {
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
+    /**
+     * liste des films ou la personne a etait acteur/actrice
+     */
+    @OneToMany(mappedBy = "acteur")
+    private Set<Film> filmsA;
+
+    {
+        filmsA = new HashSet<>();
+    }
     /** Constructeur */
     public Personne() {
     }
@@ -120,6 +131,16 @@ public class Personne {
     }
 
     /**
+     * Getter
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return filmsA;
+    }
+
+    /**
      * Setter
      *
      * @param adresse adresse
@@ -133,4 +154,26 @@ public class Personne {
             adresse.getPersonnes().add(this);
         }
     }
+
+    /**
+     * rajoute un film ou la personnes a etait acteur
+     * @param film
+     */
+    public void addFilm(Film film) {
+        if (film != null) {
+            film.getActeurs().add(this);
+        }
+        filmsA.add(film);
+    }
+    /**
+     * supprime un film ou la personnes a etait acteur
+     * @param film
+     */
+    public void removeFilm(Film film) {
+        if (film != null) {
+            film.getActeurs().remove(this);
+        }
+        filmsA.remove(film);
+    }
+
 }
