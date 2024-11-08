@@ -36,6 +36,10 @@ public class Personne {
     @Column(name = "TAILLE")
     private float taille;
 
+    @ManyToOne
+    @JoinColumn(name="ID_ADRESSE")
+    private Adresse adresse;
+
     /** Constructeur */
     public Personne() {
     }

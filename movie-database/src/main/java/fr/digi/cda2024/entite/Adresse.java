@@ -2,6 +2,8 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 /**
  * Représente une adresse avec un identifiant unique, une région et une ville.
  * Cette classe est mappée sur la table "adresse" de la base de données.
@@ -38,6 +40,9 @@ public class Adresse {
     @ManyToOne
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
+
+    @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
+    private Set<Personne> personnes;
 
     /** Constructeur */
     public Adresse() {

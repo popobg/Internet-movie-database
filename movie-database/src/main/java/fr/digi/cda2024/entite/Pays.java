@@ -38,7 +38,7 @@ public class Pays {
     /**
      * listes des adresses dans le pays
      */
-    @OneToMany
+    @OneToMany (mappedBy = "pays", cascade = CascadeType.PERSIST)
     private Set<Adresse> adresses;
 
     /**argument present dans tout les constructeur*/
