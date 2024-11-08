@@ -49,9 +49,8 @@ public class Role {
      */
     public Role(cleRole id, Personne personne, Film film, String url) {
         this.id = id;
-        this.acteur = personne;
-        this.film = film;
         this.url = url;
+        personne.addRole(this, film);
     }
 
     /**
@@ -86,15 +85,7 @@ public class Role {
     }
 
     /**
-     * Setter
-     *
-     * @param personne personne
-     */
 
-
-    public void setActeur(Personne personne) {
-        this.acteur = personne;
-    }
 
     /**
      * Getter
@@ -106,22 +97,9 @@ public class Role {
         return film;
     }
 
-    /**
-     * Setter
-     *
-     * @param film film
-     */
 
 
-    public void setFilm(Film film) {
-        this.film = film;
-    }
 
-    /**
-     * Getter
-     *
-     * @return url
-     */
 
     public String getUrl() {
         return url;
@@ -137,4 +115,33 @@ public class Role {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    /**
+     * fonction pour associer un acteur et son role
+     * @param acteur
+     */
+    public void setActeur(Personne acteur) {
+        if (this.acteur != null) {
+            this.acteur.getRoles().remove(this);
+        }
+        this.acteur = acteur;
+        if (this.acteur != null) {
+            this.acteur.getRoles().add(this);
+        }
+    }
+
+    /**
+     * fonction pour associer un film et un role
+     * @param film
+     */
+    public void setFilm(Film film) {
+        if (this.film != null) {
+            this.film.getActeurs().remove(this);
+        }
+        this.film = film;
+        if (this.film != null) {
+            this.film.getActeurs().add(this);
+        }
+    }
+
 }

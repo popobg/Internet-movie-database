@@ -67,7 +67,7 @@ public class Film implements Serializable {
      * listes des acteurs dans le film
      */
     @OneToMany(mappedBy = "film")
-    private Set<Personne> acteurs;
+    private Set<Role> acteurs;
 
     /**argument toujours present dans les constructeurs*/
     {
@@ -191,23 +191,8 @@ public class Film implements Serializable {
      * @return acteurs
      */
 
-    public Set<Personne> getActeurs() {
+    public Set<Role> getActeurs() {
         return acteurs;
-    }
-
-    /**
-     * rajoute une personne participant au film en tant qu'acteur
-     * @param personne
-     */
-    public void addActeur(Personne personne) {
-        personne.addFilm(this);
-    }
-    /**
-     * supprime une personne participant au film en tant qu'acteur
-     * @param personne
-     */
-    public void removeActeur(Personne personne) {
-        personne.removeFilm(this);
     }
 
     /**
@@ -230,5 +215,14 @@ public class Film implements Serializable {
             adresse.getFilms().remove(adresse);
         }
         adresses.remove(adresse);
+    }
+
+    /**
+     * ajoute une personne avec son role dans la liste des acteurs du film
+     * @param role
+     * @param personne
+     */
+    public void addActeur(Role role,Personne personne) {
+        personne.addRole(role, this);
     }
 }

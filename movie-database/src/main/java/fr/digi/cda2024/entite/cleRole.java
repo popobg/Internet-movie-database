@@ -14,12 +14,12 @@ public class cleRole implements Serializable {
     /**
      *     cle permettant la liaison entre role et personne
      */
-    @Column(name ="PERSONNE_ID")
+    @Column(name ="ID_PERSONNE")
     private String personneId;
     /**
      * cle permettant la liaison entre role et film
      */
-    @Column(name ="FILM_ID")
+    @Column(name ="ID_FILM")
     private String filmId;
     /**
      * cle primaire supplementaire permettant a une personne

@@ -49,11 +49,11 @@ public class Personne implements Serializable {
     /**
      * liste des films ou la personne a etait acteur/actrice
      */
-    @OneToMany(mappedBy = "acteur")
-    private Set<Film> filmsA;
+    @OneToMany (mappedBy = "acteur")
+    private Set<Role> roles;
 
     {
-        filmsA = new HashSet<>();
+        roles = new HashSet<>();
     }
     /** Constructeur */
     public Personne() {
@@ -135,11 +135,11 @@ public class Personne implements Serializable {
     /**
      * Getter
      *
-     * @return films
+     * @return roles
      */
 
-    public Set<Film> getFilms() {
-        return filmsA;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     /**
@@ -157,25 +157,14 @@ public class Personne implements Serializable {
         }
     }
 
-    /**
-     * rajoute un film ou la personnes a etait acteur
-     * @param film
-     */
-    public void addFilm(Film film) {
-        if (film != null) {
-            film.getActeurs().add(this);
-        }
-        filmsA.add(film);
-    }
-    /**
-     * supprime un film ou la personnes a etait acteur
-     * @param film
-     */
-    public void removeFilm(Film film) {
-        if (film != null) {
-            film.getActeurs().remove(this);
-        }
-        filmsA.remove(film);
-    }
 
+    /**
+     * rajoute un role et un film a une personne
+     * @param role
+     * @param film
+     */
+    public void addRole(Role role,Film film) {
+        role.setActeur(this);
+        role.setFilm(film);
+    }
 }
