@@ -2,6 +2,8 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Représente un film avec un identifiant unique, un nom, un résumé, une langue,
@@ -52,6 +54,17 @@ public class Film {
      */
     @Column(name = "URL", length = 50, unique = true)
     private String url;
+
+    /**
+     * nombre de films tourner a cette adresse
+     */
+    @ManyToMany(mappedBy = "films")
+    private Set<Adresse> adresses;
+
+    /**argument toujours present dans les constructeurs*/
+    {
+        adresses = new HashSet<>();
+    }
 
     /** Constructeur */
     public Film() {
@@ -151,5 +164,37 @@ public class Film {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * Getter
+     *
+     * @return adresses
+     */
+
+    public Set<Adresse> getAdresses() {
+        return adresses;
+    }
+
+    /**
+     * ajoute une adresse de tournage au film
+     * @param adresse
+     */
+    public void addAdresse(Adresse adresse) {
+        if (adresse != null) {
+            adresse.getFilms().add(this);
+        }
+        adresses.add(adresse);
+    }
+
+    /**
+     * supprime une adresse de tournage au film
+     * @param adresse
+     */
+    public void removeAdresse(Adresse adresse) {
+        if (adresse != null) {
+            adresse.getFilms().remove(adresse);
+        }
+        adresses.remove(adresse);
     }
 }

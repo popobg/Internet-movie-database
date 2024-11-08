@@ -46,10 +46,24 @@ public class Adresse {
      */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
+
+
+
+    /**
+     * listes des adresses de tournage du film
+     */
+    @ManyToMany
+    @JoinTable(name = "filme_dans",
+        joinColumns = @JoinColumn(name = "ID_FILM",referencedColumnName="ID"),
+        inverseJoinColumns = @JoinColumn (name = "ID_ADRESSE",referencedColumnName = "ID")
+    )
+    private Set<Film> films;
+
     /**attribut present dans tout les constructeur*/
 
     {
         personnes = new HashSet<>();
+        films = new HashSet<>();
     }
 
     /** Constructeur */
@@ -120,6 +134,16 @@ public class Adresse {
     }
 
     /**
+     * Getter
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    /**
      * Setter
      * @param pays pays
      */
@@ -132,4 +156,21 @@ public class Adresse {
             pays.getAdresses().add(this);
         }
     }
+
+    /**
+     * rajoute un film dans la liste des films tourne a cette adresse
+     * @param film
+     */
+    public void addFilm(Film film) {
+        film.addAdresse(this);
+    }
+
+    /**
+     * supprime un film dans la liste des films tourne a cette adresse
+     * @param film
+     */
+    public void removeFilm(Film film) {
+        film.removeAdresse(this);
+    }
+
 }
