@@ -32,12 +32,27 @@ public class Adresse {
     @Column(name = "VILLE", length = 50, nullable = false)
     private String ville;
 
+    /**
+     * pays de l'adresse
+     */
     @ManyToOne
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
 
     /** Constructeur */
     public Adresse() {
+    }
+
+    /**
+     * constructeur parametre
+     * @param region
+     * @param ville
+     * @param pays
+     */
+    public Adresse(String region, String ville, Pays pays) {
+        this.region = region;
+        this.ville = ville;
+        setPays(pays);
     }
 
     /**
@@ -79,5 +94,19 @@ public class Adresse {
      */
     public void setVille(String ville) {
         this.ville = ville;
+    }
+
+    /**
+     * Setter
+     * @param pays pays
+     */
+    public void setPays(Pays pays) {
+        if (pays != null) {
+            pays.getAdresses().remove(this);
+        }
+        this.pays = pays;
+        if (pays != null) {
+            pays.getAdresses().add(this);
+        }
     }
 }

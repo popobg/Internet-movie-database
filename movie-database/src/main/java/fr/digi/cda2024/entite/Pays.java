@@ -2,6 +2,7 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -34,11 +35,24 @@ public class Pays {
     @Column(name = "URL", length = 100, nullable = false, unique = true)
     private String url;
 
+    /**
+     * listes des adresses dans le pays
+     */
     @OneToMany
     private Set<Adresse> adresses;
 
+    /**argument present dans tout les constructeur*/
+    {
+        adresses = new HashSet<>();
+    }
+
     /** Constructeur */
     public Pays() {
+    }
+
+    public Pays(String nom, String url) {
+        this.nom = nom;
+        this.url = url;
     }
 
     /**
@@ -82,4 +96,15 @@ public class Pays {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    /**
+     * Getter
+     *
+     * @return adresses
+     */
+
+    public Set<Adresse> getAdresses() {
+        return adresses;
+    }
+
 }
