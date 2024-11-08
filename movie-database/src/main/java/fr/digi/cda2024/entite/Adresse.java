@@ -32,6 +32,10 @@ public class Adresse {
     @Column(name = "VILLE", length = 50, nullable = false)
     private String ville;
 
+    @ManyToOne
+    @JoinColumn(name="ID_PAYS")
+    private Pays pays;
+
     /** Constructeur */
     public Adresse() {
     }

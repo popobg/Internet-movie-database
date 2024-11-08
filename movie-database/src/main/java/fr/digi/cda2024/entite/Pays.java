@@ -2,6 +2,8 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 /**
  * Représente un pays avec un identifiant unique, un nom, et une URL associée.
  * Cette classe est mappée sur la table "pays" de la base de données.
@@ -31,6 +33,9 @@ public class Pays {
      */
     @Column(name = "URL", length = 100, nullable = false, unique = true)
     private String url;
+
+    @OneToMany
+    private Set<Adresse> adresses;
 
     /** Constructeur */
     public Pays() {
