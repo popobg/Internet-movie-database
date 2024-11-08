@@ -1,0 +1,144 @@
+[{
+  "id" : "tt1801045",
+  "pays" : {
+    "nom" : "United States",
+    "url" : "/search/title/?country_of_origin=US&ref_=tt_dt_cn"
+  },
+  "nom" : "Cowboy Ninja Viking",
+  "url" : "/title/tt1801045/?ref_=nm_flmg_act_1",
+  "plot" : "A government program turns Duncan, a man who suffers from multiple personality disorder, into a super-soldier with the attributes of a cowboy, a ninja, and a Viking.",
+  "langue" : "English",
+  "lieuTournage" : null,
+  "realisateurs" : [ {
+    "identite" : "Michelle MacLaren",
+    "url" : "/name/nm0533713/?ref_=tt_ov_dr"
+  } ],
+  "castingPrincipal" : [ {
+    "id" : "nm1231899",
+    "identite" : "Priyanka Chopra Jonas",
+    "naissance" : {
+      "dateNaissance" : "1982-7-18",
+      "lieuNaissance" : "Jamshedpur, Bihar, India"
+    },
+    "url" : "/name/nm1231899/?ref_=tt_ov_st",
+    "height" : null,
+    "roles" : [ ]
+  }, {
+    "id" : "nm0695435",
+    "identite" : "Chris Pratt",
+    "naissance" : {
+      "dateNaissance" : "1979-6-21",
+      "lieuNaissance" : "Virginia, Minnesota, USA"
+    },
+    "url" : "/name/nm0695435/?ref_=tt_ov_st",
+    "height" : null,
+    "roles" : [ ]
+  } ],
+  "anneeSortie" : "",
+  "roles" : [ {
+    "characterName" : "",
+    "acteur" : {
+      "id" : "nm1231899",
+      "identite" : "Priyanka Chopra Jonas",
+      "naissance" : {
+        "dateNaissance" : "1982-7-18",
+        "lieuNaissance" : "Jamshedpur, Bihar, India"
+      },
+      "url" : "/name/nm1231899?ref_=tt_cl_t_2",
+      "height" : null,
+      "roles" : [ ]
+    },
+    "film" : "tt1801045"
+  }, {
+    "characterName" : "Duncan",
+    "acteur" : {
+      "id" : "nm0695435",
+      "identite" : "Chris Pratt",
+      "naissance" : {
+        "dateNaissance" : "1979-6-21",
+        "lieuNaissance" : "Virginia, Minnesota, USA"
+      },
+      "url" : "/name/nm0695435?ref_=tt_cl_t_1",
+      "height" : null,
+      "roles" : [ ]
+    },
+    "film" : "tt1801045"
+  } ],
+  "genres" : [ "Action", "Adventure", "Comedy" ]
+},
+  {
+    "id" : "tt7766378",
+    "pays" : {
+      "nom" : "United States",
+      "url" : "/search/title/?country_of_origin=US&ref_=tt_dt_cn"
+    },
+    "nom" : "The Electric State",
+    "url" : "/title/tt7766378/?ref_=nm_flmg_act_2",
+    "plot" : "An orphaned teenager traverses the American West with a sweet but mysterious robot and an eccentric drifter in search of her younger brother.",
+    "langue" : "English",
+    "lieuTournage" : {
+      "ville" : "Atlanta",
+      "etatDept" : " Georgia",
+      "pays" : " USA"
+    },
+    "realisateurs" : [ {
+      "identite" : "Anthony Russo",
+      "url" : "/name/nm0751577/?ref_=tt_ov_dr"
+    }, {
+      "identite" : "Joe Russo",
+      "url" : "/name/nm0751648/?ref_=tt_ov_dr"
+    } ],
+    "castingPrincipal" : [ {
+      "id" : "nm5611121",
+      "identite" : "Millie Bobby Brown",
+      "naissance" : {
+        "dateNaissance" : "2004-2-19",
+        "lieuNaissance" : "Málaga, Andalucía, Spain"
+      },
+      "url" : "/name/nm5611121/?ref_=tt_ov_st",
+      "height" : null,
+      "roles" : [ ]
+    }, {
+      "id" : "nm0695435",
+      "identite" : "Chris Pratt",
+      "naissance" : {
+        "dateNaissance" : "1979-6-21",
+        "lieuNaissance" : "Virginia, Minnesota, USA"
+      },
+      "url" : "/name/nm0695435/?ref_=tt_ov_st",
+      "height" : null,
+      "roles" : [ ]
+    } ],
+    "anneeSortie" : "",
+    "roles" : [ {
+      "characterName" : "",
+      "acteur" : {
+        "id" : "nm5611121",
+        "identite" : "Millie Bobby Brown",
+        "naissance" : {
+          "dateNaissance" : "2004-2-19",
+          "lieuNaissance" : "Málaga, Andalucía, Spain"
+        },
+        "url" : "/name/nm5611121?ref_=tt_cl_t_1",
+        "height" : null,
+        "roles" : [ ]
+      },
+      "film" : "tt7766378"
+    }, {
+      "characterName" : "",
+      "acteur" : {
+        "id" : "nm0695435",
+        "identite" : "Chris Pratt",
+        "naissance" : {
+          "dateNaissance" : "1979-6-21",
+          "lieuNaissance" : "Virginia, Minnesota, USA"
+        },
+        "url" : "/name/nm0695435?ref_=tt_cl_t_2",
+        "height" : null,
+        "roles" : [ ]
+      },
+      "film" : "tt7766378"
+    } ],
+    "genres" : [ "Action", "Adventure", "Drama" ]
+  }
+]
