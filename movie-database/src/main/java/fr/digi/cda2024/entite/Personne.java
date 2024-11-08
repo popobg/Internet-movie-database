@@ -1,6 +1,8 @@
 package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "personne")
-public class Personne {
+public class Personne implements Serializable {
 
     /**
      * Identifiant unique de la personne.
