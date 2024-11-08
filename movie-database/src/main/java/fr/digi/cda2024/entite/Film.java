@@ -17,8 +17,7 @@ public class Film {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     /**
      * Nom du film.
@@ -62,7 +61,7 @@ public class Film {
      * Getter
      * @return l'identifiant unique du film.
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -70,7 +69,7 @@ public class Film {
      * Setter
      * @param id l'identifiant unique à définir pour le film.
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

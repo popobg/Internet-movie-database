@@ -44,13 +44,7 @@ public class Pays {
         return id;
     }
 
-    /**
-     * Setter
-     * @param id l'identifiant unique à définir.
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+
 
     /**
      * Getter

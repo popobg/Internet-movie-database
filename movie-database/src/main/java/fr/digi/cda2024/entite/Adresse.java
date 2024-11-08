@@ -44,13 +44,6 @@ public class Adresse {
         return id;
     }
 
-    /**
-     * Setter
-     * @param id l'identifiant unique à définir pour l'adresse.
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     /**
      * Getter

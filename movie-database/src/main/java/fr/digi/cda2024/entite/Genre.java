@@ -53,11 +53,5 @@ public class Genre {
         return id;
     }
 
-    /**
-     * Setter
-     * @param id l'identifiant unique à définir pour le genre.
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+
 }
