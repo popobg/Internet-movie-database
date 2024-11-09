@@ -13,7 +13,7 @@ public class Remplissage {
         File file = FileTools.getJsonFileFromUser();
 
         try {
-            FilmDTO[] films = JsonParser.JsonToDOTParse(file);
+            FilmDTO[] films = JsonParser.JsonToDotParse(file);
             System.out.println("Parsing OK");
         }
         catch (IOException e) {

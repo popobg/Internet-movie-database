@@ -2,6 +2,10 @@ package fr.digi.cda2024.services;
 
 import java.io.File;
 
+/**
+ * Classe proposant des outils permettant de récupérer un fichier JSON
+ * de la part de l'utilisateur et de vérifier sa validité.
+ */
 public class FileTools {
 
     /**
