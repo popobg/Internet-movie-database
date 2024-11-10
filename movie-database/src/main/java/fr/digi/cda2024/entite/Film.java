@@ -44,9 +44,7 @@ public class Film implements Serializable {
     @Column(name = "LANGUE", length = 50, nullable = false)
     private String langue;
 
-    /**
-     * Date de sortie du film.
-     */
+    /** Date de sortie du film */
     @Column(name = "ANNEE_SORTIE")
     private LocalDate anneeSortie;
 
@@ -57,22 +55,41 @@ public class Film implements Serializable {
     @Column(name = "URL", length = 50, unique = true)
     private String url;
 
-    /**
-     * nombre de films tourner a cette adresse
-     */
+    /** Nombre de films tourne a cette adresse */
     @ManyToMany(mappedBy = "films")
     private Set<Adresse> adresses;
 
-    /**
-     * listes des acteurs dans le film
-     */
+    /** Listes des acteurs dans le film */
     @OneToMany(mappedBy = "film")
     private Set<Role> acteurs;
 
-    /**argument toujours present dans les constructeurs*/
+    /** Ensemble de genre associé au film */
+    @ManyToMany(mappedBy = "films")
+    private Set<Genre> genres;
+
+    /** Nationalite du film */
+    @ManyToOne
+    @JoinColumn(name = "ID_PAYS")
+    private Pays pays;
+
+    /** Realisateur associe au film */
+    @ManyToMany(mappedBy = "filmsRealise")
+    private Set<Personne> realisateurs;
+
+    /** Casting principales associe au film */
+    @ManyToMany(mappedBy = "filmsJoue")
+    private Set<Personne> castingPrincipale;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+
+    /** Argument toujours present dans les constructeurs */
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
+        genres = new HashSet<>();
+        realisateurs = new HashSet<>();
+        castingPrincipale = new HashSet<>();
     }
 
     /** Constructeur */
@@ -177,26 +194,54 @@ public class Film implements Serializable {
 
     /**
      * Getter
-     *
      * @return adresses
      */
-
     public Set<Adresse> getAdresses() {
         return adresses;
     }
 
     /**
      * Getter
-     *
      * @return acteurs
      */
-
     public Set<Role> getActeurs() {
         return acteurs;
     }
 
     /**
-     * ajoute une adresse de tournage au film
+     * Getter
+     * @return genres
+     */
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    /**
+     * Getter
+     * @return pays
+     */
+    public Pays getPays() {
+        return pays;
+    }
+
+    /**
+     * Getter
+     * @return realisateurs
+     */
+    public Set<Personne> getRealisateurs() {
+        return realisateurs;
+    }
+
+    /**
+     * Getter
+     * @return castingPrincipale
+     */
+    public Set<Personne> getCastingPrincipale() {
+        return castingPrincipale;
+    }
+
+    /**
+     * Ajoute une adresse de tournage au film
      * @param adresse
      */
     public void addAdresse(Adresse adresse) {
@@ -207,22 +252,44 @@ public class Film implements Serializable {
     }
 
     /**
-     * supprime une adresse de tournage au film
+     * Supprime une adresse de tournage au film
      * @param adresse
      */
     public void removeAdresse(Adresse adresse) {
         if (adresse != null) {
-            adresse.getFilms().remove(adresse);
+            adresse.getFilms().remove(this);
         }
         adresses.remove(adresse);
     }
 
     /**
-     * ajoute une personne avec son role dans la liste des acteurs du film
+     * Ajoute une personne avec son role dans la liste des acteurs du film
      * @param role
      * @param personne
      */
     public void addActeur(Role role,Personne personne) {
         personne.addRole(role, this);
+    }
+
+    /**
+     * Ajoute un genre au film
+     * @param genre
+     */
+    public void addGenre(Genre genre) {
+        if (genre != null) {
+            genre.getFilms().add(this);
+        }
+        genres.add(genre);
+    }
+
+    /**
+     * Supprime un genre du film
+     * @param genre
+     */
+    public void removeGenre(Genre genre) {
+        if (genre != null) {
+            genre.getFilms().remove(this);
+        }
+        genres.remove(genre);
     }
 }

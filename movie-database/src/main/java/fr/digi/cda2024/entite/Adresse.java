@@ -36,23 +36,16 @@ public class Adresse implements Serializable {
     @Column(name = "VILLE", length = 50, nullable = false)
     private String ville;
 
-    /**
-     * pays de l'adresse
-     */
+    /** Pays de l'adresse */
     @ManyToOne
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
-    /**
-     * listes des personnes presente a l'adresse
-     */
+
+    /** Listes des personnes presente a l'adresse */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
 
-
-
-    /**
-     * listes des adresses de tournage du film
-     */
+    /** Listes des adresses de tournage du film */
     @ManyToMany
     @JoinTable(name = "filme_dans",
         joinColumns = @JoinColumn(name = "ID_FILM",referencedColumnName="ID"),
@@ -60,19 +53,18 @@ public class Adresse implements Serializable {
     )
     private Set<Film> films;
 
-    /**attribut present dans tout les constructeur*/
-
+    /** Attribut present dans tout les constructeurs */
     {
         personnes = new HashSet<>();
         films = new HashSet<>();
     }
 
-    /** Constructeur */
+    /** Constructeur vide*/
     public Adresse() {
     }
 
     /**
-     * constructeur parametre
+     * Constructeur parametre
      * @param region
      * @param ville
      * @param pays
@@ -126,20 +118,16 @@ public class Adresse implements Serializable {
 
     /**
      * Getter
-     *
      * @return personnes
      */
-
     public Set<Personne> getPersonnes() {
         return personnes;
     }
 
     /**
      * Getter
-     *
      * @return films
      */
-
     public Set<Film> getFilms() {
         return films;
     }
@@ -159,7 +147,7 @@ public class Adresse implements Serializable {
     }
 
     /**
-     * rajoute un film dans la liste des films tourne a cette adresse
+     * Ajoute un film dans la liste des films tourne a cette adresse
      * @param film
      */
     public void addFilm(Film film) {
@@ -167,7 +155,7 @@ public class Adresse implements Serializable {
     }
 
     /**
-     * supprime un film dans la liste des films tourne a cette adresse
+     * Supprime un film dans la liste des films tourne a cette adresse
      * @param film
      */
     public void removeFilm(Film film) {

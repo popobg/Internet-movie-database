@@ -15,9 +15,7 @@ import java.util.Set;
 @Table(name = "personne")
 public class Personne implements Serializable {
 
-    /**
-     * Identifiant unique de la personne.
-     */
+    /** Identifiant unique de la personne. */
     @Id
     private String id;
 
@@ -28,39 +26,53 @@ public class Personne implements Serializable {
     @Column(name = "IDENTITE", length = 50, nullable = false)
     private String identite;
 
-    /**
-     * Date de naissance de la personne.
-     */
+    /** Date de naissance de la personne. */
     @Column(name = "DATE_NAISSANCE")
     private LocalDate dateNaissance;
 
-    /**
-     * Taille de la personne en mètres.
-     */
+    /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
     private float taille;
-    /**
-     * adresse de la personne
-     */
+
+    /** Adresse de la personne */
     @ManyToOne
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
-    /**
-     * liste des films ou la personne a etait acteur/actrice
-     */
-    @OneToMany (mappedBy = "acteur")
+    /** Liste des films ou la personne a etait acteur/actrice */
+    @OneToMany(mappedBy = "acteur")
     private Set<Role> roles;
+
+    /** Films lie au realisateur */
+    @ManyToMany
+    @JoinTable(
+            name = "realise",
+            joinColumns = @JoinColumn(name = "ID_PERSONNE", referencedColumnName="ID"),
+            inverseJoinColumns = @JoinColumn(name = "ID_FILM", referencedColumnName="ID")
+    )
+    private Set<Film> filmsRealise;
+
+    @ManyToMany
+    @JoinTable(
+            name = "casting_principale",
+            joinColumns = @JoinColumn(name = "ID_PERSONNE"),
+            inverseJoinColumns = @JoinColumn(name = "ID_FILM")
+    )
+    private Set<Film> filmsJoue;
+
+    @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
 
     {
         roles = new HashSet<>();
+        filmsRealise = new HashSet<>();
     }
-    /** Constructeur */
+
+    /** Constructeur vide*/
     public Personne() {
     }
 
-    /**constructeur paremetre*/
-
+    /** Constructeur paremetre */
     public Personne(String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
         this.identite = identite;
         this.dateNaissance = dateNaissance;
@@ -134,17 +146,14 @@ public class Personne implements Serializable {
 
     /**
      * Getter
-     *
      * @return roles
      */
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Setter
-     *
      * @param adresse adresse
      */
     public void setAdresse(Adresse adresse) {
@@ -157,9 +166,8 @@ public class Personne implements Serializable {
         }
     }
 
-
     /**
-     * rajoute un role et un film a une personne
+     * Ajoute un role et un film a une personne
      * @param role
      * @param film
      */
@@ -167,4 +175,5 @@ public class Personne implements Serializable {
         role.setActeur(this);
         role.setFilm(film);
     }
+
 }

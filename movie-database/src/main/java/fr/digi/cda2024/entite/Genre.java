@@ -3,6 +3,8 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Set;
 
 /**
  * Représente un genre avec un identifiant unique et un nom.
@@ -27,7 +29,17 @@ public class Genre implements Serializable {
     @Column(name = "NOM", length = 50, nullable = false, unique = true)
     private String nom;
 
-    /** Constructeur */
+    /** Ensemble des films associé au genre */
+    @ManyToMany
+    @JoinTable(
+            name = "integre",
+            joinColumns = @JoinColumn(name = "ID_GENRE", referencedColumnName="ID"),
+            inverseJoinColumns = @JoinColumn (name = "ID_FILM", referencedColumnName = "ID")
+    )
+    private Set<Film> films;
+
+
+    /** Constructeur vide */
     public Genre() {
     }
 
@@ -55,5 +67,11 @@ public class Genre implements Serializable {
         return id;
     }
 
-
+    /**
+     * Getter
+     * @return films
+     */
+    public Set<Film> getFilms() {
+        return films;
+    }
 }

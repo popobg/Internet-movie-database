@@ -36,15 +36,18 @@ public class Pays implements Serializable {
     @Column(name = "URL", length = 100, nullable = false, unique = true)
     private String url;
 
-    /**
-     * listes des adresses dans le pays
-     */
-    @OneToMany (mappedBy = "pays", cascade = CascadeType.PERSIST)
+    /** Liste des adresses dans le pays */
+    @OneToMany(mappedBy = "pays", cascade = CascadeType.PERSIST)
     private Set<Adresse> adresses;
 
-    /**argument present dans tout les constructeur*/
+    /** Liste des films de cette nationalite */
+    @OneToMany(mappedBy = "pays")
+    private Set<Film> films;
+
+    /** Argument present dans tous les constructeurs */
     {
         adresses = new HashSet<>();
+        films = new HashSet<>();
     }
 
     /** Constructeur */
@@ -63,8 +66,6 @@ public class Pays implements Serializable {
     public Integer getId() {
         return id;
     }
-
-
 
     /**
      * Getter
@@ -100,10 +101,8 @@ public class Pays implements Serializable {
 
     /**
      * Getter
-     *
      * @return adresses
      */
-
     public Set<Adresse> getAdresses() {
         return adresses;
     }
