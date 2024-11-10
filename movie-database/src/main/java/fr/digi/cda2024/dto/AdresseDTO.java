@@ -1,5 +1,7 @@
 package fr.digi.cda2024.dto;
 
+import fr.digi.cda2024.entite.Pays;
+
 import java.io.Serializable;
 
 /**
@@ -19,7 +21,7 @@ public class AdresseDTO implements Serializable {
     /**
      * pays extrait du document
      */
-    private String pays;
+    private PaysDTO pays;
 
     /** Getter
      * @return ville
@@ -52,14 +54,14 @@ public class AdresseDTO implements Serializable {
     /** Getter
      * @return pays
      */
-    public String getPays() {
+    public PaysDTO getPays() {
         return pays;
     }
 
     /** Setter
      * @param pays pays
      */
-    public void setPays(String pays) {
+    public void setPays(PaysDTO pays) {
         this.pays = pays;
     }
 }

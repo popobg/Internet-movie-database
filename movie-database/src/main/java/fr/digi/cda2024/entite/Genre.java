@@ -54,6 +54,4 @@ public class Genre implements Serializable {
     public Integer getId() {
         return id;
     }
-
-
 }

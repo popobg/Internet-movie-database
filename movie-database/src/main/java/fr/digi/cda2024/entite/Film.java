@@ -18,7 +18,6 @@ public class Film implements Serializable {
 
     /**
      * Identifiant unique du film.
-     * Ce champ est auto-généré par la base de données.
      */
     @Id
     private String id;
@@ -58,18 +57,18 @@ public class Film implements Serializable {
     private String url;
 
     /**
-     * nombre de films tourner a cette adresse
+     * liste des lieux de tournage du film
      */
     @ManyToMany(mappedBy = "films")
     private Set<Adresse> adresses;
 
     /**
-     * listes des acteurs dans le film
+     * liste des acteurs dans le film
      */
     @OneToMany(mappedBy = "film")
     private Set<Role> acteurs;
 
-    /**argument toujours present dans les constructeurs*/
+    // arguments toujours présents dans les constructeurs
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
@@ -177,7 +176,6 @@ public class Film implements Serializable {
 
     /**
      * Getter
-     *
      * @return adresses
      */
 
@@ -187,7 +185,6 @@ public class Film implements Serializable {
 
     /**
      * Getter
-     *
      * @return acteurs
      */
 
@@ -197,7 +194,7 @@ public class Film implements Serializable {
 
     /**
      * ajoute une adresse de tournage au film
-     * @param adresse
+     * @param adresse adresse de tournage du film
      */
     public void addAdresse(Adresse adresse) {
         if (adresse != null) {
@@ -208,19 +205,19 @@ public class Film implements Serializable {
 
     /**
      * supprime une adresse de tournage au film
-     * @param adresse
+     * @param adresse adresse de tournage du film
      */
     public void removeAdresse(Adresse adresse) {
         if (adresse != null) {
-            adresse.getFilms().remove(adresse);
+            adresse.getFilms().remove(this);
         }
         adresses.remove(adresse);
     }
 
     /**
      * ajoute une personne avec son role dans la liste des acteurs du film
-     * @param role
-     * @param personne
+     * @param role role
+     * @param personne acteur
      */
     public void addActeur(Role role,Personne personne) {
         personne.addRole(role, this);

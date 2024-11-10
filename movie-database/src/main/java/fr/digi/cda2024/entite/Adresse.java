@@ -37,21 +37,20 @@ public class Adresse implements Serializable {
     private String ville;
 
     /**
-     * pays de l'adresse
+     * Pays de l'adresse
      */
     @ManyToOne
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
+
     /**
-     * listes des personnes presente a l'adresse
+     * liste des personnes présentes à l'adresse
      */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
 
-
-
     /**
-     * listes des adresses de tournage du film
+     * liste des films tournant dans ce lieu
      */
     @ManyToMany
     @JoinTable(name = "filme_dans",
@@ -60,8 +59,7 @@ public class Adresse implements Serializable {
     )
     private Set<Film> films;
 
-    /**attribut present dans tout les constructeur*/
-
+    // arguments présents dans tous les constructeurs
     {
         personnes = new HashSet<>();
         films = new HashSet<>();
@@ -73,9 +71,9 @@ public class Adresse implements Serializable {
 
     /**
      * constructeur parametre
-     * @param region
-     * @param ville
-     * @param pays
+     * @param region région
+     * @param ville ville
+     * @param pays pays
      */
     public Adresse(String region, String ville, Pays pays) {
         this.region = region;
@@ -160,7 +158,7 @@ public class Adresse implements Serializable {
 
     /**
      * rajoute un film dans la liste des films tourne a cette adresse
-     * @param film
+     * @param film film à ajouter
      */
     public void addFilm(Film film) {
         film.addAdresse(this);
@@ -168,7 +166,7 @@ public class Adresse implements Serializable {
 
     /**
      * supprime un film dans la liste des films tourne a cette adresse
-     * @param film
+     * @param film film à retirer
      */
     public void removeFilm(Film film) {
         film.removeAdresse(this);
