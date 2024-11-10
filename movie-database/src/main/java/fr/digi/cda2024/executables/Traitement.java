@@ -10,50 +10,64 @@ import java.util.Scanner;
 public class Traitement {
 
     /**
-     * Initialisation du scanner du menu pour demander un choix à l'utilisateur
-     */
-    private static final Scanner scannerMenu = new Scanner(System.in);
-    /**
      * Creation du scanner "Menu" utilisé pour la premier selection utilisateur
      * Stockage de la variable entrée par le premier scanner "Menu"
      */
     public static void main(String[] args) {
 
-        int choice;
-        //Boucle DoWhile qui gère le menu
-        do {
-            //Utilisation de la methode affichageMenu() pour afficher les options choisissable
-            affichageMenu();
-            //switch pour assigner le choix entré par l'utilisateur à une option affiché précédement
-            choice = scannerMenu.nextInt();
-            switch (choice) {
-                case 1:
-                    affichageFilmogarphieActeur();
-                    break;
-                case 2:
-                    affichageCastingFilm();
-                    break;
-                case 3:
-                    affichageFilmEntre2Annees();
-                    break;
-                case 4:
-                    affichageFilmPour2Acteurs();
-                    break;
-                case 5:
-                    affichageActeursPour2Films();
-                    break;
-                case 6:
-                    affichageFilmEntre2AnneesAvecActeur();
-                    break;
-                case 7:
-                    System.out.println("Au revoir !");
-                    break;
-                default:
-                    System.out.println("Erreur sur le choix. Entrée non valide. Veuillez réessayer.");
-                    break;
+        //Utilisation de la methode affichageMenu() pour afficher les options choisissable
+        affichageMenu();
+
+        //Creation du scanner "Menu" utilisé pour taper l'option que l'utilisateur veut utiliser
+        Scanner scannerMenu = new Scanner(System.in);
+        //Variable qui servira au stockage de la variable entrée par le scanner "Menu"
+        int choice = -1;
+
+        while (choice < 1 || choice > 7) {
+            //Check si l'input est un intègre
+            if (!scannerMenu.hasNextInt()) {
+                System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée un nombre entre 1 et 6 comme option, ou le nombre 7 pour quittez le programme.");
+                scannerMenu.next();
+                continue;
             }
-            // le choix "7" pour sortie de l'application
-        } while (choice != 7);
+
+            choice = scannerMenu.nextInt();
+
+            //Check si l'input est compris entre 1 et 7
+            if (choice < 1 || choice > 7) {
+                System.out.println("ERREUR ! Vous venez d'entrée un nombre entier autre que les nombre de 1 à 7.\nVeuillez entrée un nombre entre 1 et 6 comme option, ou le nombre 7 pour quittez le programme.*");
+            }
+
+        }
+
+        //switch pour assigner le choix entré par l'utilisateur à une option affiché précédement
+        switch (choice) {
+            case 1:
+                affichageFilmogarphieActeur();
+                break;
+            case 2:
+                affichageCastingFilm();
+                break;
+            case 3:
+                affichageFilmEntre2Annees();
+                break;
+            case 4:
+                affichageFilmPour2Acteurs();
+                break;
+            case 5:
+                affichageActeursPour2Films();
+                break;
+            case 6:
+                affichageFilmEntre2AnneesAvecActeur();
+                break;
+            case 7:
+                System.out.println("Au revoir !");
+                break;
+            default:
+                System.out.println("ERREUR ! Vous venez d'entrée un nombre entier autre que les nombre de 1 à 7.\nVeuillez entrée un nombre entre 1 et 6 comme option, ou le nombre 7 pour quittez le programme.*");
+                scannerMenu.next();
+        }
+        scannerMenu.close();
     }
 
     /**
@@ -80,8 +94,9 @@ public class Traitement {
         Scanner scannerFA = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Filmographie Acteur"
         String acteurNom = scannerFA.nextLine();
-        System.out.println("La filmographie de " + acteurNom + " :");
+
         // !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("La filmographie de " + acteurNom + " :");
     }
 
     /**
@@ -93,25 +108,54 @@ public class Traitement {
         Scanner scannerCF = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Casting Film"
         String filmNom = scannerCF.nextLine();
-        System.out.println("Le casting pour le film " + filmNom + " :");
+
         //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("Le casting pour le film " + filmNom + " :");
     }
 
     /**
      * Methode qui permet de affichage des films sortis entre 2 années données
      */
     private static void affichageFilmEntre2Annees() {
-        System.out.print("Entrez année de début : ");
-        //Creation du scanner "Film Entre 2 Années 1" ou "FE2A1" utilisé pour taper une première année
-        Scanner scannerFE2A1 = new Scanner(System.in);
-        int anneeDebut = scannerFE2A1.nextInt();
-        System.out.print("Entrez année de fin : ");
-        //Creation du scanner "Film Entre 2 Années 2" ou "FE2A2" utilisé pour taper une seconde année
-        Scanner scannerFE2A2 = new Scanner(System.in);
-        //Stockage de la variable entrée par le scanner "Film Entre 2 Années 2"
-        int anneeFin = scannerFE2A2.nextInt();
-        System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
+
+        int anneeDebut = 0;
+        int anneeFin = 0;
+
+        while (true) {
+            System.out.print("Entrez année de début : ");
+            //Creation du scanner "Film Entre 2 Années 1" ou "FE2A1" utilisé pour taper une première année
+            Scanner scannerFE2A1 = new Scanner(System.in);
+
+            //Check si l'input est un intègre
+            while (!scannerFE2A1.hasNextInt()) {
+                System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
+                scannerFE2A1.next();
+            }
+            //Stockage de la variable entrée par le scanner "Film Entre 2 Années 1"
+            anneeDebut = scannerFE2A1.nextInt();
+
+            System.out.print("Entrez année de fin : ");
+            //Creation du scanner "Film Entre 2 Années 2" ou "FE2A2" utilisé pour taper une seconde année
+            Scanner scannerFE2A2 = new Scanner(System.in);
+
+            //Check si l'input est un intègre
+            while (!scannerFE2A2.hasNextInt()) {
+                System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
+                scannerFE2A2.next();
+            }
+            //Stockage de la variable entrée par le scanner "Film Entre 2 Années 2"
+            anneeFin = scannerFE2A2.nextInt();
+
+            //Check si les inputs d'année sont bien début<fin
+            if (anneeDebut <= anneeFin) {
+                break;
+            } else {
+                System.out.println("\nErreur ! L'année de début ne peut pas être supérieur ou égale à l'année de fin.\nVeuillez re-entrée des années.");
+            }
+        }
+
         //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
     }
 
     /**
@@ -128,8 +172,9 @@ public class Traitement {
         Scanner scannerFP2A2 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Film Pour 2 Acteurs 2"
         String acteur2 = scannerFP2A2.nextLine();
-        System.out.println("Les films communs à " + acteur1 + " et " + acteur2 + " :");
+
         //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("Les films communs à " + acteur1 + " et " + acteur2 + " :");
     }
 
     /**
@@ -146,8 +191,9 @@ public class Traitement {
         Scanner scannerAP2F2 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Acteur Pour 2 Films 2"
         String film2 = scannerAP2F2.nextLine();
-        System.out.println("Les acteurs communs aux films " + film1 + " et " + film2 + " :");
+
         //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("Les acteurs communs aux films " + film1 + " et " + film2 + " :");
     }
 
     /**
@@ -158,19 +204,46 @@ public class Traitement {
         //Creation du scanner "Film Entre 2 Années Avec Acteur 1" ou "FE2AAA1" utilisé pour taper le nom d'un acteur/actrice
         Scanner scannerFE2AAA1 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 1"
-        String acteur = scannerFE2AAA1.nextLine();
-        System.out.print("Entrez année de début : ");
-        //Creation du scanner "Film Entre 2 Années Avec Acteur 2" ou "FE2AAA2" utilisé pour taper une première année
-        Scanner scannerFE2AAA2 = new Scanner(System.in);
-        //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 2"
-        int anneeDebut = scannerFE2AAA2.nextInt();
-        System.out.print("Entrez année de fin : ");
-        //Creation du scanner "Film Entre 2 Années Avec Acteur 3" ou "FE2AAA3" utilisé pour taper une deuxième année
-        Scanner scannerFE2AAA3 = new Scanner(System.in);
-        //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 3"
-        int anneeFin = scannerFE2AAA3.nextInt();
-        System.out.println("Les films de " + acteur + " entre " + anneeDebut + " et " + anneeFin + " :");
+        String acteurNom = scannerFE2AAA1.nextLine();
+
+        int anneeDebut = 0;
+        int anneeFin = 0;
+
+        while (true) {
+            System.out.print("Entrez année de début : ");
+            //Creation du scanner "Film Entre 2 Années Avec Acteur 2" ou "FE2AAA2" utilisé pour taper une première année
+            Scanner scannerFE2AAA2 = new Scanner(System.in);
+
+            //Check si l'input est un intègre
+            while (!scannerFE2AAA2.hasNextInt()) {
+                System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
+                scannerFE2AAA2.next();
+            }
+            //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 2"
+            anneeDebut = scannerFE2AAA2.nextInt();
+
+            System.out.print("Entrez année de fin : ");
+            //Creation du scanner "Film Entre 2 Années Avec Acteur 3" ou "FE2AAA3" utilisé pour taper une deuxième année
+            Scanner scannerFE2AAA3 = new Scanner(System.in);
+
+            //Check si l'input est un intègre
+            while (!scannerFE2AAA3.hasNextInt()) {
+                System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
+                scannerFE2AAA3.next();
+            }
+            //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 3"
+            anneeFin = scannerFE2AAA3.nextInt();
+
+            //Check si les inputs d'années sont bien début<fin
+            if (anneeDebut <= anneeFin) {
+                break;
+            } else {
+                System.out.println("\nErreur ! L'année de début ne peut pas être supérieur ou égale à l'année de fin.\nVeuillez re-entrée des années.");
+            }
+        }
+
         //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
+        System.out.println("\nLes films de " + acteurNom + " entre " + anneeDebut + " et " + anneeFin + " :");
     }
 }
 
