@@ -39,11 +39,9 @@ public class Personne implements Serializable {
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
-    /**
-     * liste des rôles que la personne a incarné
-     */
-    @OneToMany (mappedBy = "acteur")
-    private Set<Role> roles;
+    /** Liste des rôles que la personne a incarné */
+    @OneToMany(mappedBy = "acteur")
+    private Set<Role> films;
 
     /** Films lie au realisateur */
     @ManyToMany
@@ -54,19 +52,12 @@ public class Personne implements Serializable {
     )
     private Set<Film> filmsRealise;
 
-    @ManyToMany
-    @JoinTable(
-            name = "casting_principale",
-            joinColumns = @JoinColumn(name = "ID_PERSONNE"),
-            inverseJoinColumns = @JoinColumn(name = "ID_FILM")
-    )
-    private Set<Film> filmsJoue;
 
-    @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     {
-        roles = new HashSet<>();
+        films = new HashSet<>();
         filmsRealise = new HashSet<>();
     }
 
@@ -159,7 +150,15 @@ public class Personne implements Serializable {
      * @return roles
      */
     public Set<Role> getRoles() {
-        return roles;
+        return films;
+    }
+
+    /**
+     * Getter
+     * @return roles
+     */
+    public Set<CastingPrincipal> getCastingPrincipal() {
+        return castingsPrincipaux;
     }
 
     /**
@@ -185,4 +184,37 @@ public class Personne implements Serializable {
         role.setActeur(this);
         role.setFilm(film);
     }
+
+    /**
+     * Ajoute un rôle et un film à une personne.
+     * @param castingPrincipal casting principal
+     * @param film film
+     */
+    public void addCastingPrincipal(CastingPrincipal castingPrincipal,Film film) {
+        castingPrincipal.setActeur(this);
+        castingPrincipal.setFilm(film);
+    }
+
+    /**
+     * rajoute un film réalisé par la personne.
+     * @param film film
+     */
+    public void addFilmRealise(Film film) {
+        if (film != null) {
+            film.getRealisateurs().add(this);
+        }
+        filmsRealise.add(film);
+    }
+
+    /**
+     * supprime un film réalisé par la personne.
+     * @param film film
+     */
+    public void removeFilmRealise(Film film) {
+        if (film != null) {
+            film.getRealisateurs().remove(this);
+        }
+        filmsRealise.remove(film);
+    }
+
 }

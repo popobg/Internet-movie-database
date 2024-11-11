@@ -72,7 +72,7 @@ public class Adresse implements Serializable {
     public Adresse(String region, String ville, Pays pays) {
         this.region = region;
         this.ville = ville;
-        setPays(pays);
+        this.setPays(pays);
     }
 
     /**
@@ -145,12 +145,12 @@ public class Adresse implements Serializable {
      * @param pays pays
      */
     public void setPays(Pays pays) {
-        if (pays != null) {
-            pays.getAdresses().remove(this);
+        if (this.pays != null) {
+            this.pays.getAdresses().remove(this);
         }
         this.pays = pays;
-        if (pays != null) {
-            pays.getAdresses().add(this);
+        if (this.pays != null) {
+            this.pays.getAdresses().add(this);
         }
     }
 

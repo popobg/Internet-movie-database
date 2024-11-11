@@ -40,3 +40,4 @@ build/
 
 ### Customised ###
 /src/main/resources/META-INF
+*.lo1

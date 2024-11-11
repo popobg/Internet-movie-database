@@ -72,24 +72,25 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Realisateur associe au film */
+    /** Realisateur associé au film */
     @ManyToMany(mappedBy = "filmsRealise")
     private Set<Personne> realisateurs;
 
-    /** Casting principales associe au film */
+    /** Casting principal associé au film */
     @ManyToMany(mappedBy = "filmsJoue")
     private Set<Personne> castingPrincipal;
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
-    /** Argument toujours present dans les constructeurs */
+    // Arguments toujours présents dans les constructeurs
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
         genres = new HashSet<>();
         realisateurs = new HashSet<>();
-        castingPrincipal = new HashSet<>();
+        castingsPrincipaux = new HashSet<>();
     }
 
     /** Constructeur */
@@ -208,6 +209,10 @@ public class Film implements Serializable {
         return acteurs;
     }
 
+    public Set<CastingPrincipal> getCastingsPrincipaux() {
+        return castingsPrincipaux;
+    }
+
     /**
      * Getter
      * @return genres
@@ -222,14 +227,6 @@ public class Film implements Serializable {
      */
     public Pays getPays() {
         return pays;
-    }
-
-    /**
-     * Setter
-     * @param pays pays
-     */
-    public void setPays(Pays pays) {
-        this.pays = pays;
     }
 
     /**
@@ -280,6 +277,15 @@ public class Film implements Serializable {
     }
 
     /**
+     * Ajoute une personne au casting princiaple du film
+     * @param castingPrincipal casting principal
+     * @param personne acteur
+     */
+    public void addActeurCastingPrincipal(CastingPrincipal castingPrincipal,Personne personne) {
+        personne.addCastingPrincipal(castingPrincipal, this);
+    }
+
+    /**
      * Ajoute un genre au film
      * @param genre genre
      */
@@ -299,5 +305,19 @@ public class Film implements Serializable {
             genre.getFilms().remove(this);
         }
         genres.remove(genre);
+    }
+
+    /**
+     * set la valeur du pays du film
+     * @param pays pays
+     */
+    public void setPays(Pays pays) {
+        if (this.pays != null) {
+            this.pays.getFilms().remove(this);
+        }
+        this.pays = pays;
+        if (this.pays != null) {
+            this.pays.getFilms().add(this);
+        }
     }
 }

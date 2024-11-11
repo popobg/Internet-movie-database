@@ -50,13 +50,24 @@ public class Pays implements Serializable {
         films = new HashSet<>();
     }
 
-    /** Constructeur */
+    /** Constructeur vide*/
     public Pays() {
     }
 
+    /** Constructeur parametre*/
     public Pays(String nom, String url) {
         this.nom = nom;
         this.url = url;
+    }
+
+    /**
+     * Getter
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return films;
     }
 
     /**
@@ -107,4 +118,18 @@ public class Pays implements Serializable {
         return adresses;
     }
 
+    /**
+     *rajoute l'adresse dans la listes des adresses disponible dans le pays
+     * @param adresse adresses
+     */
+    public void addAdresses(Adresse adresse) {
+        adresse.setPays(this);
+    }
+
+    /**
+     *     rajoute un film dans la listes tourné dans le pays
+     */
+    public void addFilm(Film film) {
+        film.setPays(this);
+    }
 }
