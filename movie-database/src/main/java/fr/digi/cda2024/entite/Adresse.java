@@ -137,9 +137,17 @@ public class Adresse implements Serializable {
      *
      * @return films
      */
-
     public Set<Film> getFilms() {
         return films;
+    }
+
+    /**
+     * Getter
+     *
+     * @return pays
+     */
+    public Pays getPays() {
+        return pays;
     }
 
     /**

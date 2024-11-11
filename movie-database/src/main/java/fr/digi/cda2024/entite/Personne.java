@@ -47,7 +47,7 @@ public class Personne implements Serializable {
     private Adresse adresse;
 
     /**
-     * liste des films ou la personne a etait acteur/actrice
+     * liste des rôles que la personne a incarné
      */
     @OneToMany (mappedBy = "acteur")
     private Set<Role> roles;
@@ -135,9 +135,17 @@ public class Personne implements Serializable {
     /**
      * Getter
      *
+     * @return adresse
+     */
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    /**
+     * Getter
+     *
      * @return roles
      */
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -160,8 +168,8 @@ public class Personne implements Serializable {
 
     /**
      * rajoute un role et un film a une personne
-     * @param role
-     * @param film
+     * @param role rôle
+     * @param film film
      */
     public void addRole(Role role,Film film) {
         role.setActeur(this);

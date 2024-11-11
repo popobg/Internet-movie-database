@@ -14,6 +14,22 @@ public class PaysDTO {
      */
     private String url;
 
+    /**
+     * Constructeur vide
+     */
+    public PaysDTO() {
+    }
+
+    /**
+     * Constructeur
+     * @param nom nom
+     * @param url url
+     */
+    public PaysDTO(String nom, String url) {
+        this.nom = nom;
+        this.url = url;
+    }
+
     /** Getter
      * @return nom
      */

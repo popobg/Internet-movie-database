@@ -32,6 +32,14 @@ public class Genre implements Serializable {
     }
 
     /**
+     * Constructeur arguments
+     * @param nom nom du genre
+     */
+    public Genre(String nom) {
+        this.nom = nom;
+    }
+
+    /**
      * Getter
      * @return le nom du genre.
      */

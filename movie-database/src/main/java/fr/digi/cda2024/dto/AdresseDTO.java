@@ -23,6 +23,24 @@ public class AdresseDTO implements Serializable {
      */
     private PaysDTO pays;
 
+    /**
+     * Constructeur vide
+     */
+    public AdresseDTO() {
+    }
+
+    /**
+     * Constructeur
+     * @param ville ville
+     * @param etatDept département, état, région
+     * @param pays pays
+     */
+    public AdresseDTO(String ville, String etatDept, PaysDTO pays) {
+        this.ville = ville;
+        this.etatDept = etatDept;
+        this.pays = pays;
+    }
+
     /** Getter
      * @return ville
      */

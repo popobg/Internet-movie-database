@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Table(name = "role")
 public class Role {
     /**
-     * l'id de la tabnle de jointure role
+     * l'id de la table de jointure role
      */
     @EmbeddedId
     private cleRole id;
@@ -42,10 +42,10 @@ public class Role {
 
     /**
      * constructeur parametre
-     * @param id
-     * @param personne
-     * @param film
-     * @param url
+     * @param id identifiant du rôle
+     * @param personne acteur
+     * @param film film
+     * @param url url
      */
     public Role(cleRole id, Personne personne, Film film, String url) {
         this.id = id;
@@ -92,15 +92,14 @@ public class Role {
      *
      * @return film
      */
-
     public Film getFilm() {
         return film;
     }
 
-
-
-
-
+    /**
+     * Getter
+     * @return url
+     */
     public String getUrl() {
         return url;
     }
@@ -110,15 +109,13 @@ public class Role {
      *
      * @param url url
      */
-
-
     public void setUrl(String url) {
         this.url = url;
     }
 
     /**
      * fonction pour associer un acteur et son role
-     * @param acteur
+     * @param acteur acteur
      */
     public void setActeur(Personne acteur) {
         if (this.acteur != null) {
@@ -132,7 +129,7 @@ public class Role {
 
     /**
      * fonction pour associer un film et un role
-     * @param film
+     * @param film film
      */
     public void setFilm(Film film) {
         if (this.film != null) {
