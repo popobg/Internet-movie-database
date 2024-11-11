@@ -52,13 +52,6 @@ public class Personne implements Serializable {
     )
     private Set<Film> filmsRealise;
 
-    @ManyToMany
-    @JoinTable(
-            name = "casting_principale",
-            joinColumns = @JoinColumn(name = "ID_PERSONNE"),
-            inverseJoinColumns = @JoinColumn(name = "ID_FILM")
-    )
-    private Set<Film> filmsJoue;
 
     @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
@@ -192,6 +185,28 @@ public class Personne implements Serializable {
     public void addCastingPrincipal(CastingPrincipal castingPrincipal,Film film) {
         castingPrincipal.setActeur(this);
         castingPrincipal.setFilm(film);
+    }
+
+    /**
+     * rajoute un film realise par la personne
+     * @param film
+     */
+    public void addFilmRealise(Film film) {
+        if (film != null) {
+            film.getRealisateurs().add(this);
+        }
+        filmsRealise.add(film);
+    }
+
+    /**
+     * supprime un film realise par la personne
+     * @param film
+     */
+    public void removeFilmRealise(Film film) {
+        if (film != null) {
+            film.getRealisateurs().remove(this);
+        }
+        filmsRealise.remove(film);
     }
 
 }

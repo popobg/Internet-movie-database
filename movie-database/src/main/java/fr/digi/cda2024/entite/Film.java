@@ -76,11 +76,9 @@ public class Film implements Serializable {
     @ManyToMany(mappedBy = "filmsRealise")
     private Set<Personne> realisateurs;
 
-    /** Casting principales associe au film */
-    @ManyToMany(mappedBy = "filmsJoue")
-    private Set<Personne> castingPrincipale;
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     /** Argument toujours present dans les constructeurs */
@@ -89,7 +87,7 @@ public class Film implements Serializable {
         acteurs = new HashSet<>();
         genres = new HashSet<>();
         realisateurs = new HashSet<>();
-        castingPrincipale = new HashSet<>();
+        castingsPrincipaux = new HashSet<>();
     }
 
     /** Constructeur */
@@ -240,9 +238,7 @@ public class Film implements Serializable {
      * Getter
      * @return castingPrincipale
      */
-    public Set<Personne> getCastingPrincipale() {
-        return castingPrincipale;
-    }
+
 
     /**
      * Ajoute une adresse de tournage au film
@@ -304,5 +300,19 @@ public class Film implements Serializable {
             genre.getFilms().remove(this);
         }
         genres.remove(genre);
+    }
+
+    /**
+     * set la valeur du pays du film
+     * @param pays
+     */
+    public void setPays(Pays pays) {
+        if (this.pays != null) {
+            this.pays.getFilms().remove(this);
+        }
+        this.pays = pays;
+        if (this.pays != null) {
+            this.pays.getFilms().add(this);
+        }
     }
 }

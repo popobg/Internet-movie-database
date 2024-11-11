@@ -74,4 +74,24 @@ public class Genre implements Serializable {
     public Set<Film> getFilms() {
         return films;
     }
+
+    /**
+     * rajoute un film qui a ce genre
+     * @param film
+     */
+    public void addFilm(Film film) {
+        if (film != null) {
+            film.addGenre(this);
+        }
+    }
+
+    /**
+     * supprime un film qui a ce genre
+     * @param film
+     */
+    public void removeFilm(Film film) {
+        if (film != null) {
+            film.removeGenre(this);
+        }
+    }
 }
