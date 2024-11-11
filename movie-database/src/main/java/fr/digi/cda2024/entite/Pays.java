@@ -61,6 +61,16 @@ public class Pays implements Serializable {
 
     /**
      * Getter
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    /**
+     * Getter
      * @return l'identifiant unique du pays.
      */
     public Integer getId() {
@@ -107,4 +117,18 @@ public class Pays implements Serializable {
         return adresses;
     }
 
+    /**
+     *rajoute l'adresse dans la listes des adresses disponible dans le pays
+     * @param adresse adresses
+     */
+    public void addAdresses(Adresse adresse) {
+        adresse.setPays(this);
+    }
+
+    /**
+     *     rajoute un film dans la listes tourné dans le pays
+     */
+    public void addFilm(Film film) {
+        film.setPays(this);
+    }
 }

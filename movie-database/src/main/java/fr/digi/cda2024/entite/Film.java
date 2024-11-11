@@ -80,8 +80,8 @@ public class Film implements Serializable {
     @ManyToMany(mappedBy = "filmsJoue")
     private Set<Personne> castingPrincipale;
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+   /* @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();*/
 
     /** Argument toujours present dans les constructeurs */
     {
@@ -251,6 +251,7 @@ public class Film implements Serializable {
         adresses.add(adresse);
     }
 
+
     /**
      * Supprime une adresse de tournage au film
      * @param adresse
@@ -259,7 +260,7 @@ public class Film implements Serializable {
         if (adresse != null) {
             adresse.getFilms().remove(this);
         }
-        adresses.remove(adresse);
+        adresses.remove(this);
     }
 
     /**
@@ -291,5 +292,19 @@ public class Film implements Serializable {
             genre.getFilms().remove(this);
         }
         genres.remove(genre);
+    }
+
+    /**
+     * change le pays ou le film a été tourné
+     * @param pays
+     */
+    public void setPays(Pays pays) {
+        if (this.pays != null) {
+            this.pays.getFilms().remove(this);
+        }
+        this.pays = pays;
+        if (this.pays != null) {
+            this.pays.getFilms().add(this);
+        }
     }
 }

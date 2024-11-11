@@ -60,8 +60,8 @@ public class Personne implements Serializable {
     )
     private Set<Film> filmsJoue;
 
-    @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+    /*@OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();*/
 
     {
         roles = new HashSet<>();

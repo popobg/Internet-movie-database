@@ -35,13 +35,14 @@ public class Role {
 
     /**
      * Constructeur parametre
-     * @param id
+     * @param role
      * @param personne
      * @param film
      * @param url
      */
-    public Role(cleRole id, Personne personne, Film film, String url) {
-        this.id = id;
+    public Role(String role, Personne personne, Film film, String url) {
+
+        this.id = new cleRole(personne.getId(), film.getId(),role);
         this.url = url;
         personne.addRole(this, film);
     }
