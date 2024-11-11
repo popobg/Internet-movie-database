@@ -21,7 +21,7 @@ public class AdresseDTO implements Serializable {
     /**
      * pays extrait du document
      */
-    private PaysDTO pays;
+    private String pays;
 
     /**
      * Constructeur vide
@@ -35,7 +35,7 @@ public class AdresseDTO implements Serializable {
      * @param etatDept département, état, région
      * @param pays pays
      */
-    public AdresseDTO(String ville, String etatDept, PaysDTO pays) {
+    public AdresseDTO(String ville, String etatDept, String pays) {
         this.ville = ville;
         this.etatDept = etatDept;
         this.pays = pays;
@@ -72,14 +72,14 @@ public class AdresseDTO implements Serializable {
     /** Getter
      * @return pays
      */
-    public PaysDTO getPays() {
+    public String getPays() {
         return pays;
     }
 
     /** Setter
      * @param pays pays
      */
-    public void setPays(PaysDTO pays) {
+    public void setPays(String pays) {
         this.pays = pays;
     }
 }

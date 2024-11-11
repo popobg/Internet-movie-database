@@ -10,43 +10,33 @@ class FileToolsTest {
 
     // Tests méthode isFileExisting()
     @Test
-    void isFileExistingSuccess1() {
-        assertTrue(FileTools.isFileExisting(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile\\films.json")));
-    }
-
-    @Test
-    void isFileExistingSuccess2() {
-        assertTrue(FileTools.isFileExisting(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet-movie-database\\movie-database\\src\\test\\resources\\donneesTest.json")));
+    void isFileExistingSuccess() {
+        assertTrue(FileTools.isFileExisting(new File("src\\test\\resources\\donneesTest.json")));
     }
 
     @Test
     void isFileExistingFail1() {
-        assertFalse(FileTools.isFileExisting(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile")));
+        assertFalse(FileTools.isFileExisting(new File("src\\test")));
     }
 
     @Test
     void isFileExistingFail2() {
-        assertFalse(FileTools.isFileExisting(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile\\coucou.pdf")));
+        assertFalse(FileTools.isFileExisting(new File("src\\test\\coucou.pdf")));
     }
 
     // Tests méthode isFileJson()
     @Test
-    void isFileJsonSuccess1() {
-        assertTrue(FileTools.isFileJson(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile\\films.json")));
-    }
-
-    @Test
-    void isFileJsonSuccess2() {
-        assertTrue(FileTools.isFileJson(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet-movie-database\\movie-database\\src\\test\\resources\\donneesTest.json")));
+    void isFileJsonSuccess() {
+        assertTrue(FileTools.isFileJson(new File("src\\test\\resources\\donneesTest.json")));
     }
 
     @Test
     void isFileJsonFail1() {
-        assertFalse(FileTools.isFileJson(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile")));
+        assertFalse(FileTools.isFileJson(new File("src\\test")));
     }
 
     @Test
     void isFileJsonFail2() {
-        assertFalse(FileTools.isFileJson(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet Movie DataBase - Difficile\\coucou.pdf")));
+        assertFalse(FileTools.isFileJson(new File("src\\test\\coucou.pdf")));
     }
 }

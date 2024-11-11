@@ -27,7 +27,7 @@ public final class JsonParser {
             films = mapper.readValue(file, FilmDTO[].class);
         }
         catch (IOException e) {
-            throw new IOException("Erreur lors du parsing du fichier JSON vers les classes DTO");
+            throw new IOException(e);
         }
 
         return films;

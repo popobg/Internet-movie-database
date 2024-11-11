@@ -46,7 +46,7 @@ public class Film implements Serializable {
 
     /** Date de sortie du film */
     @Column(name = "ANNEE_SORTIE")
-    private LocalDate anneeSortie;
+    private String anneeSortie;
 
     /**
      * URL associée au film.
@@ -165,7 +165,7 @@ public class Film implements Serializable {
      * Getter
      * @return la date de sortie du film.
      */
-    public LocalDate getAnneeSortie() {
+    public String getAnneeSortie() {
         return anneeSortie;
     }
 
@@ -173,7 +173,7 @@ public class Film implements Serializable {
      * Setter
      * @param anneeSortie la date de sortie à définir pour le film.
      */
-    public void setAnneeSortie(LocalDate anneeSortie) {
+    public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 

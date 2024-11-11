@@ -33,9 +33,9 @@ public class CastingPrincipal implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personne
-     * @param film
-     * @param url
+     * @param personne acteur
+     * @param film film
+     * @param url url
      */
     public CastingPrincipal(Personne personne, Film film, String url) {
         this.id = new cleCastingPrincipal(personne.getId(), film.getId());

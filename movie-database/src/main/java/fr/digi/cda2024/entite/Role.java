@@ -78,7 +78,6 @@ public class Role {
     public Film getFilm() {
         return film;
     }
-
     /**
      * Getter
      * @return url

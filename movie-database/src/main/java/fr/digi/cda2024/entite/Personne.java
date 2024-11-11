@@ -43,22 +43,22 @@ public class Personne implements Serializable {
     @OneToMany(mappedBy = "acteur")
     private Set<Role> films;
 
-    /** Films lie au realisateur */
+    /** Films réalisés par la personne */
     @ManyToMany
     @JoinTable(
             name = "realise",
             joinColumns = @JoinColumn(name = "ID_PERSONNE", referencedColumnName="ID"),
             inverseJoinColumns = @JoinColumn(name = "ID_FILM", referencedColumnName="ID")
     )
-    private Set<Film> filmsRealise;
+    private Set<Film> filmsRealises;
 
-
+    /** Liste des films dans lesquels l'acteur appartenait au casting principal */
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     {
         films = new HashSet<>();
-        filmsRealise = new HashSet<>();
+        filmsRealises = new HashSet<>();
     }
 
     /** Constructeur vide*/
@@ -176,7 +176,7 @@ public class Personne implements Serializable {
     }
 
     /**
-     * Ajoute un rôle et un film à une personne
+     * Ajoute un rôle et un film à une personne.
      * @param role rôle
      * @param film film
      */
@@ -196,25 +196,24 @@ public class Personne implements Serializable {
     }
 
     /**
-     * rajoute un film réalisé par la personne.
+     * Ajoute un film réalisé par la personne.
      * @param film film
      */
     public void addFilmRealise(Film film) {
         if (film != null) {
             film.getRealisateurs().add(this);
         }
-        filmsRealise.add(film);
+        filmsRealises.add(film);
     }
 
     /**
-     * supprime un film réalisé par la personne.
+     * Supprime un film réalisé par la personne.
      * @param film film
      */
     public void removeFilmRealise(Film film) {
         if (film != null) {
             film.getRealisateurs().remove(this);
         }
-        filmsRealise.remove(film);
+        filmsRealises.remove(film);
     }
-
 }

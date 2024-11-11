@@ -15,7 +15,7 @@ class JsonParserTest {
     @Test
     void jsonToDotParseNoException() {
         try {
-            FilmDTO[] films = JsonParser.JsonToDotParse(new File("D:\\dev\\CDA JAVA\\15 - Projet JPA\\Internet-movie-database\\movie-database\\src\\test\\resources\\donneesTest.json"));
+            FilmDTO[] films = JsonParser.JsonToDotParse(new File("src\\test\\resources\\donneesTest.json"));
 
             assertTrue(true);
         }
