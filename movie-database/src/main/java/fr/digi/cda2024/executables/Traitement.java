@@ -1,11 +1,13 @@
 package fr.digi.cda2024.executables;
 
+import fr.digi.cda2024.requetage.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * Classe menu executable
- * Met en forme l'interface dans le terminal et permet d'exécuter les methodes de requête issue de [PLACEHOLDER_NOMFICHIERREQUETAGE]
- *
+ * Met en forme l'interface dans le terminal et permet d'exécuter les methodes de requête issue de queryMenu
  */
 public class Traitement {
 
@@ -15,7 +17,6 @@ public class Traitement {
      */
     public static void main(String[] args) {
 
-        //Utilisation de la methode affichageMenu() pour afficher les options choisissable
         affichageMenu();
 
         //Creation du scanner "Menu" utilisé pour taper l'option que l'utilisateur veut utiliser
@@ -49,23 +50,20 @@ public class Traitement {
                 affichageCastingFilm();
                 break;
             case 3:
-                affichageFilmEntre2Annees();
+                affichagefilmsEntreDeuxAnnees();
                 break;
             case 4:
-                affichageFilmPour2Acteurs();
+                affichageCommunsPourDeuxActeurs();
                 break;
             case 5:
-                affichageActeursPour2Films();
+                affichageActeursCommunsPourDeuxFilms();
                 break;
             case 6:
-                affichageFilmEntre2AnneesAvecActeur();
+                affichageFilmEntreDeuxAnneesAvecActeur();
                 break;
             case 7:
                 System.out.println("Au revoir !");
                 break;
-            default:
-                System.out.println("ERREUR ! Vous venez d'entrée un nombre entier autre que les nombre de 1 à 7.\nVeuillez entrée un nombre entre 1 et 6 comme option, ou le nombre 7 pour quittez le programme.*");
-                scannerMenu.next();
         }
         scannerMenu.close();
     }
@@ -90,13 +88,22 @@ public class Traitement {
      */
     private static void affichageFilmogarphieActeur() {
         System.out.print("Entrez nom complet de l'acteur/actice : ");
-        //Creation du scanner "Filmographie Acteur" ou "FA" utilisé pour taper le nom d'un acteur quand l'option 1 du menu est choisie
-        Scanner scannerFA = new Scanner(System.in);
+        //Creation du scanner "Filmographie Acteur" utilisé pour taper le nom d'un acteur quand l'option 1 du menu est choisie
+        Scanner scannerFilmogarphieActeur = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Filmographie Acteur"
-        String acteurNom = scannerFA.nextLine();
+        String acteurNom = scannerFilmogarphieActeur.nextLine();
 
-        // !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("La filmographie de " + acteurNom + " :");
+        //Requêtage et affichage des résultats
+        List<String> filmographieActeur = querysMenu.getFilmographieActeur(acteurNom);
+        if (filmographieActeur.isEmpty()) {
+            System.out.println("Aucun film trouvé dans la base de données pour l'acteur "+acteurNom+".");
+        } else {
+            System.out.println("La filmographieActeur de " + acteurNom + " :");
+            filmographieActeur.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
+
     }
 
     /**
@@ -105,18 +112,27 @@ public class Traitement {
     private static void affichageCastingFilm() {
         System.out.print("Entrez titre du film : ");
         //Creation du scanner "Casting Film" ou "CF" utilisé pour taper le nom d'un film
-        Scanner scannerCF = new Scanner(System.in);
+        Scanner scannerCastingFilm = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Casting Film"
-        String filmNom = scannerCF.nextLine();
+        String filmNom = scannerCastingFilm.nextLine();
 
-        //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("Le casting pour le film " + filmNom + " :");
+        //Requêtage et affichage des résultats
+        List<String> castingFilm = querysMenu.getCastingFilm(filmNom);
+        if (castingFilm.isEmpty()) {
+            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour le film "+filmNom+".");
+        } else {
+            System.out.println("Le casting pour le film " + filmNom + " :");
+            castingFilm.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
+
     }
 
     /**
      * Methode qui permet de affichage des films sortis entre 2 années données
      */
-    private static void affichageFilmEntre2Annees() {
+    private static void affichagefilmsEntreDeuxAnnees() {
 
         int anneeDebut = 0;
         int anneeFin = 0;
@@ -124,27 +140,27 @@ public class Traitement {
         while (true) {
             System.out.print("Entrez année de début : ");
             //Creation du scanner "Film Entre 2 Années 1" ou "FE2A1" utilisé pour taper une première année
-            Scanner scannerFE2A1 = new Scanner(System.in);
+            Scanner scannerfilmsEntreDeuxAnnees1 = new Scanner(System.in);
 
             //Check si l'input est un intègre
-            while (!scannerFE2A1.hasNextInt()) {
+            while (!scannerfilmsEntreDeuxAnnees1.hasNextInt()) {
                 System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
-                scannerFE2A1.next();
+                scannerfilmsEntreDeuxAnnees1.next();
             }
             //Stockage de la variable entrée par le scanner "Film Entre 2 Années 1"
-            anneeDebut = scannerFE2A1.nextInt();
+            anneeDebut = scannerfilmsEntreDeuxAnnees1.nextInt();
 
             System.out.print("Entrez année de fin : ");
             //Creation du scanner "Film Entre 2 Années 2" ou "FE2A2" utilisé pour taper une seconde année
-            Scanner scannerFE2A2 = new Scanner(System.in);
+            Scanner scannerfilmsEntreDeuxAnnees2 = new Scanner(System.in);
 
             //Check si l'input est un intègre
-            while (!scannerFE2A2.hasNextInt()) {
+            while (!scannerfilmsEntreDeuxAnnees2.hasNextInt()) {
                 System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
-                scannerFE2A2.next();
+                scannerfilmsEntreDeuxAnnees2.next();
             }
             //Stockage de la variable entrée par le scanner "Film Entre 2 Années 2"
-            anneeFin = scannerFE2A2.nextInt();
+            anneeFin = scannerfilmsEntreDeuxAnnees2.nextInt();
 
             //Check si les inputs d'année sont bien début<fin
             if (anneeDebut <= anneeFin) {
@@ -154,57 +170,81 @@ public class Traitement {
             }
         }
 
-        //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
+        //Requêtage et affichage des résultats
+        List<String> filmsEntreDeuxAnnees = querysMenu.getFilmsEntreDeuxAnnees(anneeDebut, anneeFin);
+        if (filmsEntreDeuxAnnees.isEmpty()) {
+            System.out.println("Aucun film trouvé dans la base de données pour entre les années "+anneeDebut+"et "+anneeFin+".");
+        } else {
+            System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
+            filmsEntreDeuxAnnees.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
     }
 
     /**
      * Methode qui permet de affichage des films communs à 2 acteurs/actrices donnés.
      */
-    private static void affichageFilmPour2Acteurs() {
+    private static void affichageCommunsPourDeuxActeurs() {
         System.out.print("Entrez nom complet du premier(e) l'acteur/actice : ");
         //Creation du scanner "Film Pour 2 Acteurs 1" ou "FP2A1" utilisé pour taper le nom d'un(e) premiere) acteur/actrice
-        Scanner scannerFP2A1 = new Scanner(System.in);
+        Scanner scannerCommunsPourDeuxActeurs1 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Film Pour 2 Acteurs 1"
-        String acteur1 = scannerFP2A1.nextLine();
+        String acteurNom1 = scannerCommunsPourDeuxActeurs1.nextLine();
         System.out.print("Entrez nom complet du second(e) l'acteur/actice : ");
         //Creation du scanner "Film Pour 2 Acteurs 2" ou "FP2A2" utilisé pour taper le nom d'un(e) second(e) acteur/actrice
-        Scanner scannerFP2A2 = new Scanner(System.in);
+        Scanner scannerCommunsPourDeuxActeurs2 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Film Pour 2 Acteurs 2"
-        String acteur2 = scannerFP2A2.nextLine();
+        String acteurNom2 = scannerCommunsPourDeuxActeurs2.nextLine();
 
-        //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("Les films communs à " + acteur1 + " et " + acteur2 + " :");
+        //Requêtage et affichage des résultats
+        List<String> filmsCommunsPourDeuxActeurs = querysMenu.getFilmsCommunsPourDeuxActeurs(acteurNom1, acteurNom2);
+        if (filmsCommunsPourDeuxActeurs.isEmpty()) {
+            System.out.println("Aucun film commun trouvé dans la base de données pour "+acteurNom1+"et "+acteurNom2+".");
+        } else {
+            System.out.println("Les films communs à " + acteurNom1 + " et " + acteurNom2 + " :");
+            filmsCommunsPourDeuxActeurs.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
     }
 
     /**
      * Methode qui permet de affichage des acteurs communs à 2 films donnés
      */
-    private static void affichageActeursPour2Films() {
+    private static void affichageActeursCommunsPourDeuxFilms() {
         System.out.print("Entrez titre du premier film : ");
         //Creation du scanner "Acteur Pour 2 Films 1" ou "AP2F1" utilisé pour taper le nom d'un premier film
-        Scanner scannerAP2F1 = new Scanner(System.in);
+        Scanner scannerActeursCommunsPourDeuxFilms1 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Acteur Pour 2 Films 1"
-        String film1 = scannerAP2F1.nextLine();
+        String film1 = scannerActeursCommunsPourDeuxFilms1.nextLine();
         System.out.print("Entrez titre du second film : ");
         //Creation du scanner "Acteur Pour 2 Films 2" ou "AP2F2" utilisé pour taper le nom d'un deuxième film
-        Scanner scannerAP2F2 = new Scanner(System.in);
+        Scanner scannerActeursCommunsPourDeuxFilms2 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Acteur Pour 2 Films 2"
-        String film2 = scannerAP2F2.nextLine();
+        String film2 = scannerActeursCommunsPourDeuxFilms2.nextLine();
 
-        //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("Les acteurs communs aux films " + film1 + " et " + film2 + " :");
+        //Requêtage et affichage des résultats
+        List<String> acteursCommunsPourDeuxFilms = querysMenu.getActeursCommunsPourDeuxFilms(film1, film2);
+        if (acteursCommunsPourDeuxFilms.isEmpty()) {
+            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour les films "+film1+"et "+film2+".");
+        } else {
+            System.out.println("Le casting en commun pour les films " + film1 + "et "+film2+" :");
+            acteursCommunsPourDeuxFilms.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
     }
 
     /**
      * Methode qui permet de affichage des films sortis entre 2 années données et qui ont un acteur/actrice donné au casting
      */
-    private static void affichageFilmEntre2AnneesAvecActeur() {
+    private static void affichageFilmEntreDeuxAnneesAvecActeur() {
         System.out.print("Entrez nom complet de l'acteur/actice : ");
         //Creation du scanner "Film Entre 2 Années Avec Acteur 1" ou "FE2AAA1" utilisé pour taper le nom d'un acteur/actrice
-        Scanner scannerFE2AAA1 = new Scanner(System.in);
+        Scanner scannerFilmEntreDeuxAnneesAvecActeur1 = new Scanner(System.in);
         //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 1"
-        String acteurNom = scannerFE2AAA1.nextLine();
+        String acteurNom = scannerFilmEntreDeuxAnneesAvecActeur1.nextLine();
 
         int anneeDebut = 0;
         int anneeFin = 0;
@@ -212,27 +252,27 @@ public class Traitement {
         while (true) {
             System.out.print("Entrez année de début : ");
             //Creation du scanner "Film Entre 2 Années Avec Acteur 2" ou "FE2AAA2" utilisé pour taper une première année
-            Scanner scannerFE2AAA2 = new Scanner(System.in);
+            Scanner scannerFilmEntreDeuxAnneesAvecActeur2 = new Scanner(System.in);
 
             //Check si l'input est un intègre
-            while (!scannerFE2AAA2.hasNextInt()) {
+            while (!scannerFilmEntreDeuxAnneesAvecActeur2.hasNextInt()) {
                 System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
-                scannerFE2AAA2.next();
+                scannerFilmEntreDeuxAnneesAvecActeur2.next();
             }
             //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 2"
-            anneeDebut = scannerFE2AAA2.nextInt();
+            anneeDebut = scannerFilmEntreDeuxAnneesAvecActeur2.nextInt();
 
             System.out.print("Entrez année de fin : ");
             //Creation du scanner "Film Entre 2 Années Avec Acteur 3" ou "FE2AAA3" utilisé pour taper une deuxième année
-            Scanner scannerFE2AAA3 = new Scanner(System.in);
+            Scanner scannerFilmEntreDeuxAnneesAvecActeur3 = new Scanner(System.in);
 
             //Check si l'input est un intègre
-            while (!scannerFE2AAA3.hasNextInt()) {
+            while (!scannerFilmEntreDeuxAnneesAvecActeur3.hasNextInt()) {
                 System.out.println("ERREUR ! Vous venez d'entrée autre chose qu'un nombre entier.\nVeuillez entrée une année.");
-                scannerFE2AAA3.next();
+                scannerFilmEntreDeuxAnneesAvecActeur3.next();
             }
             //Stockage de la variable entrée par le scanner "Film Entre 2 Années Avec Acteur 3"
-            anneeFin = scannerFE2AAA3.nextInt();
+            anneeFin = scannerFilmEntreDeuxAnneesAvecActeur3.nextInt();
 
             //Check si les inputs d'années sont bien début<fin
             if (anneeDebut <= anneeFin) {
@@ -242,8 +282,16 @@ public class Traitement {
             }
         }
 
-        //  !!!! PLACEHOLDER_METHODE_TRAITEMENT
-        System.out.println("\nLes films de " + acteurNom + " entre " + anneeDebut + " et " + anneeFin + " :");
+        //Requêtage et affichage des résultats
+        List<String> filmsEntreDeuxAnneesAvecActeur = querysMenu.getFilmsEntreDeuxAnneesAvecActeur(anneeDebut, anneeFin, acteurNom);
+        if (filmsEntreDeuxAnneesAvecActeur.isEmpty()) {
+            System.out.println("Aucun film trouvé dans la base de données pour "+acteurNom+" entre les années "+anneeDebut+"et "+anneeFin+".");
+        } else {
+            System.out.println("\nLes films de " + acteurNom + " entre " + anneeDebut + " et " + anneeFin + " :");
+            filmsEntreDeuxAnneesAvecActeur.forEach(System.out::println);
+        }
+        //Fermeture du EMF ouvert dans la methode queryMenu
+        querysMenu.close();
     }
 }
 
