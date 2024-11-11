@@ -156,8 +156,8 @@ public class Personne implements Serializable {
      * Getter
      * @return roles
      */
-    public Set<Role> getCastingPrincipal() {
-        return ca;
+    public Set<CastingPrincipal> getCastingPrincipal() {
+        return castingsPrincipaux;
     }
 
     /**

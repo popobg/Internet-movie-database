@@ -208,6 +208,10 @@ public class Film implements Serializable {
         return acteurs;
     }
 
+    public Set<CastingPrincipal> getCastingsPrincipaux() {
+        return castingsPrincipaux;
+    }
+
     /**
      * Getter
      * @return genres
