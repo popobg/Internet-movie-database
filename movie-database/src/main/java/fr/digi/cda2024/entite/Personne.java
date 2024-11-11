@@ -61,7 +61,7 @@ public class Personne implements Serializable {
     private Set<Film> filmsJoue;
 
     @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     {
         roles = new HashSet<>();
@@ -153,6 +153,14 @@ public class Personne implements Serializable {
     }
 
     /**
+     * Getter
+     * @return roles
+     */
+    public Set<Role> getCastingPrincipal() {
+        return ca;
+    }
+
+    /**
      * Setter
      * @param adresse adresse
      */
@@ -174,6 +182,16 @@ public class Personne implements Serializable {
     public void addRole(Role role,Film film) {
         role.setActeur(this);
         role.setFilm(film);
+    }
+
+    /**
+     * Ajoute un role et un film a une personne
+     * @param castingPrincipal
+     * @param film
+     */
+    public void addCastingPrincipal(CastingPrincipal castingPrincipal,Film film) {
+        castingPrincipal.setActeur(this);
+        castingPrincipal.setFilm(film);
     }
 
 }

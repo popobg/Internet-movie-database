@@ -50,10 +50,11 @@ public class Pays implements Serializable {
         films = new HashSet<>();
     }
 
-    /** Constructeur */
+    /** Constructeur vide*/
     public Pays() {
     }
 
+    /** Constructeur parametre*/
     public Pays(String nom, String url) {
         this.nom = nom;
         this.url = url;

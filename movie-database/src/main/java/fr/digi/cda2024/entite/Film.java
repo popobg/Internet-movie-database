@@ -81,7 +81,7 @@ public class Film implements Serializable {
     private Set<Personne> castingPrincipale;
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     /** Argument toujours present dans les constructeurs */
     {
@@ -269,6 +269,15 @@ public class Film implements Serializable {
      */
     public void addActeur(Role role,Personne personne) {
         personne.addRole(role, this);
+    }
+
+    /**
+     * Ajoute une personne au casting princiaple du film
+     * @param castingPrincipal
+     * @param personne
+     */
+    public void addActeur(CastingPrincipal castingPrincipal,Personne personne) {
+        personne.addCastingPrincipal(castingPrincipal, this);
     }
 
     /**
