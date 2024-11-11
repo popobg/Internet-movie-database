@@ -276,7 +276,7 @@ public class Film implements Serializable {
      * @param castingPrincipal
      * @param personne
      */
-    public void addActeur(CastingPrincipal castingPrincipal,Personne personne) {
+    public void addActeurCastingPrincipal(CastingPrincipal castingPrincipal,Personne personne) {
         personne.addCastingPrincipal(castingPrincipal, this);
     }
 

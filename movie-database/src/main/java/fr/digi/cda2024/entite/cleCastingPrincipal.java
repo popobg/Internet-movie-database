@@ -23,12 +23,12 @@ public class cleCastingPrincipal implements Serializable{
 
     /**
      * Constructeur parametre
-     * @param personne
-     * @param film
+     * @param personneId
+     * @param filmId
      */
-    public cleCastingPrincipal(Personne personne, Film film) {
-        this.personneId = personne.getId();
-        this.filmId = film.getId();
+    public cleCastingPrincipal(String personneId, String filmId) {
+        this.personneId = personneId;
+        this.filmId = filmId;
     }
 
     /**

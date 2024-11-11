@@ -53,7 +53,7 @@ public class Personne implements Serializable {
     private Set<Film> filmsRealise;
 
 
-    @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     {
