@@ -55,7 +55,7 @@ public class Film implements Serializable {
     @Column(name = "URL", length = 50, unique = true)
     private String url;
 
-    /** Nombre de films tournés à cette adresse */
+    /** Liste des lieux de tournage du film */
     @ManyToMany(mappedBy = "films")
     private Set<Adresse> adresses;
 
@@ -78,10 +78,10 @@ public class Film implements Serializable {
 
     /** Casting principales associe au film */
     @ManyToMany(mappedBy = "filmsJoue")
-    private Set<Personne> castingPrincipale;
+    private Set<Personne> castingPrincipal;
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CastingPrincipale> castingsPrincipaux = new HashSet<>();
+    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
     /** Argument toujours present dans les constructeurs */
     {
@@ -89,7 +89,7 @@ public class Film implements Serializable {
         acteurs = new HashSet<>();
         genres = new HashSet<>();
         realisateurs = new HashSet<>();
-        castingPrincipale = new HashSet<>();
+        castingPrincipal = new HashSet<>();
     }
 
     /** Constructeur */
@@ -196,7 +196,6 @@ public class Film implements Serializable {
      * Getter
      * @return adresses
      */
-
     public Set<Adresse> getAdresses() {
         return adresses;
     }
@@ -226,6 +225,14 @@ public class Film implements Serializable {
     }
 
     /**
+     * Setter
+     * @param pays pays
+     */
+    public void setPays(Pays pays) {
+        this.pays = pays;
+    }
+
+    /**
      * Getter
      * @return realisateurs
      */
@@ -237,8 +244,8 @@ public class Film implements Serializable {
      * Getter
      * @return castingPrincipale
      */
-    public Set<Personne> getCastingPrincipale() {
-        return castingPrincipale;
+    public Set<Personne> getCastingPrincipal() {
+        return castingPrincipal;
     }
 
     /**

@@ -12,11 +12,19 @@ import java.util.List;
  * vers les classes entités utilisées en base de données
  */
 public class DtoEntitesMapper {
+    /** Liste de films */
     private final List<Film> listeFilms;
-    private List<Pays> listePays;
-    private List<Genre> listeGenres;
-    private List<Adresse> listeAdresses;
-    private List<Personne> listePersonne;
+    /** Liste de pays */
+    private final List<Pays> listePays;
+    /** Liste de genres cinématographiques */
+    private final List<Genre> listeGenres;
+    /** Liste d'adresses */
+    private final List<Adresse> listeAdresses;
+    // acteurs et réalisateurs sont des personnes,
+    // on les retrouve donc dans la même liste
+    /** Liste de personnes (acteurs ou réalisateurs) */
+    private final List<Personne> listePersonne;
+    /** Liste de rôles */
     private List<Role> listeRoles;
 
     {
@@ -46,23 +54,22 @@ public class DtoEntitesMapper {
             film.setNom(filmDTO.getNom());
             film.setResume(filmDTO.getResume());
             film.setLangue(filmDTO.getLangue());
-            // voir comment le stocker en DB, et donc comment le parser :
+            film.setPays(mapPays(filmDTO.getPays()));
+            film.setUrl(filmDTO.getUrl());
+            // voir comment stocker l'année de sortie en DB :
             // LocalDate actuel dans Film pose problème
             film.setAnneeSortie(mapAnneeSortieFilm(filmDTO.getAnneeSortie()));
-            film.setUrl(filmDTO.getUrl());
-
-            // Une fois l'attribut ajouté dans la classe Film
-            film.setPays(mapPays(filmDTO.getPays()));
-
             mapLieuTournage(filmDTO.getLieuTournage(), film);
+            mapGenresFilm(filmDTO.getGenres(), film);
+
+            // MAP REALISATEURS
+            mapRealisateursFilm(filmDTO.getRealisateurs());
 
             // MAP ROLES --> A TERMINER
             mapRolesFilm(filmDTO.getRoles(), film);
 
             // MAP CASTING PRINCIPAL --> classe Film
-
-            // map genres A TERMINER --> classe Film
-            mapGenresFilm(filmDTO.getGenres(), film);
+            mapCastingPrincipalFilm(filmDTO.getCastingPrincipal());
 
             listeFilms.add(film);
         }
@@ -170,11 +177,10 @@ public class DtoEntitesMapper {
      * @param genresDTO genres extraits du JSON
      * @param film entité Film
      */
-    // A TERMINER
     private void mapGenresFilm(String[] genresDTO, Film film) {
         for (String genreDTO: genresDTO) {
             Genre genre = mapGenre(genreDTO);
-            // film.addGenre(genre);
+            film.addGenre(genre);
         }
     }
 
@@ -218,12 +224,46 @@ public class DtoEntitesMapper {
     // A TERMINER
     private void mapRolesFilm(RoleDTO[] rolesDTO, Film film) {
         for (RoleDTO roleDTO: rolesDTO) {
-            Role role = new Role(roleDTO.getFilm(), mapPersonne(roleDTO.getActeur()), roleDTO.getPersonnage(), roleDTO.getActeur().getUrl());
-
+            Role role = mapRole(rolesDTO, film);
             // Problème dans les assignations des éléments au sein des classes
             // --> à discuter avec Johan
-            film.addActeur(role);
+            film.addActeur(role, role.getActeur());
         }
+    }
+
+    /**
+     * Map les informations du rôle DTO vers un objet Role entité.
+     * @param roleDTO rôle extrait du JSON
+     * @return objet entité Role
+     */
+    private Role mapRole(RoleDTO roleDTO, Film film) {
+        Role roleExistant = getRoleSiExiste(roleDTO);
+
+        if (roleExistant != null) {
+            return roleExistant;
+        }
+
+        // Voir les arguments à passer au constructeur Role --> actuellement un id cleRole à passer --> dois-je le construire ?
+        Role role = new Role(/* id ? */, film, mapPersonne(roleDTO.getActeur()), roleDTO.getActeur().getUrl());
+
+        return role;
+    }
+
+    /**
+     * Vérifie si un rôle présentant les mêmes informations a déjà été créé.
+     * Retourne l'objet Role existant si c'est le cas, sinon null.
+     * @param roleDTO rôle extrait du JSON
+     * @return un objet entité Role, ou null
+     */
+    private Role getRoleSiExiste(RoleDTO roleDTO) {
+        for (Role role: this.listeRoles) {
+            if (roleDTO.getActeur().getId().equals(role.getActeur().getId())
+                    && roleDTO.getFilm().equals(role.getFilm().getId())
+                    && roleDTO.getPersonnage().equals(role.getId().getNomRole())) {
+                return role;
+            }
+        }
+        return null;
     }
 
     /**
@@ -303,5 +343,40 @@ public class DtoEntitesMapper {
     private String parseIdRealisateur(String urlReal) {
         String[] infosUrlReal = urlReal.split("/");
         return infosUrlReal[1];
+    }
+
+    /**
+     * Map les réalisateurs d'un film à partir des données extraites du JSON.
+     * @param realDTO réalisateur extrait du JSON
+     */
+    private void mapRealisateursFilm(PersonneDTO[] realDTO) {
+        for (PersonneDTO personneDTO: realDTO) {
+            Personne real = mapPersonne(personneDTO);
+            // Méthode non existante dans Film --> à ajouter ;
+            // le lier à la liste de films réalisés dans Personne
+            film.addRealisateur();
+        }
+    }
+
+    /**
+     * Map le casting principal d'un film à partir des données extraites du JSON.
+     * @param castingPrincipal casting principal extrait du JSON
+     */
+    private void mapCastingPrincipalFilm(PersonneDTO[] castingPrincipal) {
+        for (PersonneDTO personneDTO: castingPrincipal) {
+            CastingPrincipal cp = mapCastingPrincipal(personneDTO, film);
+            // Méthode non existante dans Film
+            film.addCastingPrincipal(cp);
+        }
+    }
+
+    /**
+     * Map les informations liées au casting dans un objet entité CastingPrincipal
+     * @param personneDTO acteur
+     * @param film film
+     * @return un objet entité CastingPrincipal
+     */
+    private CastingPrincipal mapCastingPrincipal(PersonneDTO personneDTO, Film film) {
+        // ?
     }
 }

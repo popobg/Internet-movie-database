@@ -148,7 +148,6 @@ public class Personne implements Serializable {
 
     /**
      * Getter
-     *
      * @return adresse
      */
     public Adresse getAdresse() {
@@ -157,17 +156,14 @@ public class Personne implements Serializable {
 
     /**
      * Getter
-     *
      * @return roles
      */
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Setter
-     *
      * @param adresse adresse
      */
     public void setAdresse(Adresse adresse) {
@@ -180,9 +176,8 @@ public class Personne implements Serializable {
         }
     }
 
-
     /**
-     * Ajoute un role et un film a une personne
+     * Ajoute un rôle et un film à une personne
      * @param role rôle
      * @param film film
      */
