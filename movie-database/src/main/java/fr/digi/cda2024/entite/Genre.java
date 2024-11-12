@@ -3,8 +3,8 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -105,5 +105,38 @@ public class Genre implements Serializable {
         if (film != null) {
             film.removeGenre(this);
         }
+    }
+
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Genre genre)) return false;
+        return Objects.equals(id, genre.id) && Objects.equals(nom, genre.nom);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom);
+    }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Genre{");
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", films=").append(films);
+        sb.append("}\n");
+        return sb.toString();
     }
 }

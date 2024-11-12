@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public class Personne implements Serializable {
 
     /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
-    private float taille;
+    private Float taille;
 
     /** Adresse de la personne */
     @ManyToOne
@@ -40,25 +41,19 @@ public class Personne implements Serializable {
     private Adresse adresse;
 
     /** Liste des rôles que la personne a incarné */
-    @OneToMany(mappedBy = "acteur")
-    private Set<Role> films;
-
-    /** Films réalisés par la personne */
-    @ManyToMany
-    @JoinTable(
-            name = "realise",
-            joinColumns = @JoinColumn(name = "ID_PERSONNE", referencedColumnName="ID"),
-            inverseJoinColumns = @JoinColumn(name = "ID_FILM", referencedColumnName="ID")
-    )
-    private Set<Film> filmsRealises;
-
-    /** Liste des films dans lesquels l'acteur appartenait au casting principal */
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
-    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    private Set<CastingPrincipal> castingsPrincipaux;
+
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
+    private Set<Realisateur> realisateurs;
 
     {
-        films = new HashSet<>();
-        filmsRealises = new HashSet<>();
+        roles = new HashSet<>();
+        castingsPrincipaux = new HashSet<>();
+        realisateurs = new HashSet<>();
     }
 
     /** Constructeur vide*/
@@ -150,7 +145,7 @@ public class Personne implements Serializable {
      * @return roles
      */
     public Set<Role> getRoles() {
-        return films;
+        return roles;
     }
 
     /**
@@ -159,6 +154,14 @@ public class Personne implements Serializable {
      */
     public Set<CastingPrincipal> getCastingPrincipal() {
         return castingsPrincipaux;
+    }
+
+    /**
+     * Getter
+     * @return roles
+     */
+    public Set<Realisateur> getRealisateur() {
+        return realisateurs;
     }
 
     /**
@@ -196,24 +199,47 @@ public class Personne implements Serializable {
     }
 
     /**
-     * Ajoute un film réalisé par la personne.
+     * Ajoute un film réalisé à une personne.
+     * @param realisateur réalisateur
      * @param film film
      */
-    public void addFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().add(this);
-        }
-        filmsRealises.add(film);
+    public void addRealisateur(Realisateur realisateur,Film film) {
+        realisateur.setRealisateur(this);
+        realisateur.setFilm(film);
     }
 
     /**
-     * Supprime un film réalisé par la personne.
-     * @param film film
+     * methode equals permet de verifier l'egalite entre differente instance
      */
-    public void removeFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().remove(this);
-        }
-        filmsRealises.remove(film);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Personne personne)) return false;
+        return Float.compare(taille, personne.taille) == 0 && Objects.equals(id, personne.id) && Objects.equals(identite, personne.identite) && Objects.equals(dateNaissance, personne.dateNaissance) && Objects.equals(adresse, personne.adresse);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, identite, dateNaissance, taille, adresse);
+    }
+
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Personne{");
+        sb.append("adresse=").append(adresse);
+        sb.append(", taille=").append(taille);
+        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append("}\n");
+        return sb.toString();
     }
 }

@@ -3,8 +3,8 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -72,15 +72,11 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Realisateur associé au film */
-    @ManyToMany(mappedBy = "filmsRealise")
-    private Set<Personne> realisateurs;
+    /** Listes des realisateurs dans le film */
+    @OneToMany(mappedBy = "film")
+    private Set<Realisateur> realisateurs;
 
-    /** Casting principal associé au film */
-    @ManyToMany(mappedBy = "filmsJoue")
-    private Set<Personne> castingPrincipal;
-
-
+    /** Liste du Casting principal dans le film */
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
@@ -209,6 +205,10 @@ public class Film implements Serializable {
         return acteurs;
     }
 
+    /**
+     * Getter
+     * @return castingsPrincipaux
+     */
     public Set<CastingPrincipal> getCastingsPrincipaux() {
         return castingsPrincipaux;
     }
@@ -233,16 +233,8 @@ public class Film implements Serializable {
      * Getter
      * @return realisateurs
      */
-    public Set<Personne> getRealisateurs() {
+    public Set<Realisateur> getRealisateurs() {
         return realisateurs;
-    }
-
-    /**
-     * Getter
-     * @return castingPrincipale
-     */
-    public Set<Personne> getCastingPrincipal() {
-        return castingPrincipal;
     }
 
     /**
@@ -319,5 +311,40 @@ public class Film implements Serializable {
         if (this.pays != null) {
             this.pays.getFilms().add(this);
         }
+    }
+
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Film film)) return false;
+        return Objects.equals(id, film.id) && Objects.equals(nom, film.nom) && Objects.equals(resume, film.resume) && Objects.equals(langue, film.langue) && Objects.equals(anneeSortie, film.anneeSortie) && Objects.equals(url, film.url) && Objects.equals(pays, film.pays);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
+    }
+
+    /**
+     * methode d'affichage
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Film{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", resume='").append(resume).append('\'');
+        sb.append(", langue='").append(langue).append('\'');
+        sb.append(", anneeSortie=").append(anneeSortie);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", pays=").append(pays);
+        sb.append("}\n");
+        return sb.toString();
     }
 }

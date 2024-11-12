@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Sert a creer la cle primaire de la classe role
@@ -13,11 +14,9 @@ import java.io.Serializable;
 public class cleRole implements Serializable {
 
     /** Cle permettant la liaison entre role et personne */
-    @Column(name ="ID_PERSONNE")
     private String personneId;
 
     /** Cle permettant la liaison entre role et film */
-    @Column(name ="ID_FILM")
     private String filmId;
 
     /**
@@ -89,5 +88,38 @@ public class cleRole implements Serializable {
      */
     public void setNomRole(String nomRole) {
         this.nomRole = nomRole;
+    }
+
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof cleRole cleRole)) return false;
+        return Objects.equals(personneId, cleRole.personneId) && Objects.equals(filmId, cleRole.filmId) && Objects.equals(nomRole, cleRole.nomRole);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(personneId, filmId, nomRole);
+    }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("cleRole{");
+        sb.append("personneId='").append(personneId).append('\'');
+        sb.append(", filmId='").append(filmId).append('\'');
+        sb.append(", nomRole='").append(nomRole).append('\'');
+        sb.append("}\n");
+        return sb.toString();
     }
 }

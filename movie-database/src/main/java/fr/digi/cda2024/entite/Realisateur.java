@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "casting_principal")
-public class CastingPrincipal implements Serializable {
+@Table(name = "realisateur")
+public class Realisateur implements Serializable {
 
     @EmbeddedId
     private CleDeuxFacteurs id;
@@ -14,7 +14,7 @@ public class CastingPrincipal implements Serializable {
     @ManyToOne
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
-    private Personne acteur;
+    private Personne realisateur;
 
     /** Liaison entre casting_principal et film */
     @ManyToOne
@@ -27,22 +27,23 @@ public class CastingPrincipal implements Serializable {
     private String url;
 
     /** Constructeur vide */
-    public CastingPrincipal() {
+    public Realisateur() {
     }
 
     /**
      * Constructeur parametre
-     * @param personne acteur
-     * @param film film
-     * @param url url
+     * @param personne
+     * @param film
+     * @param url
      */
-    public CastingPrincipal(Personne personne, Film film, String url) {
+    public Realisateur(Personne personne, Film film, String url) {
         this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
         this.url = url;
-        personne.addCastingPrincipal(this, film);
+        personne.addRealisateur(this, film);
     }
-    public Personne getActeur() {
-        return acteur;
+
+    public Personne getRealisateur() {
+        return realisateur;
     }
 
     public Film getFilm() {
@@ -51,15 +52,15 @@ public class CastingPrincipal implements Serializable {
 
     /**
      * Fonction pour associer un acteur et son role
-     * @param acteur
+     * @param realisateur
      */
-    public void setActeur(Personne acteur) {
-        if (this.acteur != null) {
-            this.acteur.getCastingPrincipal().remove(this);
+    public void setRealisateur(Personne realisateur) {
+        if (this.realisateur != null) {
+            this.realisateur.getRealisateur().remove(this);
         }
-        this.acteur = acteur;
-        if (this.acteur != null) {
-            this.acteur.getCastingPrincipal().add(this);
+        this.realisateur = realisateur;
+        if (this.realisateur != null) {
+            this.realisateur.getRealisateur().add(this);
         }
     }
 
@@ -73,8 +74,7 @@ public class CastingPrincipal implements Serializable {
         }
         this.film = film;
         if (this.film != null) {
-            this.film.getCastingsPrincipaux().add(this);
+            this.film.getRealisateurs().add(this);
         }
     }
-
 }
