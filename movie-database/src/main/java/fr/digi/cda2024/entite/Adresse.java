@@ -20,6 +20,7 @@ public class Adresse implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

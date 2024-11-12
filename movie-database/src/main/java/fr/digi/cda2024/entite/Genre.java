@@ -21,6 +21,7 @@ public class Genre implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Integer id;
 
     /**

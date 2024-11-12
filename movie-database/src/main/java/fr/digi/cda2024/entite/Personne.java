@@ -18,6 +18,7 @@ public class Personne implements Serializable {
 
     /** Identifiant unique de la personne. */
     @Id
+    @Column(name ="ID")
     private String id;
 
     /**

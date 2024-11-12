@@ -21,6 +21,7 @@ public class Film implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     private String id;
 
     /**
