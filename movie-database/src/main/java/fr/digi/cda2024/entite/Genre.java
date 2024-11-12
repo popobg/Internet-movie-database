@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -38,6 +39,9 @@ public class Genre implements Serializable {
     )
     private Set<Film> films;
 
+    {
+        films = new HashSet<>();
+    }
 
     /** Constructeur vide */
     public Genre() {

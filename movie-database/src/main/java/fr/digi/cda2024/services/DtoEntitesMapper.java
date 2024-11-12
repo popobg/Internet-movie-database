@@ -28,12 +28,12 @@ public class DtoEntitesMapper {
     private List<Role> listeRoles;
 
     {
-        listeFilms = new ArrayList<>();
-        listePays = new ArrayList<>();
-        listeGenres = new ArrayList<>();
-        listeAdresses = new ArrayList<>();
-        listePersonne = new ArrayList<>();
-        listeRoles = new ArrayList<>();
+        this.listeFilms = new ArrayList<>();
+        this.listePays = new ArrayList<>();
+        this.listeGenres = new ArrayList<>();
+        this.listeAdresses = new ArrayList<>();
+        this.listePersonne = new ArrayList<>();
+        this.listeRoles = new ArrayList<>();
     }
 
     /**
@@ -50,15 +50,15 @@ public class DtoEntitesMapper {
         for (FilmDTO filmDTO : filmsJson) {
             Film film = new Film();
 
-            film.setId(filmDTO.getId());
-            film.setNom(filmDTO.getNom());
-            film.setResume(filmDTO.getResume());
-            film.setLangue(filmDTO.getLangue());
+            film.setId(filmDTO.getId().trim());
+            film.setNom(filmDTO.getNom().trim());
+            film.setResume(filmDTO.getResume().trim());
+            film.setLangue(filmDTO.getLangue().trim());
             film.setPays(mapPays(filmDTO.getPays()));
             film.setUrl(filmDTO.getUrl());
             // voir comment stocker l'année de sortie en DB :
             // LocalDate actuel dans Film pose problème
-            film.setAnneeSortie(mapAnneeSortieFilm(filmDTO.getAnneeSortie()));
+            film.setAnneeSortie(mapAnneeSortieFilm(filmDTO.getAnneeSortie().trim()));
             mapLieuTournage(filmDTO.getLieuTournage(), film);
             mapGenresFilm(filmDTO.getGenres(), film);
             mapRolesFilm(filmDTO.getRoles(), film);
@@ -69,6 +69,7 @@ public class DtoEntitesMapper {
             // MAP CASTING PRINCIPAL --> classe Film
             mapCastingPrincipalFilm(filmDTO.getCastingPrincipal(), film);
 
+            // Checker si un film identique a déjà été créé ?
             listeFilms.add(film);
         }
 
@@ -95,8 +96,8 @@ public class DtoEntitesMapper {
     // mappé vers une liste de lieux de tournage en DB --> un film
     // peut avoir plusieurs lieux de tournage.
     private void mapLieuTournage(AdresseDTO adresseDTO, Film film) {
-        Adresse adresse = mapAdresse(adresseDTO);
-        film.addAdresse(adresse);
+            Adresse adresse = mapAdresse(adresseDTO);
+            film.addAdresse(adresse);
     }
 
     /**
@@ -105,6 +106,10 @@ public class DtoEntitesMapper {
      * @return objet entité Adresse
      */
     private Adresse mapAdresse(AdresseDTO adresseDTO) {
+        if (adresseDTO == null) {
+            return null;
+        }
+
         Adresse adresseExistante = getAdresseSiExiste(adresseDTO);
 
         if (adresseExistante != null) {
@@ -144,6 +149,10 @@ public class DtoEntitesMapper {
      * @param paysDTO pays extrait du JSON
      */
     private Pays mapPays(PaysDTO paysDTO) {
+        if (paysDTO == null) {
+            return null;
+        }
+
         Pays paysExistant = getPaysSiExiste(paysDTO);
 
         if (paysExistant != null) {
@@ -156,7 +165,13 @@ public class DtoEntitesMapper {
             return paysExistant;
         }
 
-        Pays nouveauPays = new Pays(paysDTO.getNom().trim(), paysDTO.getUrl().trim());
+        Pays nouveauPays = new Pays();
+        nouveauPays.setNom(paysDTO.getNom().trim());
+
+        if (paysDTO.getUrl() != null) {
+            nouveauPays.setUrl(paysDTO.getUrl().trim());
+        }
+
         this.listePays.add(nouveauPays);
         return nouveauPays;
     }
@@ -194,6 +209,11 @@ public class DtoEntitesMapper {
      * @return objet entité Genre
      */
     private Genre mapGenre(String genreDTO) {
+        if (genreDTO == null
+                || genreDTO.isEmpty()) {
+            return null;
+        }
+
         Genre genreExistant = getGenreSiExiste(genreDTO.trim());
 
         if(genreExistant != null) {
@@ -229,8 +249,6 @@ public class DtoEntitesMapper {
     private void mapRolesFilm(RoleDTO[] rolesDTO, Film film) {
         for (RoleDTO roleDTO: rolesDTO) {
             Role role = mapRole(roleDTO, film);
-            // Problème dans les assignations des éléments au sein des classes
-            // --> à discuter avec Johan
             film.addActeur(role, role.getActeur());
         }
     }
@@ -241,6 +259,10 @@ public class DtoEntitesMapper {
      * @return objet entité Role
      */
     private Role mapRole(RoleDTO roleDTO, Film film) {
+        if (roleDTO == null) {
+            return null;
+        }
+
         Role roleExistant = getRoleSiExiste(roleDTO);
 
         if (roleExistant != null) {
@@ -273,6 +295,10 @@ public class DtoEntitesMapper {
      * @return un objet entité Personne
      */
     private Personne mapPersonne(PersonneDTO personneDTO) {
+        if (personneDTO == null) {
+            return null;
+        }
+
         Personne personneExistante = getPersonneSiExiste(personneDTO);
 
         if (personneExistante != null) {
@@ -294,7 +320,10 @@ public class DtoEntitesMapper {
             return personneExistante;
         }
 
-        Personne personne = new Personne(personneDTO.getIdentite().trim(), LocalDate.parse(personneDTO.getNaissance().getDateNaissance().trim()), (float) personneDTO.getTaille(), parseLieuNaissance(personneDTO.getNaissance().getLieuNaissance().trim()));
+        Personne personne = new Personne(personneDTO.getIdentite().trim(),
+                parseDateNaissance(personneDTO.getNaissance().getDateNaissance().trim()),
+                (float) personneDTO.getTaille(),
+                parseLieuNaissance(personneDTO.getNaissance().getLieuNaissance().trim()));
 
         // Données JSON différentes entre un acteur et un réalisateur
         if (personneDTO.getId() != null) {
@@ -320,6 +349,20 @@ public class DtoEntitesMapper {
             }
         }
         return null;
+    }
+
+    private LocalDate parseDateNaissance(String dateNaissance) {
+        if (dateNaissance == null
+                || dateNaissance.isEmpty()) {
+            return null;
+        }
+
+        // Si le format est "yyyy-m-dd" --> transforme en "yyyy-mm-dd"
+        if(dateNaissance.length() == 9) {
+            dateNaissance = dateNaissance.substring(0, 5) + "0" + dateNaissance.substring(5, 9);
+        }
+
+        return LocalDate.parse(dateNaissance);
     }
 
     /**
@@ -365,7 +408,7 @@ public class DtoEntitesMapper {
      * @param film film
      */
     private void mapReal(PersonneDTO personneDTO, Film film) {
-//        return new Realisateur(mapPersonne(personneDTO), film, personneDTO.getUrl());
+//        return new Realisateur(mapPersonne(personneDTO), film, personneDTO.getUrl().trim());
     }
 
     /**
