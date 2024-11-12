@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +18,7 @@ public class QuerysMenu {
     /**
      * Ouverture du EntityManagerfactory
      */
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-tp-group");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("movies");
 
     /**
      * Methode de fermeture du EntityManagerfactory à appeler après utilisation des méthodes ci-dessous
@@ -61,7 +60,7 @@ public class QuerysMenu {
      */
     public static List<String> getCastingFilm(String filmNom) {
         EntityManager em = emf.createEntityManager();
-        //ici on fait un Set<> pour ne pas qu'il y est deux fois le nom d'un même acteur qui aurait 2 rôle dans un film
+        //ici on fait un Set<> pour ne pas qu'il y ait deux fois le nom d'un même acteur qui aurait 2 rôles dans un film
         Set<String> casting = new HashSet<>();
 
         try {
@@ -86,8 +85,8 @@ public class QuerysMenu {
      * Méthode pour récupérer les films sortis entre deux années données
      */
     public static List<String> getFilmsEntreDeuxAnnees(int anneeDebut, int anneeFin) {
-        LocalDate debutDate = LocalDate.of(anneeDebut, 1, 1);
-        LocalDate finDate = LocalDate.of(anneeFin, 12, 31);
+        String debutDate = String.valueOf(anneeDebut);
+        String finDate = String.valueOf(anneeFin);
 
         EntityManager em = emf.createEntityManager();
         List<String> filmsEntre = new ArrayList<>();
@@ -162,8 +161,8 @@ public class QuerysMenu {
      * Méthode pour récupérer les films sortis entre deux années et ayant un acteur donné
      */
     public static List<String> getFilmsEntreDeuxAnneesAvecActeur(int anneeDebut, int anneeFin, String acteurNom) {
-        LocalDate debutDate = LocalDate.of(anneeDebut, 1, 1);
-        LocalDate finDate = LocalDate.of(anneeFin, 12, 31);
+        String debutDate = String.valueOf(anneeDebut);
+        String finDate = String.valueOf(anneeFin);
 
         EntityManager em = emf.createEntityManager();
         List<String> filmsEntreAvec = new ArrayList<>();

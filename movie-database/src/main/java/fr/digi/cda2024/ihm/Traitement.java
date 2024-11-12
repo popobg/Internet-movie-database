@@ -1,6 +1,6 @@
 package fr.digi.cda2024.ihm;
 
-import fr.digi.cda2024.requetage.*;
+import fr.digi.cda2024.requetage.QuerysMenu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -96,14 +96,15 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> filmographieActeur = QuerysMenu.getFilmographieActeur(acteurNom);
         if (filmographieActeur.isEmpty()) {
-            System.out.println("Aucun film trouvé dans la base de données pour l'acteur "+acteurNom+".");
+            System.out.println("Aucun film trouvé dans la base de données pour l'acteur " + acteurNom + ".");
         } else {
             System.out.println("La filmographieActeur de " + acteurNom + " :");
             filmographieActeur.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
-
+        //Fermeture scanner ci-dessus
+        scannerFilmogarphieActeur.close();
     }
 
     /**
@@ -119,13 +120,15 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> castingFilm = QuerysMenu.getCastingFilm(filmNom);
         if (castingFilm.isEmpty()) {
-            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour le film "+filmNom+".");
+            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour le film " + filmNom + ".");
         } else {
             System.out.println("Le casting pour le film " + filmNom + " :");
             castingFilm.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
+        //Fermeture scanner ci-dessus
+        scannerCastingFilm.close();
 
     }
 
@@ -137,10 +140,14 @@ public class Traitement {
         int anneeDebut = 0;
         int anneeFin = 0;
 
+        //Scanner initaliser ici pour pouvoir les fermer
+        Scanner scannerfilmsEntreDeuxAnnees1;
+        Scanner scannerfilmsEntreDeuxAnnees2;
+
         while (true) {
             System.out.print("Entrez année de début : ");
             //Creation du scanner "Film Entre 2 Années 1" ou "FE2A1" utilisé pour taper une première année
-            Scanner scannerfilmsEntreDeuxAnnees1 = new Scanner(System.in);
+            scannerfilmsEntreDeuxAnnees1 = new Scanner(System.in);
 
             //Check si l'input est un intègre
             while (!scannerfilmsEntreDeuxAnnees1.hasNextInt()) {
@@ -152,7 +159,7 @@ public class Traitement {
 
             System.out.print("Entrez année de fin : ");
             //Creation du scanner "Film Entre 2 Années 2" ou "FE2A2" utilisé pour taper une seconde année
-            Scanner scannerfilmsEntreDeuxAnnees2 = new Scanner(System.in);
+            scannerfilmsEntreDeuxAnnees2 = new Scanner(System.in);
 
             //Check si l'input est un intègre
             while (!scannerfilmsEntreDeuxAnnees2.hasNextInt()) {
@@ -173,13 +180,16 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> filmsEntreDeuxAnnees = QuerysMenu.getFilmsEntreDeuxAnnees(anneeDebut, anneeFin);
         if (filmsEntreDeuxAnnees.isEmpty()) {
-            System.out.println("Aucun film trouvé dans la base de données pour entre les années "+anneeDebut+" et "+anneeFin+".");
+            System.out.println("Aucun film trouvé dans la base de données pour entre les années " + anneeDebut + " et " + anneeFin + ".");
         } else {
             System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
             filmsEntreDeuxAnnees.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
+        //Fermeture scanner ci-dessus
+        scannerfilmsEntreDeuxAnnees1.close();
+        scannerfilmsEntreDeuxAnnees2.close();
     }
 
     /**
@@ -200,13 +210,16 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> filmsCommunsPourDeuxActeurs = QuerysMenu.getFilmsCommunsPourDeuxActeurs(acteurNom1, acteurNom2);
         if (filmsCommunsPourDeuxActeurs.isEmpty()) {
-            System.out.println("Aucun film commun trouvé dans la base de données pour "+acteurNom1+"et "+acteurNom2+".");
+            System.out.println("Aucun film commun trouvé dans la base de données pour " + acteurNom1 + " et " + acteurNom2 + ".");
         } else {
             System.out.println("Les films communs à " + acteurNom1 + " et " + acteurNom2 + " :");
             filmsCommunsPourDeuxActeurs.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
+        //Fermeture scanner ci-dessus
+        scannerCommunsPourDeuxActeurs1.close();
+        scannerCommunsPourDeuxActeurs2.close();
     }
 
     /**
@@ -227,13 +240,16 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> acteursCommunsPourDeuxFilms = QuerysMenu.getActeursCommunsPourDeuxFilms(film1, film2);
         if (acteursCommunsPourDeuxFilms.isEmpty()) {
-            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour les films "+film1+"et "+film2+".");
+            System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour les films " + film1 + " et " + film2 + ".");
         } else {
-            System.out.println("Le casting en commun pour les films " + film1 + "et "+film2+" :");
+            System.out.println("Le casting en commun pour les films " + film1 + "et " + film2 + " :");
             acteursCommunsPourDeuxFilms.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
+        //Fermeture scanner ci-dessus
+        scannerActeursCommunsPourDeuxFilms1.close();
+        scannerActeursCommunsPourDeuxFilms2.close();
     }
 
     /**
@@ -249,10 +265,14 @@ public class Traitement {
         int anneeDebut = 0;
         int anneeFin = 0;
 
+        //Scanner initaliser ici pour pouvoir les fermer
+        Scanner scannerFilmEntreDeuxAnneesAvecActeur2;
+        Scanner scannerFilmEntreDeuxAnneesAvecActeur3;
+
         while (true) {
             System.out.print("Entrez année de début : ");
             //Creation du scanner "Film Entre 2 Années Avec Acteur 2" ou "FE2AAA2" utilisé pour taper une première année
-            Scanner scannerFilmEntreDeuxAnneesAvecActeur2 = new Scanner(System.in);
+            scannerFilmEntreDeuxAnneesAvecActeur2 = new Scanner(System.in);
 
             //Check si l'input est un intègre
             while (!scannerFilmEntreDeuxAnneesAvecActeur2.hasNextInt()) {
@@ -264,7 +284,7 @@ public class Traitement {
 
             System.out.print("Entrez année de fin : ");
             //Creation du scanner "Film Entre 2 Années Avec Acteur 3" ou "FE2AAA3" utilisé pour taper une deuxième année
-            Scanner scannerFilmEntreDeuxAnneesAvecActeur3 = new Scanner(System.in);
+            scannerFilmEntreDeuxAnneesAvecActeur3 = new Scanner(System.in);
 
             //Check si l'input est un intègre
             while (!scannerFilmEntreDeuxAnneesAvecActeur3.hasNextInt()) {
@@ -285,13 +305,17 @@ public class Traitement {
         //Requêtage et affichage des résultats
         List<String> filmsEntreDeuxAnneesAvecActeur = QuerysMenu.getFilmsEntreDeuxAnneesAvecActeur(anneeDebut, anneeFin, acteurNom);
         if (filmsEntreDeuxAnneesAvecActeur.isEmpty()) {
-            System.out.println("Aucun film trouvé dans la base de données pour "+acteurNom+" entre les années "+anneeDebut+"et "+anneeFin+".");
+            System.out.println("Aucun film trouvé dans la base de données pour " + acteurNom + " entre les années " + anneeDebut + " et " + anneeFin + ".");
         } else {
             System.out.println("\nLes films de " + acteurNom + " entre " + anneeDebut + " et " + anneeFin + " :");
             filmsEntreDeuxAnneesAvecActeur.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.close();
+        //Fermeture scanner ci-dessus
+        scannerFilmEntreDeuxAnneesAvecActeur1.close();
+        scannerFilmEntreDeuxAnneesAvecActeur2.close();
+        scannerFilmEntreDeuxAnneesAvecActeur3.close();
     }
 }
 
