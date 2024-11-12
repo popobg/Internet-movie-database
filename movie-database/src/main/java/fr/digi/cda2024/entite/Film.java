@@ -262,6 +262,7 @@ public class Film implements Serializable {
         adresses.remove(adresse);
     }
 
+
     /**
      * Ajoute une personne avec son role dans la liste des acteurs du film
      * @param role
