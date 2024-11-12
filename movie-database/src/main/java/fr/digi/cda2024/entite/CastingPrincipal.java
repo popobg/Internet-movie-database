@@ -15,7 +15,7 @@ public class CastingPrincipal implements Serializable {
     private CleDeuxFacteurs id;
 
     /** Liaison entre casting_principal et personne */
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne acteur;
@@ -36,7 +36,7 @@ public class CastingPrincipal implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personne personne
+     * @param personne acteur
      * @param film film
      * @param url url
      */

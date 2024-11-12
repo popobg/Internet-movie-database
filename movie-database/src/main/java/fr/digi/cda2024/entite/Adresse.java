@@ -28,26 +28,26 @@ public class Adresse implements Serializable {
      * Région de l'adresse.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "REGION", length = 50, nullable = false)
+    @Column(name = "REGION", length = 50)
     private String region;
 
     /**
      * Ville de l'adresse.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "VILLE", length = 50, nullable = false)
+    @Column(name = "VILLE", length = 50)
     private String ville;
 
     /** Pays de l'adresse */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
 
-    /** Listes des personnes nait a l'adresse */
+    /** Liste des personnes nées a l'adresse */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
 
-    /** Listes des adresses de tournage du film */
+    /** Listes des films tournant sur ce lieu */
     @ManyToMany
     @JoinTable(name = "filme_dans",
         joinColumns = @JoinColumn(name = "ID_FILM",referencedColumnName="ID"),
@@ -55,7 +55,7 @@ public class Adresse implements Serializable {
     )
     private Set<Film> films;
 
-    /** Attributs present dans tous les constructeurs */
+    // arguments présents dans tous les constructeurs
     {
         personnes = new HashSet<>();
         films = new HashSet<>();
@@ -67,7 +67,7 @@ public class Adresse implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param region region
+     * @param region région
      * @param ville ville
      * @param pays pays
      */
@@ -132,6 +132,14 @@ public class Adresse implements Serializable {
      */
     public Set<Film> getFilms() {
         return films;
+    }
+
+    /**
+     * Getter
+     * @return pays
+     */
+    public Pays getPays() {
+        return pays;
     }
 
     /**

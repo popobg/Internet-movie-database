@@ -50,7 +50,7 @@ public class Genre implements Serializable {
 
     /**
      * constructeur parametre
-     * @param nom
+     * @param nom nom du genre
      */
     public Genre( String nom) {
         this.nom = nom;

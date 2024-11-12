@@ -42,7 +42,7 @@ public class Film implements Serializable {
      * Langue du film.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "LANGUE", length = 50, nullable = false)
+    @Column(name = "LANGUE", length = 50)
     private String langue;
 
     /** Date de sortie du film */
@@ -56,32 +56,32 @@ public class Film implements Serializable {
     @Column(name = "URL", length = 50, unique = true)
     private String url;
 
-    /** Liste des films tourne a cette adresse */
-    @ManyToMany(mappedBy = "films")
+    /** Liste des lieux de tournage du film */
+    @ManyToMany(mappedBy = "films", cascade = CascadeType.PERSIST)
     private Set<Adresse> adresses;
 
     /** Liste des acteurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Role> acteurs;
 
     /** Liste des genres associés au film */
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films", cascade = CascadeType.PERSIST)
     private Set<Genre> genres;
 
     /** Nationalite du film */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
     /** Liste des realisateurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Realisateur> realisateurs;
 
     /** Liste du Casting principal dans le film */
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
-    /** Attributs present dans tous les constructeurs */
+    // Arguments toujours présents dans les constructeurs
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
@@ -301,8 +301,8 @@ public class Film implements Serializable {
     }
 
     /**
-     * Ajoute une personne au casting princiaple du film
-     * @param castingPrincipal casting princiaple
+     * Ajoute une personne au casting princiapl du film
+     * @param castingPrincipal casting principal
      * @param personne personne
      */
     public void addActeurCastingPrincipal(CastingPrincipal castingPrincipal,Personne personne) {

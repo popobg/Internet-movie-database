@@ -1,4 +1,4 @@
-package fr.digi.cda2024.executables;
+package fr.digi.cda2024.ihm;
 
 import fr.digi.cda2024.requetage.*;
 
