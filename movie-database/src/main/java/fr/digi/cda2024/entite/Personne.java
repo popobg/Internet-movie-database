@@ -176,8 +176,8 @@ public class Personne implements Serializable {
 
     /**
      * Ajoute un role et un film a une personne
-     * @param role
-     * @param film
+     * @param role role
+     * @param film film
      */
     public void addRole(Role role,Film film) {
         role.setActeur(this);
@@ -186,8 +186,8 @@ public class Personne implements Serializable {
 
     /**
      * Ajoute un role et un film a une personne
-     * @param castingPrincipal
-     * @param film
+     * @param castingPrincipal casting principal
+     * @param film film
      */
     public void addCastingPrincipal(CastingPrincipal castingPrincipal,Film film) {
         castingPrincipal.setActeur(this);
@@ -196,8 +196,8 @@ public class Personne implements Serializable {
 
     /**
      * Ajoute un role et un film a une personne
-     * @param realisateur
-     * @param film
+     * @param realisateur realisateur
+     * @param film film
      */
     public void addRealisateur(Realisateur realisateur,Film film) {
         realisateur.setRealisateur(this);

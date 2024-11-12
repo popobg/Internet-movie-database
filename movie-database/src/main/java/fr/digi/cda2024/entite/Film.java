@@ -56,15 +56,15 @@ public class Film implements Serializable {
     @Column(name = "URL", length = 50, unique = true)
     private String url;
 
-    /** Nombre de films tourne a cette adresse */
+    /** Liste des films tourne a cette adresse */
     @ManyToMany(mappedBy = "films")
     private Set<Adresse> adresses;
 
-    /** Listes des acteurs dans le film */
+    /** Liste des acteurs dans le film */
     @OneToMany(mappedBy = "film")
     private Set<Role> acteurs;
 
-    /** Ensemble de genre associé au film */
+    /** Liste des genres associés au film */
     @ManyToMany(mappedBy = "films")
     private Set<Genre> genres;
 
@@ -73,7 +73,7 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Listes des realisateurs dans le film */
+    /** Liste des realisateurs dans le film */
     @OneToMany(mappedBy = "film")
     private Set<Realisateur> realisateurs;
 
@@ -240,7 +240,7 @@ public class Film implements Serializable {
 
     /**
      * Ajoute une adresse de tournage au film
-     * @param adresse
+     * @param adresse adresse
      */
     public void addAdresse(Adresse adresse) {
         if (adresse != null) {
@@ -251,7 +251,7 @@ public class Film implements Serializable {
 
     /**
      * Supprime une adresse de tournage au film
-     * @param adresse
+     * @param adresse adresse
      */
     public void removeAdresse(Adresse adresse) {
         if (adresse != null) {
@@ -262,17 +262,26 @@ public class Film implements Serializable {
 
     /**
      * Ajoute une personne avec son role dans la liste des acteurs du film
-     * @param role
-     * @param personne
+     * @param role role
+     * @param personne personne
      */
     public void addActeur(Role role,Personne personne) {
         personne.addRole(role, this);
     }
 
     /**
+     * Ajoute une personne avec son role dans la liste des acteurs du film
+     * @param realisateur realisateur
+     * @param personne personne
+     */
+    public void addRealisateur(Realisateur realisateur,Personne personne) {
+        personne.addRealisateur(realisateur, this);
+    }
+
+    /**
      * Ajoute une personne au casting princiaple du film
-     * @param castingPrincipal
-     * @param personne
+     * @param castingPrincipal casting princiaple
+     * @param personne personne
      */
     public void addActeurCastingPrincipal(CastingPrincipal castingPrincipal,Personne personne) {
         personne.addCastingPrincipal(castingPrincipal, this);
@@ -280,7 +289,7 @@ public class Film implements Serializable {
 
     /**
      * Ajoute un genre au film
-     * @param genre
+     * @param genre genre
      */
     public void addGenre(Genre genre) {
         if (genre != null) {
@@ -291,7 +300,7 @@ public class Film implements Serializable {
 
     /**
      * Supprime un genre du film
-     * @param genre
+     * @param genre genre
      */
     public void removeGenre(Genre genre) {
         if (genre != null) {
@@ -302,7 +311,7 @@ public class Film implements Serializable {
 
     /**
      * Set la valeur du pays du film
-     * @param pays
+     * @param pays pays
      */
     public void setPays(Pays pays) {
         if (this.pays != null) {
@@ -314,9 +323,7 @@ public class Film implements Serializable {
         }
     }
 
-    /**
-     * Methode equals permet de verifier l'egalite entre differente instance
-     */
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

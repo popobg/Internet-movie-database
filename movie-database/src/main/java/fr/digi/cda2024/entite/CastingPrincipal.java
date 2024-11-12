@@ -36,9 +36,9 @@ public class CastingPrincipal implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personne
-     * @param film
-     * @param url
+     * @param personne personne
+     * @param film film
+     * @param url url
      */
     public CastingPrincipal(Personne personne, Film film, String url) {
         this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
@@ -64,7 +64,7 @@ public class CastingPrincipal implements Serializable {
 
     /**
      * Fonction pour associer un acteur et son role
-     * @param acteur
+     * @param acteur acteur
      */
     public void setActeur(Personne acteur) {
         if (this.acteur != null) {
@@ -77,8 +77,8 @@ public class CastingPrincipal implements Serializable {
     }
 
     /**
-     * Fonction pour associer un film et un role
-     * @param film
+     * Fonction pour associer un film et un casting principale
+     * @param film film
      */
     public void setFilm(Film film) {
         if (this.film != null) {

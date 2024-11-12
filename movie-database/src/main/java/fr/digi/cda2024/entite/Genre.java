@@ -3,7 +3,6 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Set;
 
@@ -78,8 +77,8 @@ public class Genre implements Serializable {
     }
 
     /**
-     * Ajoute un film qui a ce genre
-     * @param film
+     * Ajoute un lien entre un film et ce genre
+     * @param film film
      */
     public void addFilm(Film film) {
         if (film != null) {
@@ -88,8 +87,8 @@ public class Genre implements Serializable {
     }
 
     /**
-     * Supprime un film qui a ce genre
-     * @param film
+     * Supprime le lien entre un film et ce genre
+     * @param film film
      */
     public void removeFilm(Film film) {
         if (film != null) {
