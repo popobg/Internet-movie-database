@@ -95,6 +95,26 @@ public class Film implements Serializable {
     }
 
     /**
+     * constructeur parametre
+     * @param url
+     * @param id
+     * @param nom
+     * @param resume
+     * @param langue
+     * @param anneeSortie
+     * @param pays
+     */
+    public Film(String url, String id, String nom, String resume, String langue, String anneeSortie, Pays pays) {
+        this.url = url;
+        this.id = id;
+        this.nom = nom;
+        this.resume = resume;
+        this.langue = langue;
+        this.anneeSortie = anneeSortie;
+        this.pays = pays;
+    }
+
+    /**
      * Getter
      * @return l'identifiant unique du film.
      */
