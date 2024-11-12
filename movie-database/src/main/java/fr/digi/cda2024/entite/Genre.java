@@ -28,7 +28,7 @@ public class Genre implements Serializable {
      * Nom du genre.
      * Ce champ est obligatoire, unique, et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "NOM", length = 50, nullable = false, unique = true)
+    @Column(name = "NOM")
     private String nom;
 
     /** Ensemble des films associé au genre */

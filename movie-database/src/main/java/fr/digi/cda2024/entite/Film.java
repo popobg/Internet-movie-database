@@ -28,21 +28,21 @@ public class Film implements Serializable {
      * Nom du film.
      * Ce champ est obligatoire, unique, et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "NOM", length = 50, nullable = false, unique = true)
+    @Column(name = "NOM")
     private String nom;
 
     /**
      * Résumé du film.
      * Longueur maximale de 1000 caractères.
      */
-    @Column(name = "RESUME", length = 1000)
+    @Column(name = "RESUME")
     private String resume;
 
     /**
      * Langue du film.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "LANGUE", length = 50)
+    @Column(name = "LANGUE")
     private String langue;
 
     /** Date de sortie du film */
@@ -53,7 +53,7 @@ public class Film implements Serializable {
      * URL associée au film.
      * Ce champ est unique et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "URL", length = 50, unique = true)
+    @Column(name = "URL", unique = true)
     private String url;
 
     /** Liste des lieux de tournage du film */
