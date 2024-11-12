@@ -7,7 +7,9 @@ import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Classe d'appel des méthodes de query
@@ -59,7 +61,8 @@ public class QuerysMenu {
      */
     public static List<String> getCastingFilm(String filmNom) {
         EntityManager em = emf.createEntityManager();
-        List<String> casting = null;
+        //ici on fait un Set<> pour ne pas qu'il y est deux fois le nom d'un même acteur qui aurait 2 rôle dans un film
+        Set<String> casting = new HashSet<>();
 
         try {
             TypedQuery<String> query = em.createQuery(
@@ -69,11 +72,14 @@ public class QuerysMenu {
                             "JOIN Film f ON f = r.film " +
                             "WHERE f.nom = :nomFilm", String.class);
             query.setParameter("nomFilm", filmNom);
-            casting = query.getResultList();
+
+            List<String> resultList = query.getResultList();
+            casting.addAll(resultList);
+
         } finally {
             em.close();
         }
-        return casting;
+        return new ArrayList<>((casting));
     }
 
     /**
@@ -97,6 +103,8 @@ public class QuerysMenu {
         } finally {
             em.close();
         }
+
+
         return filmsEntre;
     }
 
