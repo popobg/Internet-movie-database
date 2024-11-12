@@ -41,25 +41,19 @@ public class Personne implements Serializable {
     private Adresse adresse;
 
     /** Liste des films ou la personne a etait acteur/actrice */
-    @OneToMany(mappedBy = "acteur")
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<Role> roles;
 
-    /** Films lie au realisateur */
-    @ManyToMany
-    @JoinTable(
-            name = "realise",
-            joinColumns = @JoinColumn(name = "ID_PERSONNE", referencedColumnName="ID"),
-            inverseJoinColumns = @JoinColumn(name = "ID_FILM", referencedColumnName="ID")
-    )
-    private Set<Film> filmsRealise;
-
-
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
-    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
+    private Set<CastingPrincipal> castingsPrincipaux;
+
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
+    private Set<Realisateur> realisateurs;
 
     {
         roles = new HashSet<>();
-        filmsRealise = new HashSet<>();
+        castingsPrincipaux = new HashSet<>();
+        realisateurs = new HashSet<>();
     }
 
     /** Constructeur vide*/
@@ -156,6 +150,14 @@ public class Personne implements Serializable {
     }
 
     /**
+     * Getter
+     * @return roles
+     */
+    public Set<Realisateur> getRealisateur() {
+        return realisateurs;
+    }
+
+    /**
      * Setter
      * @param adresse adresse
      */
@@ -190,25 +192,13 @@ public class Personne implements Serializable {
     }
 
     /**
-     * rajoute un film realise par la personne
+     * Ajoute un role et un film a une personne
+     * @param realisateur
      * @param film
      */
-    public void addFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().add(this);
-        }
-        filmsRealise.add(film);
-    }
-
-    /**
-     * supprime un film realise par la personne
-     * @param film
-     */
-    public void removeFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().remove(this);
-        }
-        filmsRealise.remove(film);
+    public void addRealisateur(Realisateur realisateur,Film film) {
+        realisateur.setRealisateur(this);
+        realisateur.setFilm(film);
     }
 
     /**

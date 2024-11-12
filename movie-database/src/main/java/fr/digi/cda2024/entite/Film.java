@@ -73,12 +73,11 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Realisateur associe au film */
-    @ManyToMany(mappedBy = "filmsRealise")
-    private Set<Personne> realisateurs;
+    /** Listes des realisateurs dans le film */
+    @OneToMany(mappedBy = "film")
+    private Set<Realisateur> realisateurs;
 
-
-
+    /** Liste du Casting principal dans le film */
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
@@ -207,6 +206,10 @@ public class Film implements Serializable {
         return acteurs;
     }
 
+    /**
+     * Getter
+     * @return castingsPrincipaux
+     */
     public Set<CastingPrincipal> getCastingsPrincipaux() {
         return castingsPrincipaux;
     }
@@ -231,15 +234,9 @@ public class Film implements Serializable {
      * Getter
      * @return realisateurs
      */
-    public Set<Personne> getRealisateurs() {
+    public Set<Realisateur> getRealisateurs() {
         return realisateurs;
     }
-
-    /**
-     * Getter
-     * @return castingPrincipale
-     */
-
 
     /**
      * Ajoute une adresse de tournage au film
@@ -262,7 +259,6 @@ public class Film implements Serializable {
         }
         adresses.remove(adresse);
     }
-
 
     /**
      * Ajoute une personne avec son role dans la liste des acteurs du film
