@@ -5,14 +5,14 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
-/** Sert a creer la cle primaire de la classe CastingPrincipal */
+/** Sert a creer la cle primaire des classes CastingPrincipal et Realisateur */
 @Embeddable
 public class CleDeuxFacteurs implements Serializable{
 
-    /** Cle permettant la liaison entre casting_principal et personne */
+    /** Cle permettant la liaison entre la table donne et personne */
     private String facteur1;
 
-    /** Cle permettant la liaison entre casting_principal et film */
+    /** Cle permettant la liaison entre la table donne et film */
     private String facteur2;
 
     /** Constructeur vide */

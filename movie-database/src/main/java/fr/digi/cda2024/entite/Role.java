@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 /**
- * Table de jointure entre film et personne
+ * Table de jointure entre film et personne contenant les roles du film
  */
 @Entity
 @Table(name = "role")
