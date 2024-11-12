@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 /**
- * Table de jointure entre film et personne
+ * Table de jointure entre film et personne contenant les roles du film
  */
 @Entity
 @Table(name = "role")
@@ -125,10 +125,7 @@ public class Role {
         }
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
-
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,18 +133,13 @@ public class Role {
         return Objects.equals(id, role.id) && Objects.equals(acteur, role.acteur) && Objects.equals(film, role.film) && Objects.equals(url, role.url);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, acteur, film, url);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Role{");

@@ -20,6 +20,7 @@ public class Adresse implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -54,7 +55,7 @@ public class Adresse implements Serializable {
     )
     private Set<Film> films;
 
-    /** Attribut present dans tout les constructeurs */
+    /** Attributs present dans tous les constructeurs */
     {
         personnes = new HashSet<>();
         films = new HashSet<>();
@@ -164,9 +165,8 @@ public class Adresse implements Serializable {
     }
 
     /**
-     * methode equals permet de verifier l'egalite entre differente instance
+     * Methode equals permet de verifier l'egalite entre differente instance
      */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,7 +175,7 @@ public class Adresse implements Serializable {
     }
 
     /**
-     * methode hashcode
+     * Methode hashcode
      */
     @Override
     public int hashCode() {
@@ -183,9 +183,8 @@ public class Adresse implements Serializable {
     }
 
     /**
-     * methode d'affichage
+     * Methode d'affichage
      */
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Adresse{");

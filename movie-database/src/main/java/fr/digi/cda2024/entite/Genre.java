@@ -21,6 +21,7 @@ public class Genre implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Integer id;
 
     /**
@@ -77,7 +78,7 @@ public class Genre implements Serializable {
     }
 
     /**
-     * rajoute un film qui a ce genre
+     * Ajoute un film qui a ce genre
      * @param film
      */
     public void addFilm(Film film) {
@@ -87,7 +88,7 @@ public class Genre implements Serializable {
     }
 
     /**
-     * supprime un film qui a ce genre
+     * Supprime un film qui a ce genre
      * @param film
      */
     public void removeFilm(Film film) {
@@ -96,10 +97,7 @@ public class Genre implements Serializable {
         }
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
-
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,18 +105,13 @@ public class Genre implements Serializable {
         return Objects.equals(id, genre.id) && Objects.equals(nom, genre.nom);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, nom);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Genre{");

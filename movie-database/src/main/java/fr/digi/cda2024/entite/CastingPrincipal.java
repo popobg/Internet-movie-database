@@ -3,10 +3,14 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Table de jointure entre film et personne contenant les castings principaux du film
+ */
 @Entity
 @Table(name = "casting_principal")
 public class CastingPrincipal implements Serializable {
 
+    /** Id issu de la classe CleDeuxFacteurs */
     @EmbeddedId
     private CleDeuxFacteurs id;
 
@@ -41,10 +45,19 @@ public class CastingPrincipal implements Serializable {
         this.url = url;
         personne.addCastingPrincipal(this, film);
     }
+
+    /**
+     * Getter
+     * @return acteur
+     */
     public Personne getActeur() {
         return acteur;
     }
 
+    /**
+     * Getter
+     * @return film
+     */
     public Film getFilm() {
         return film;
     }
