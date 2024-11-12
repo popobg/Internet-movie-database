@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -162,4 +163,37 @@ public class Adresse implements Serializable {
         film.removeAdresse(this);
     }
 
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Adresse adresse)) return false;
+        return Objects.equals(id, adresse.id) && Objects.equals(region, adresse.region) && Objects.equals(ville, adresse.ville) && Objects.equals(pays, adresse.pays);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, region, ville, pays);
+    }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Adresse{");
+        sb.append("id=").append(id);
+        sb.append(", region='").append(region).append('\'');
+        sb.append(", ville='").append(ville).append('\'');
+        sb.append(", pays=").append(pays);
+        sb.append("}\n");
+        return sb.toString();
+    }
 }

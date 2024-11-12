@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public class Personne implements Serializable {
 
     /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
-    private float taille;
+    private Float taille;
 
     /** Adresse de la personne */
     @ManyToOne
@@ -40,29 +41,24 @@ public class Personne implements Serializable {
     private Adresse adresse;
 
     /** Liste des films ou la personne a etait acteur/actrice */
-    @OneToMany(mappedBy = "acteur")
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<Role> roles;
 
-    /** Films lie au realisateur */
-    @ManyToMany
-    @JoinTable(
-            name = "realise",
-            joinColumns = @JoinColumn(name = "ID_PERSONNE", referencedColumnName="ID"),
-            inverseJoinColumns = @JoinColumn(name = "ID_FILM", referencedColumnName="ID")
-    )
-    private Set<Film> filmsRealise;
-
-
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
-    private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
+    private Set<CastingPrincipal> castingsPrincipaux;
+
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
+    private Set<Realisateur> realisateurs;
 
     {
         roles = new HashSet<>();
-        filmsRealise = new HashSet<>();
+        castingsPrincipaux = new HashSet<>();
+        realisateurs = new HashSet<>();
     }
 
     /** Constructeur vide*/
     public Personne() {
+
     }
 
     /** Constructeur paremetre */
@@ -154,6 +150,14 @@ public class Personne implements Serializable {
     }
 
     /**
+     * Getter
+     * @return roles
+     */
+    public Set<Realisateur> getRealisateur() {
+        return realisateurs;
+    }
+
+    /**
      * Setter
      * @param adresse adresse
      */
@@ -188,25 +192,48 @@ public class Personne implements Serializable {
     }
 
     /**
-     * rajoute un film realise par la personne
+     * Ajoute un role et un film a une personne
+     * @param realisateur
      * @param film
      */
-    public void addFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().add(this);
-        }
-        filmsRealise.add(film);
+    public void addRealisateur(Realisateur realisateur,Film film) {
+        realisateur.setRealisateur(this);
+        realisateur.setFilm(film);
     }
 
     /**
-     * supprime un film realise par la personne
-     * @param film
+     * methode equals permet de verifier l'egalite entre differente instance
      */
-    public void removeFilmRealise(Film film) {
-        if (film != null) {
-            film.getRealisateurs().remove(this);
-        }
-        filmsRealise.remove(film);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Personne personne)) return false;
+        return Float.compare(taille, personne.taille) == 0 && Objects.equals(id, personne.id) && Objects.equals(identite, personne.identite) && Objects.equals(dateNaissance, personne.dateNaissance) && Objects.equals(adresse, personne.adresse);
     }
 
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, identite, dateNaissance, taille, adresse);
+    }
+
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Personne{");
+        sb.append("adresse=").append(adresse);
+        sb.append(", taille=").append(taille);
+        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append("}\n");
+        return sb.toString();
+    }
 }
