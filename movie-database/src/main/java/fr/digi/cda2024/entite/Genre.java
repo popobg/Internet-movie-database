@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,6 +21,7 @@ public class Genre implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Integer id;
 
     /**
@@ -76,7 +78,7 @@ public class Genre implements Serializable {
     }
 
     /**
-     * rajoute un film qui a ce genre
+     * Ajoute un film qui a ce genre
      * @param film
      */
     public void addFilm(Film film) {
@@ -86,12 +88,37 @@ public class Genre implements Serializable {
     }
 
     /**
-     * supprime un film qui a ce genre
+     * Supprime un film qui a ce genre
      * @param film
      */
     public void removeFilm(Film film) {
         if (film != null) {
             film.removeGenre(this);
         }
+    }
+
+    /** Methode equals permet de verifier l'egalite entre differente instance */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Genre genre)) return false;
+        return Objects.equals(id, genre.id) && Objects.equals(nom, genre.nom);
+    }
+
+    /** Methode hashcode */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom);
+    }
+
+    /** Methode d'affichage */
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Genre{");
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", films=").append(films);
+        sb.append("}\n");
+        return sb.toString();
     }
 }

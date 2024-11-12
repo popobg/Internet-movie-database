@@ -4,23 +4,23 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 /**
- * Table de jointure entre film et personne contenant les castings principaux du film
+ * Table de jointure entre film et personne contenant les realisateurs du film
  */
 @Entity
-@Table(name = "casting_principal")
-public class CastingPrincipal implements Serializable {
+@Table(name = "realisateur")
+public class Realisateur implements Serializable {
 
     /** Id issu de la classe CleDeuxFacteurs */
     @EmbeddedId
     private CleDeuxFacteurs id;
 
-    /** Liaison entre casting_principal et personne */
+    /** Liaison entre realisateur et personne */
     @ManyToOne
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
-    private Personne acteur;
+    private Personne realisateur;
 
-    /** Liaison entre casting_principal et film */
+    /** Liaison entre realisateur et film */
     @ManyToOne
     @MapsId("facteur2")
     @JoinColumn(name = "ID_FILM")
@@ -31,7 +31,7 @@ public class CastingPrincipal implements Serializable {
     private String url;
 
     /** Constructeur vide */
-    public CastingPrincipal() {
+    public Realisateur() {
     }
 
     /**
@@ -40,18 +40,18 @@ public class CastingPrincipal implements Serializable {
      * @param film
      * @param url
      */
-    public CastingPrincipal(Personne personne, Film film, String url) {
+    public Realisateur(Personne personne, Film film, String url) {
         this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
         this.url = url;
-        personne.addCastingPrincipal(this, film);
+        personne.addRealisateur(this, film);
     }
 
     /**
      * Getter
-     * @return acteur
+     * @return realisateur
      */
-    public Personne getActeur() {
-        return acteur;
+    public Personne getRealisateur() {
+        return realisateur;
     }
 
     /**
@@ -63,21 +63,21 @@ public class CastingPrincipal implements Serializable {
     }
 
     /**
-     * Fonction pour associer un acteur et son role
-     * @param acteur
+     * Fonction pour associer un realisateur et sa table realiseteur
+     * @param realisateur
      */
-    public void setActeur(Personne acteur) {
-        if (this.acteur != null) {
-            this.acteur.getCastingPrincipal().remove(this);
+    public void setRealisateur(Personne realisateur) {
+        if (this.realisateur != null) {
+            this.realisateur.getRealisateur().remove(this);
         }
-        this.acteur = acteur;
-        if (this.acteur != null) {
-            this.acteur.getCastingPrincipal().add(this);
+        this.realisateur = realisateur;
+        if (this.realisateur != null) {
+            this.realisateur.getRealisateur().add(this);
         }
     }
 
     /**
-     * Fonction pour associer un film et un role
+     * Fonction pour associer un film et sa table realisateur
      * @param film
      */
     public void setFilm(Film film) {
@@ -86,8 +86,7 @@ public class CastingPrincipal implements Serializable {
         }
         this.film = film;
         if (this.film != null) {
-            this.film.getCastingsPrincipaux().add(this);
+            this.film.getRealisateurs().add(this);
         }
     }
-
 }

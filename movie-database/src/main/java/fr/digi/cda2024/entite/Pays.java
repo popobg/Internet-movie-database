@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,6 +21,7 @@ public class Pays implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Integer id;
 
     /**
@@ -44,7 +46,7 @@ public class Pays implements Serializable {
     @OneToMany(mappedBy = "pays")
     private Set<Film> films;
 
-    /** Argument present dans tous les constructeurs */
+    /** Attributs present dans tous les constructeurs */
     {
         adresses = new HashSet<>();
         films = new HashSet<>();
@@ -62,10 +64,8 @@ public class Pays implements Serializable {
 
     /**
      * Getter
-     *
      * @return films
      */
-
     public Set<Film> getFilms() {
         return films;
     }
@@ -119,7 +119,7 @@ public class Pays implements Serializable {
     }
 
     /**
-     *rajoute l'adresse dans la listes des adresses disponible dans le pays
+     * Ajoute l'adresse dans la listes des adresses disponible dans le pays
      * @param adresse adresses
      */
     public void addAdresses(Adresse adresse) {
@@ -127,11 +127,36 @@ public class Pays implements Serializable {
     }
 
     /**
-     *     rajoute un film dans la listes tourné dans le pays
+     * Ajoute un film dans la listes tourné dans le pays
      */
     public void addFilm(Film film) {
         film.setPays(this);
     }
 
+    /**
+     * Methode equals permet de verifier l'egalite entre differente instance
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pays pays)) return false;
+        return Objects.equals(id, pays.id) && Objects.equals(nom, pays.nom) && Objects.equals(url, pays.url);
+    }
 
+    /** Methode hashcode */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, url);
+    }
+
+    /** Methode d'affichage */
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Pays{");
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append("}\n");
+        return sb.toString();
+    }
 }

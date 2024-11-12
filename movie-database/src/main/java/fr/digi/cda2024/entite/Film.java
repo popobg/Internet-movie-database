@@ -3,8 +3,8 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -21,6 +21,7 @@ public class Film implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     private String id;
 
     /**
@@ -46,7 +47,7 @@ public class Film implements Serializable {
 
     /** Date de sortie du film */
     @Column(name = "ANNEE_SORTIE")
-    private LocalDate anneeSortie;
+    private String anneeSortie;
 
     /**
      * URL associée au film.
@@ -72,16 +73,15 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Realisateur associe au film */
-    @ManyToMany(mappedBy = "filmsRealise")
-    private Set<Personne> realisateurs;
+    /** Listes des realisateurs dans le film */
+    @OneToMany(mappedBy = "film")
+    private Set<Realisateur> realisateurs;
 
-
-
+    /** Liste du Casting principal dans le film */
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
-    /** Argument toujours present dans les constructeurs */
+    /** Attributs present dans tous les constructeurs */
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
@@ -162,7 +162,7 @@ public class Film implements Serializable {
      * Getter
      * @return la date de sortie du film.
      */
-    public LocalDate getAnneeSortie() {
+    public String getAnneeSortie() {
         return anneeSortie;
     }
 
@@ -170,7 +170,7 @@ public class Film implements Serializable {
      * Setter
      * @param anneeSortie la date de sortie à définir pour le film.
      */
-    public void setAnneeSortie(LocalDate anneeSortie) {
+    public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 
@@ -206,6 +206,10 @@ public class Film implements Serializable {
         return acteurs;
     }
 
+    /**
+     * Getter
+     * @return castingsPrincipaux
+     */
     public Set<CastingPrincipal> getCastingsPrincipaux() {
         return castingsPrincipaux;
     }
@@ -230,15 +234,9 @@ public class Film implements Serializable {
      * Getter
      * @return realisateurs
      */
-    public Set<Personne> getRealisateurs() {
+    public Set<Realisateur> getRealisateurs() {
         return realisateurs;
     }
-
-    /**
-     * Getter
-     * @return castingPrincipale
-     */
-
 
     /**
      * Ajoute une adresse de tournage au film
@@ -303,7 +301,7 @@ public class Film implements Serializable {
     }
 
     /**
-     * set la valeur du pays du film
+     * Set la valeur du pays du film
      * @param pays
      */
     public void setPays(Pays pays) {
@@ -314,5 +312,36 @@ public class Film implements Serializable {
         if (this.pays != null) {
             this.pays.getFilms().add(this);
         }
+    }
+
+    /**
+     * Methode equals permet de verifier l'egalite entre differente instance
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Film film)) return false;
+        return Objects.equals(id, film.id) && Objects.equals(nom, film.nom) && Objects.equals(resume, film.resume) && Objects.equals(langue, film.langue) && Objects.equals(anneeSortie, film.anneeSortie) && Objects.equals(url, film.url) && Objects.equals(pays, film.pays);
+    }
+
+    /** Methode hashcode */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
+    }
+
+    /** Methode d'affichage */
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Film{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", resume='").append(resume).append('\'');
+        sb.append(", langue='").append(langue).append('\'');
+        sb.append(", anneeSortie=").append(anneeSortie);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", pays=").append(pays);
+        sb.append("}\n");
+        return sb.toString();
     }
 }
