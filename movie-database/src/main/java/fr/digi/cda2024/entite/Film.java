@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -315,5 +316,38 @@ public class Film implements Serializable {
         if (this.pays != null) {
             this.pays.getFilms().add(this);
         }
+    }
+
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Film film)) return false;
+        return Objects.equals(id, film.id) && Objects.equals(nom, film.nom) && Objects.equals(resume, film.resume) && Objects.equals(langue, film.langue) && Objects.equals(anneeSortie, film.anneeSortie) && Objects.equals(url, film.url) && Objects.equals(pays, film.pays);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Film{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", resume='").append(resume).append('\'');
+        sb.append(", langue='").append(langue).append('\'');
+        sb.append(", anneeSortie=").append(anneeSortie);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", pays=").append(pays);
+        sb.append("}\n");
+        return sb.toString();
     }
 }

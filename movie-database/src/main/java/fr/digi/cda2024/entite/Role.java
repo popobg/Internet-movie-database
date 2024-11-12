@@ -2,6 +2,8 @@ package fr.digi.cda2024.entite;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 /**
  * Table de jointure entre film et personne
  */
@@ -123,4 +125,33 @@ public class Role {
         }
     }
 
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role role)) return false;
+        return Objects.equals(id, role.id) && Objects.equals(acteur, role.acteur) && Objects.equals(film, role.film) && Objects.equals(url, role.url);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, acteur, film, url);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Role{");
+        sb.append("id=").append(id);
+        sb.append(", acteur=").append(acteur);
+        sb.append(", film=").append(film);
+        sb.append(", url='").append(url).append('\'');
+        sb.append("}\n");
+        return sb.toString();
+    }
 }

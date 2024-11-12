@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -133,5 +134,32 @@ public class Pays implements Serializable {
         film.setPays(this);
     }
 
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pays pays)) return false;
+        return Objects.equals(id, pays.id) && Objects.equals(nom, pays.nom) && Objects.equals(url, pays.url);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, url);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Pays{");
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append("}\n");
+        return sb.toString();
+    }
 }

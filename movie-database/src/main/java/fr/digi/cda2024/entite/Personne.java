@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -63,6 +64,7 @@ public class Personne implements Serializable {
 
     /** Constructeur vide*/
     public Personne() {
+
     }
 
     /** Constructeur paremetre */
@@ -209,4 +211,34 @@ public class Personne implements Serializable {
         filmsRealise.remove(film);
     }
 
+    /**
+     * methode equals permet de verifier l'egalite entre differente instance
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Personne personne)) return false;
+        return Float.compare(taille, personne.taille) == 0 && Objects.equals(id, personne.id) && Objects.equals(identite, personne.identite) && Objects.equals(dateNaissance, personne.dateNaissance) && Objects.equals(adresse, personne.adresse);
+    }
+
+    /**
+     * methode hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, identite, dateNaissance, taille, adresse);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Personne{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append(", taille=").append(taille);
+        sb.append(", adresse=").append(adresse);
+        sb.append("}\n");
+        return sb.toString();
+    }
 }

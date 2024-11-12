@@ -77,4 +77,5 @@ public class CastingPrincipal implements Serializable {
             this.film.getCastingsPrincipaux().add(this);
         }
     }
+
 }
