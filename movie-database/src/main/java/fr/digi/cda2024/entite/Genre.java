@@ -21,6 +21,7 @@ public class Genre implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Integer id;
 
     /**
@@ -39,19 +40,19 @@ public class Genre implements Serializable {
     )
     private Set<Film> films;
 
+
     {
         films = new HashSet<>();
     }
-
     /** Constructeur vide */
     public Genre() {
     }
 
     /**
-     * Constructeur arguments
+     * constructeur parametre
      * @param nom nom du genre
      */
-    public Genre(String nom) {
+    public Genre( String nom) {
         this.nom = nom;
     }
 
@@ -88,8 +89,8 @@ public class Genre implements Serializable {
     }
 
     /**
-     * rajoute un film qui a ce genre
-     * @param film
+     * Ajoute un lien entre un film et ce genre
+     * @param film film
      */
     public void addFilm(Film film) {
         if (film != null) {
@@ -98,8 +99,8 @@ public class Genre implements Serializable {
     }
 
     /**
-     * supprime un film qui a ce genre
-     * @param film
+     * Supprime le lien entre un film et ce genre
+     * @param film film
      */
     public void removeFilm(Film film) {
         if (film != null) {
@@ -107,10 +108,7 @@ public class Genre implements Serializable {
         }
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
-
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,18 +116,13 @@ public class Genre implements Serializable {
         return Objects.equals(id, genre.id) && Objects.equals(nom, genre.nom);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, nom);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Genre{");

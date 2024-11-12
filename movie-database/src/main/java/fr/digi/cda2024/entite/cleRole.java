@@ -32,9 +32,9 @@ public class cleRole implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personneId identifiant d'une personne
-     * @param filmId identifiant d'un film
-     * @param nomRole nom du personnage
+     * @param personneId Id d'une personne
+     * @param filmId Id d'un film
+     * @param nomRole nom d'un role
      */
     public cleRole(String personneId, String filmId, String nomRole) {
         this.personneId = personneId;
@@ -90,10 +90,7 @@ public class cleRole implements Serializable {
         this.nomRole = nomRole;
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
-
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,18 +98,13 @@ public class cleRole implements Serializable {
         return Objects.equals(personneId, cleRole.personneId) && Objects.equals(filmId, cleRole.filmId) && Objects.equals(nomRole, cleRole.nomRole);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(personneId, filmId, nomRole);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("cleRole{");

@@ -20,6 +20,7 @@ public class Adresse implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -42,7 +43,7 @@ public class Adresse implements Serializable {
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
 
-    /** Liste des personnes présentes a l'adresse */
+    /** Liste des personnes nées a l'adresse */
     @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
     private Set<Personne> personnes;
 
@@ -157,7 +158,7 @@ public class Adresse implements Serializable {
 
     /**
      * Ajoute un film dans la liste des films tourne a cette adresse
-     * @param film film à ajouter
+     * @param film film
      */
     public void addFilm(Film film) {
         film.addAdresse(this);
@@ -165,16 +166,13 @@ public class Adresse implements Serializable {
 
     /**
      * Supprime un film dans la liste des films tourne a cette adresse
-     * @param film film à retirer
+     * @param film film
      */
     public void removeFilm(Film film) {
         film.removeAdresse(this);
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
-
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -182,18 +180,13 @@ public class Adresse implements Serializable {
         return Objects.equals(id, adresse.id) && Objects.equals(region, adresse.region) && Objects.equals(ville, adresse.ville) && Objects.equals(pays, adresse.pays);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, region, ville, pays);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Adresse{");

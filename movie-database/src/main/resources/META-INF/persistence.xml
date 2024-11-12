@@ -16,6 +16,11 @@
 
             <!-- <property name="hibernate.show_sql" value="true"/>-->
             <property name="hibernate.format_sql" value="true"/>
+<<<<<<< HEAD
+=======
+            <!--property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/-->
+>>>>>>> d95453ef755cd2352906c01d401cc8e99c4b5066
         </properties>
 
     </persistence-unit>

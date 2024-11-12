@@ -458,7 +458,7 @@ public class DtoEntitesMapper {
      */
     private String parseIdRealisateur(String urlReal) {
         String[] infosUrlReal = urlReal.split("/");
-        return trimString(infosUrlReal[1]);
+        return trimString(infosUrlReal[2]);
     }
 
     /**
@@ -468,7 +468,7 @@ public class DtoEntitesMapper {
     private void mapRealisateursFilm(PersonneDTO[] realDTO, Film film) {
         for (PersonneDTO personneDTO: realDTO) {
             Realisateur real = mapReal(personneDTO, film);
-//             film.addRealisateur(real);
+             film.addRealisateur(real, real.getRealisateur());
         }
     }
 

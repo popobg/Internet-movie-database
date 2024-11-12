@@ -3,20 +3,24 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Table de jointure entre film et personne contenant les realisateurs du film
+ */
 @Entity
 @Table(name = "realisateur")
 public class Realisateur implements Serializable {
 
+    /** Id issu de la classe CleDeuxFacteurs */
     @EmbeddedId
     private CleDeuxFacteurs id;
 
-    /** Liaison entre casting_principal et personne */
+    /** Liaison entre realisateur et personne */
     @ManyToOne
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne realisateur;
 
-    /** Liaison entre casting_principal et film */
+    /** Liaison entre realisateur et film */
     @ManyToOne
     @MapsId("facteur2")
     @JoinColumn(name = "ID_FILM")
@@ -42,17 +46,25 @@ public class Realisateur implements Serializable {
         personne.addRealisateur(this, film);
     }
 
+    /**
+     * Getter
+     * @return realisateur
+     */
     public Personne getRealisateur() {
         return realisateur;
     }
 
+    /**
+     * Getter
+     * @return film
+     */
     public Film getFilm() {
         return film;
     }
 
     /**
-     * Fonction pour associer un réalisateur et son film
-     * @param realisateur personne réalisant le film
+     * Fonction pour associer un réalisateur et sa table realisateur
+     * @param realisateur réalisateur
      */
     public void setRealisateur(Personne realisateur) {
         if (this.realisateur != null) {
@@ -65,7 +77,7 @@ public class Realisateur implements Serializable {
     }
 
     /**
-     * Fonction pour associer un film et un réalisateur
+     * Fonction pour associer un film et sa table realisateur
      * @param film film
      */
     public void setFilm(Film film) {

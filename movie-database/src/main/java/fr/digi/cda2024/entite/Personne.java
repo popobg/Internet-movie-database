@@ -18,6 +18,7 @@ public class Personne implements Serializable {
 
     /** Identifiant unique de la personne. */
     @Id
+    @Column(name ="ID")
     private String id;
 
     /**
@@ -44,12 +45,15 @@ public class Personne implements Serializable {
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<Role> roles;
 
+    /** Liste des films ou la personne est en casting principal */
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux;
 
+    /** Liste des films ou la personne est réalisateur */
     @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
     private Set<Realisateur> realisateurs;
 
+    /** Attributs present dans tous les constructeurs */
     {
         roles = new HashSet<>();
         castingsPrincipaux = new HashSet<>();
@@ -58,6 +62,7 @@ public class Personne implements Serializable {
 
     /** Constructeur vide*/
     public Personne() {
+
     }
 
     /**
@@ -214,9 +219,7 @@ public class Personne implements Serializable {
         realisateur.setFilm(film);
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -224,19 +227,14 @@ public class Personne implements Serializable {
         return Float.compare(taille, personne.taille) == 0 && Objects.equals(id, personne.id) && Objects.equals(identite, personne.identite) && Objects.equals(dateNaissance, personne.dateNaissance) && Objects.equals(adresse, personne.adresse);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, identite, dateNaissance, taille, adresse);
     }
 
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Personne{");

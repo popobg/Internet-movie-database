@@ -21,6 +21,7 @@ public class Film implements Serializable {
      * Ce champ est auto-généré par la base de données.
      */
     @Id
+    @Column(name ="ID")
     private String id;
 
     /**
@@ -63,7 +64,7 @@ public class Film implements Serializable {
     @OneToMany(mappedBy = "film")
     private Set<Role> acteurs;
 
-    /** Ensemble de genre associé au film */
+    /** Liste des genres associés au film */
     @ManyToMany(mappedBy = "films")
     private Set<Genre> genres;
 
@@ -72,7 +73,7 @@ public class Film implements Serializable {
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
-    /** Listes des realisateurs dans le film */
+    /** Liste des realisateurs dans le film */
     @OneToMany(mappedBy = "film")
     private Set<Realisateur> realisateurs;
 
@@ -92,6 +93,28 @@ public class Film implements Serializable {
     /** Constructeur */
     public Film() {
     }
+
+    /**
+     * constructeur parametre
+     * @param url
+     * @param id
+     * @param nom
+     * @param resume
+     * @param langue
+     * @param anneeSortie
+     * @param pays
+     */
+    public Film(String url, String id, String nom, String resume, String langue, String anneeSortie, Pays pays) {
+        this.url = url;
+        this.id = id;
+        this.nom = nom;
+        this.resume = resume;
+        this.langue = langue;
+        this.anneeSortie = anneeSortie;
+        pays.addFilm(this);
+    }
+
+
 
     /**
      * Getter
@@ -239,7 +262,7 @@ public class Film implements Serializable {
 
     /**
      * Ajoute une adresse de tournage au film
-     * @param adresse adresse de tournage du film
+     * @param adresse adresse
      */
     public void addAdresse(Adresse adresse) {
         if (adresse != null) {
@@ -249,8 +272,8 @@ public class Film implements Serializable {
     }
 
     /**
-     * supprime une adresse de tournage au film
-     * @param adresse adresse de tournage du film
+     * Supprime une adresse de tournage au film
+     * @param adresse adresse
      */
     public void removeAdresse(Adresse adresse) {
         if (adresse != null) {
@@ -262,16 +285,25 @@ public class Film implements Serializable {
     /**
      * Ajoute une personne avec son role dans la liste des acteurs du film
      * @param role role
-     * @param personne acteur
+     * @param personne personne
      */
     public void addActeur(Role role,Personne personne) {
         personne.addRole(role, this);
     }
 
     /**
-     * Ajoute une personne au casting princiaple du film
+     * Ajoute une personne avec son role dans la liste des acteurs du film
+     * @param realisateur realisateur
+     * @param personne personne
+     */
+    public void addRealisateur(Realisateur realisateur,Personne personne) {
+        personne.addRealisateur(realisateur, this);
+    }
+
+    /**
+     * Ajoute une personne au casting princiapl du film
      * @param castingPrincipal casting principal
-     * @param personne acteur
+     * @param personne personne
      */
     public void addActeurCastingPrincipal(CastingPrincipal castingPrincipal,Personne personne) {
         personne.addCastingPrincipal(castingPrincipal, this);
@@ -300,7 +332,7 @@ public class Film implements Serializable {
     }
 
     /**
-     * set la valeur du pays du film
+     * Set la valeur du pays du film
      * @param pays pays
      */
     public void setPays(Pays pays) {
@@ -313,9 +345,7 @@ public class Film implements Serializable {
         }
     }
 
-    /**
-     * methode equals permet de verifier l'egalite entre differente instance
-     */
+    /** Methode equals permet de verifier l'egalite entre differente instance */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -323,17 +353,13 @@ public class Film implements Serializable {
         return Objects.equals(id, film.id) && Objects.equals(nom, film.nom) && Objects.equals(resume, film.resume) && Objects.equals(langue, film.langue) && Objects.equals(anneeSortie, film.anneeSortie) && Objects.equals(url, film.url) && Objects.equals(pays, film.pays);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
     }
 
-    /**
-     * methode d'affichage
-     */
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Film{");
