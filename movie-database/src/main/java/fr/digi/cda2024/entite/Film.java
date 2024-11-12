@@ -111,7 +111,7 @@ public class Film implements Serializable {
         this.resume = resume;
         this.langue = langue;
         this.anneeSortie = anneeSortie;
-        this.pays = pays;
+        pays.addFilm(this);
     }
 
     /**

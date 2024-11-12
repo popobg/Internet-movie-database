@@ -46,10 +46,9 @@ public class Genre implements Serializable {
 
     /**
      * constructeur parametre
-     * @param id
      * @param nom
      */
-    public Genre(Integer id, String nom) {
+    public Genre( String nom) {
         this.nom = nom;
     }
 
