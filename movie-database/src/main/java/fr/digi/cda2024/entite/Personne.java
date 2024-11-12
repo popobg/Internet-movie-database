@@ -33,7 +33,7 @@ public class Personne implements Serializable {
 
     /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
-    private Float taille;
+    private float taille;
 
     /** Adresse de la personne */
     @ManyToOne
@@ -60,7 +60,13 @@ public class Personne implements Serializable {
     public Personne() {
     }
 
-    /** Constructeur paremetre */
+    /**
+     * Constructeur paramètres
+     * @param identite identité
+     * @param dateNaissance date de naissance
+     * @param taille taille
+     * @param adresse adresse
+     */
     public Personne(String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
         this.identite = identite;
         this.dateNaissance = dateNaissance;

@@ -32,9 +32,9 @@ public class Realisateur implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personne
-     * @param film
-     * @param url
+     * @param personne réalisateur
+     * @param film film
+     * @param url url
      */
     public Realisateur(Personne personne, Film film, String url) {
         this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
@@ -51,8 +51,8 @@ public class Realisateur implements Serializable {
     }
 
     /**
-     * Fonction pour associer un acteur et son role
-     * @param realisateur
+     * Fonction pour associer un réalisateur et son film
+     * @param realisateur personne réalisant le film
      */
     public void setRealisateur(Personne realisateur) {
         if (this.realisateur != null) {
@@ -65,8 +65,8 @@ public class Realisateur implements Serializable {
     }
 
     /**
-     * Fonction pour associer un film et un role
-     * @param film
+     * Fonction pour associer un film et un réalisateur
+     * @param film film
      */
     public void setFilm(Film film) {
         if (this.film != null) {

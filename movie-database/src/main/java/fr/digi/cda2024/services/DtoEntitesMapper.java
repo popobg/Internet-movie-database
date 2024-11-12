@@ -4,8 +4,7 @@ import fr.digi.cda2024.dto.*;
 import fr.digi.cda2024.entite.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Classe permettant de mapper les données contenues dans les classes DTO
@@ -13,27 +12,27 @@ import java.util.List;
  */
 public class DtoEntitesMapper {
     /** Liste de films */
-    private final List<Film> listeFilms;
+    private final Set<Film> setFilms;
     /** Liste de pays */
-    private final List<Pays> listePays;
+    private final Set<Pays> setPays;
     /** Liste de genres cinématographiques */
-    private final List<Genre> listeGenres;
+    private final Set<Genre> setGenres;
     /** Liste d'adresses */
-    private final List<Adresse> listeAdresses;
+    private final Set<Adresse> setAdresses;
     // acteurs et réalisateurs sont des personnes,
     // on les retrouve donc dans la même liste
     /** Liste de personnes (acteurs ou réalisateurs) */
-    private final List<Personne> listePersonne;
+    private final Set<Personne> setPersonnes;
     /** Liste de rôles */
-    private List<Role> listeRoles;
+    private Set<Role> setRoles;
 
     {
-        this.listeFilms = new ArrayList<>();
-        this.listePays = new ArrayList<>();
-        this.listeGenres = new ArrayList<>();
-        this.listeAdresses = new ArrayList<>();
-        this.listePersonne = new ArrayList<>();
-        this.listeRoles = new ArrayList<>();
+        this.setFilms = new HashSet<>();
+        this.setPays = new HashSet<>();
+        this.setGenres = new HashSet<>();
+        this.setAdresses = new HashSet<>();
+        this.setPersonnes = new HashSet<>();
+        this.setRoles = new HashSet<>();
     }
 
     /**
@@ -42,48 +41,45 @@ public class DtoEntitesMapper {
     public DtoEntitesMapper() {}
 
     /**
-     * Méthode permettant de mapper les classes DTO avec les classes entités.
-     * @param filmsJson objets films extraits du JSON
-     * @return objets entités films
+     * Méthode permettant de mapper les classes DTO vers les classes entités.
+     * @param filmsJson objets FilmDTO extraits du JSON
+     * @return liste d'objets entités Film
      */
-    public List<Film> mapDtoVersEntites(FilmDTO[] filmsJson) {
+    public Set<Film> mapDtoVersEntites(FilmDTO[] filmsJson) {
         for (FilmDTO filmDTO : filmsJson) {
             Film film = new Film();
 
-            film.setId(filmDTO.getId().trim());
-            film.setNom(filmDTO.getNom().trim());
-            film.setResume(filmDTO.getResume().trim());
-            film.setLangue(filmDTO.getLangue().trim());
+            film.setId(trimString(filmDTO.getId()));
+            film.setNom(trimString(filmDTO.getNom()));
+            film.setResume(trimString(filmDTO.getResume()));
+            film.setLangue(trimString(filmDTO.getLangue()));
             film.setPays(mapPays(filmDTO.getPays()));
-            film.setUrl(filmDTO.getUrl());
-            // voir comment stocker l'année de sortie en DB :
-            // LocalDate actuel dans Film pose problème
-            film.setAnneeSortie(mapAnneeSortieFilm(filmDTO.getAnneeSortie().trim()));
+            film.setUrl(trimString(filmDTO.getUrl()));
+            film.setAnneeSortie(trimString(filmDTO.getAnneeSortie()));
             mapLieuTournage(filmDTO.getLieuTournage(), film);
             mapGenresFilm(filmDTO.getGenres(), film);
             mapRolesFilm(filmDTO.getRoles(), film);
-
-            // MAP REALISATEURS
+            mapCastingPrincipalFilm(filmDTO.getCastingPrincipal(), film);
             mapRealisateursFilm(filmDTO.getRealisateurs(), film);
 
-            // MAP CASTING PRINCIPAL --> classe Film
-            mapCastingPrincipalFilm(filmDTO.getCastingPrincipal(), film);
-
-            // Checker si un film identique a déjà été créé ?
-            listeFilms.add(film);
+            this.setFilms.add(film);
         }
 
-        return this.listeFilms;
+        return this.setFilms;
     }
 
     /**
-     * Map la période de sortie du film à partir des données de la classe DTO.
-     * @param anneeSortieDTO période de sortie du film
-     * @return String ?
+     * Retourne la chaîne de caractères sans caractères espace/sauts de ligne
+     * en début et fin de chaîne.
+     * @param elementDTO String à traiter
+     * @return String traitée
      */
-    // Type en base de données à repréciser
-    private String mapAnneeSortieFilm(String anneeSortieDTO) {
-        return anneeSortieDTO.trim();
+    private String trimString(String elementDTO) {
+        if (elementDTO == null
+                || elementDTO.isEmpty()) {
+            return null;
+        }
+        return elementDTO.trim();
     }
 
     /**
@@ -117,10 +113,10 @@ public class DtoEntitesMapper {
         }
 
         PaysDTO paysDTO = new PaysDTO();
-        paysDTO.setNom(adresseDTO.getPays().trim());
+        paysDTO.setNom(trimString(adresseDTO.getPays()));
 
-        Adresse adresse = new Adresse(adresseDTO.getEtatDept().trim(), adresseDTO.getVille().trim(), mapPays(paysDTO));
-        this.listeAdresses.add(adresse);
+        Adresse adresse = new Adresse(trimString(adresseDTO.getEtatDept()), trimString(adresseDTO.getVille()), mapPays(paysDTO));
+        this.setAdresses.add(adresse);
         return adresse;
     }
 
@@ -131,12 +127,12 @@ public class DtoEntitesMapper {
      * @return un objet entité Adresse, ou null
      */
     private Adresse getAdresseSiExiste(AdresseDTO adresseDTO) {
-        for (Adresse adresse : this.listeAdresses) {
+        for (Adresse adresse : this.setAdresses) {
             PaysDTO paysDTO = new PaysDTO();
-            paysDTO.setNom(adresseDTO.getPays().trim());
+            paysDTO.setNom(trimString(adresseDTO.getPays()));
 
-            if (adresse.getRegion().equals(adresseDTO.getEtatDept().trim())
-                    && adresse.getVille().equals(adresseDTO.getVille().trim())
+            if (Objects.equals(adresse.getRegion(), trimString(adresseDTO.getEtatDept()))
+                    && Objects.equals(adresse.getVille(), trimString(adresseDTO.getVille()))
                     && getPaysSiExiste(paysDTO) != null) {
                 return adresse;
             }
@@ -158,21 +154,16 @@ public class DtoEntitesMapper {
         if (paysExistant != null) {
             // Complète les informations du pays enregistré
             // si elles étaient incomplètes
-            if ((paysExistant.getUrl() == null || paysExistant.getUrl().isEmpty())
-                    && paysDTO.getUrl() != null) {
+            if ((paysExistant.getUrl() == null || paysExistant.getUrl().isEmpty()) && paysDTO.getUrl() != null) {
                 paysExistant.setUrl(paysDTO.getUrl().trim());
             }
             return paysExistant;
         }
 
         Pays nouveauPays = new Pays();
-        nouveauPays.setNom(paysDTO.getNom().trim());
-
-        if (paysDTO.getUrl() != null) {
-            nouveauPays.setUrl(paysDTO.getUrl().trim());
-        }
-
-        this.listePays.add(nouveauPays);
+        nouveauPays.setNom(trimString(paysDTO.getNom()));
+        nouveauPays.setUrl(trimString(paysDTO.getUrl()));
+        this.setPays.add(nouveauPays);
         return nouveauPays;
     }
 
@@ -183,8 +174,8 @@ public class DtoEntitesMapper {
      * @return un objet entité Pays, ou null
      */
     private Pays getPaysSiExiste(PaysDTO paysDTO) {
-        for (Pays pays: this.listePays) {
-            if (pays.getNom().equals(paysDTO.getNom().trim())) {
+        for (Pays pays: this.setPays) {
+            if (pays.getNom().equals(trimString(paysDTO.getNom()))) {
                 return pays;
             }
         }
@@ -198,7 +189,7 @@ public class DtoEntitesMapper {
      */
     private void mapGenresFilm(String[] genresDTO, Film film) {
         for (String genreDTO: genresDTO) {
-            Genre genre = mapGenre(genreDTO.trim());
+            Genre genre = mapGenre(trimString(genreDTO));
             film.addGenre(genre);
         }
     }
@@ -214,14 +205,14 @@ public class DtoEntitesMapper {
             return null;
         }
 
-        Genre genreExistant = getGenreSiExiste(genreDTO.trim());
+        Genre genreExistant = getGenreSiExiste(genreDTO);
 
         if(genreExistant != null) {
             return genreExistant;
         }
 
-        Genre genre = new Genre(genreDTO.trim());
-        this.listeGenres.add(genre);
+        Genre genre = new Genre(genreDTO);
+        this.setGenres.add(genre);
         return genre;
     }
 
@@ -232,8 +223,8 @@ public class DtoEntitesMapper {
      * @return un objet entité Genre, ou null
      */
     private Genre getGenreSiExiste(String genreDTO) {
-        for (Genre genre: this.listeGenres) {
-            if (genreDTO.equals(genre.getNom())) {
+        for (Genre genre: this.setGenres) {
+            if (genreDTO.equals(genre.getNom().trim())) {
                 return genre;
             }
         }
@@ -269,7 +260,9 @@ public class DtoEntitesMapper {
             return roleExistant;
         }
 
-        return new Role(roleDTO.getPersonnage().trim(), mapPersonne(roleDTO.getActeur()), film, roleDTO.getActeur().getUrl().trim());
+        Role nouveauRole = new Role(roleDTO.getPersonnage().trim(), mapPersonne(roleDTO.getActeur()), film, trimString(roleDTO.getActeur().getUrl()));
+        this.setRoles.add(nouveauRole);
+        return nouveauRole;
     }
 
     /**
@@ -279,10 +272,10 @@ public class DtoEntitesMapper {
      * @return un objet entité Role, ou null
      */
     private Role getRoleSiExiste(RoleDTO roleDTO) {
-        for (Role role: this.listeRoles) {
-            if (roleDTO.getActeur().getId().trim().equals(role.getActeur().getId())
-                    && roleDTO.getFilm().trim().equals(role.getFilm().getId())
-                    && roleDTO.getPersonnage().trim().equals(role.getId().getNomRole())) {
+        for (Role role: this.setRoles) {
+            if (trimString(roleDTO.getActeur().getId()).equals(role.getActeur().getId())
+                    && trimString(roleDTO.getFilm()).equals(role.getFilm().getId())
+                    && trimString(roleDTO.getPersonnage()).equals(role.getId().getNomRole())) {
                 return role;
             }
         }
@@ -306,7 +299,7 @@ public class DtoEntitesMapper {
             // personneDTO en contient plus
             if (personneExistante.getDateNaissance() == null
                     && personneDTO.getNaissance().getDateNaissance() != null) {
-                personneExistante.setDateNaissance(LocalDate.parse(personneDTO.getNaissance().getDateNaissance().trim()));
+                personneExistante.setDateNaissance(parseDateNaissance(trimString(personneDTO.getNaissance().getDateNaissance())));
             }
             if (personneExistante.getTaille() == 0.0
                     && personneDTO.getTaille() != 0.0) {
@@ -314,25 +307,36 @@ public class DtoEntitesMapper {
             }
             if (personneExistante.getAdresse() == null
                     && personneDTO.getNaissance().getLieuNaissance() != null) {
-                personneExistante.setAdresse(parseLieuNaissance(personneDTO.getNaissance().getLieuNaissance().trim()));
+                personneExistante.setAdresse(parseLieuNaissance(trimString(personneDTO.getNaissance().getLieuNaissance())));
             }
 
             return personneExistante;
         }
 
-        Personne personne = new Personne(personneDTO.getIdentite().trim(),
-                parseDateNaissance(personneDTO.getNaissance().getDateNaissance().trim()),
-                (float) personneDTO.getTaille(),
-                parseLieuNaissance(personneDTO.getNaissance().getLieuNaissance().trim()));
+        Personne personne;
+
+        if (personneDTO.getNaissance() == null) {
+            personne = new Personne(trimString(personneDTO.getIdentite()),
+                    null,
+                    (float) personneDTO.getTaille(),
+                    null);
+        }
+        else {
+            personne = new Personne(trimString(personneDTO.getIdentite()),
+                    parseDateNaissance(trimString(personneDTO.getNaissance().getDateNaissance())),
+                    (float) personneDTO.getTaille(),
+                    parseLieuNaissance(trimString(personneDTO.getNaissance().getLieuNaissance())));
+        }
 
         // Données JSON différentes entre un acteur et un réalisateur
         if (personneDTO.getId() != null) {
-            personne.setId(personneDTO.getId().trim());
+            personne.setId(trimString(personneDTO.getId()));
         }
         else {
-            personne.setId(parseIdRealisateur(personneDTO.getUrl().trim()));
+            personne.setId(parseIdRealisateur(trimString(personneDTO.getUrl())));
         }
 
+        this.setPersonnes.add(personne);
         return personne;
     }
 
@@ -343,23 +347,60 @@ public class DtoEntitesMapper {
      * @return un objet entité Personne, ou null
      */
     private Personne getPersonneSiExiste(PersonneDTO personneDTO) {
-        for (Personne personne: this.listePersonne) {
-            if (personne.getId().equals(personneDTO.getId().trim())) {
+        for (Personne personne: this.setPersonnes) {
+            if (personne.getId().equals(trimString(personneDTO.getId()))) {
                 return personne;
             }
         }
         return null;
     }
 
+    /**
+     * récupère la date de naissance d'une personne.
+     * @param dateNaissance date de naissance
+     * @return LocalDate
+     */
     private LocalDate parseDateNaissance(String dateNaissance) {
         if (dateNaissance == null
                 || dateNaissance.isEmpty()) {
             return null;
         }
 
+        if (dateNaissance.length() < 8
+                || dateNaissance.length() > 10) {
+            return null;
+        }
+
         // Si le format est "yyyy-m-dd" --> transforme en "yyyy-mm-dd"
-        if(dateNaissance.length() == 9) {
-            dateNaissance = dateNaissance.substring(0, 5) + "0" + dateNaissance.substring(5, 9);
+        if(dateNaissance.length() == 9
+                || dateNaissance.length() == 8) {
+            String[] dates = dateNaissance.split("-");
+
+            if(dates.length < 3) {
+                return null;
+            }
+
+            // Corrige le mois : "m" --> "mm"
+            if (dates[1].length() == 1) {
+                dates[1] = "0" + dates[1];
+            }
+            // Corrige le jour : "d" --> "dd"
+            if (dates[2].length() == 1) {
+                dates[2] = "0" + dates[2];
+            }
+
+            dateNaissance = String.join("-", dates);
+
+            if (dateNaissance.length() < 10) {
+                return null;
+            }
+        }
+
+        String a = dateNaissance.substring(5,7);
+        String b = dateNaissance.substring(8, 10);
+
+        if (dateNaissance.substring(5,7).equals("00") || dateNaissance.substring(8,10).equals("00")) {
+            return null;
         }
 
         return LocalDate.parse(dateNaissance);
@@ -372,10 +413,41 @@ public class DtoEntitesMapper {
      * @return un objet entité Adresse
      */
     private Adresse parseLieuNaissance(String lieuNaissanceDTO) {
-        String[] infoAdresse = lieuNaissanceDTO.split(",");
+        if (lieuNaissanceDTO == null
+        || lieuNaissanceDTO.isEmpty()) {
+            return null;
+        }
 
-        AdresseDTO adresseDTO = new AdresseDTO(infoAdresse[0].trim(), infoAdresse[1].trim(), infoAdresse[2].trim());
+        List<String> infoAdresse = Arrays.asList(lieuNaissanceDTO.split(","));
 
+        if (infoAdresse.size() < 2) {
+            return null;
+        }
+
+        // Pas de région disponible, seulement ville et pays
+        if (infoAdresse.size() == 2) {
+            AdresseDTO adresseDTO = new AdresseDTO(infoAdresse.get(0).trim(), null, infoAdresse.get(1).trim());
+            return mapAdresse(adresseDTO);
+        }
+
+        // Traite le seul cas dans lequel on a deux infos sur le pays
+        if (infoAdresse.size() > 3
+                && (infoAdresse.getLast().equals("UK")
+                && infoAdresse.get(infoAdresse.size() - 2).equals("England"))) {
+            String pays = infoAdresse.getLast() + ", " + infoAdresse.get(infoAdresse.size() - 2);
+            infoAdresse.removeLast();
+            infoAdresse.set((infoAdresse.size() - 1), pays);
+        }
+
+        // On prend la première info comme ville, la dernière comme pays
+        // et l'avant-dernière comme région
+        if (infoAdresse.size() > 3) {
+            AdresseDTO adresseDTO = new AdresseDTO(infoAdresse.getFirst().trim(), infoAdresse.get(infoAdresse.size() - 2).trim(), infoAdresse.getLast().trim());
+            return mapAdresse(adresseDTO);
+        }
+
+        // Traitement classique ville-région-pays
+        AdresseDTO adresseDTO = new AdresseDTO(infoAdresse.get(0).trim(), infoAdresse.get(1).trim(), infoAdresse.get(2).trim());
         return mapAdresse(adresseDTO);
     }
 
@@ -386,7 +458,7 @@ public class DtoEntitesMapper {
      */
     private String parseIdRealisateur(String urlReal) {
         String[] infosUrlReal = urlReal.split("/");
-        return infosUrlReal[1];
+        return trimString(infosUrlReal[1]);
     }
 
     /**
@@ -395,10 +467,8 @@ public class DtoEntitesMapper {
      */
     private void mapRealisateursFilm(PersonneDTO[] realDTO, Film film) {
         for (PersonneDTO personneDTO: realDTO) {
-//            Realisateur real = mapReal(personneDTO, film);
-            // Méthode non existante dans Film --> à ajouter ;
-            // le lier à la liste de films réalisés dans Personne
-//            film.addRealisateur(realDTO);
+            Realisateur real = mapReal(personneDTO, film);
+//             film.addRealisateur(real);
         }
     }
 
@@ -407,8 +477,8 @@ public class DtoEntitesMapper {
      * @param personneDTO réalisateur extrait du JSON
      * @param film film
      */
-    private void mapReal(PersonneDTO personneDTO, Film film) {
-//        return new Realisateur(mapPersonne(personneDTO), film, personneDTO.getUrl().trim());
+    private Realisateur mapReal(PersonneDTO personneDTO, Film film) {
+        return new Realisateur(mapPersonne(personneDTO), film, trimString(personneDTO.getUrl()));
     }
 
     /**
@@ -429,6 +499,6 @@ public class DtoEntitesMapper {
      * @return un objet entité CastingPrincipal
      */
     private CastingPrincipal mapCastingPrincipal(PersonneDTO personneDTO, Film film) {
-        return new CastingPrincipal(mapPersonne(personneDTO), film, personneDTO.getUrl());
+        return new CastingPrincipal(mapPersonne(personneDTO), film, trimString(personneDTO.getUrl()));
     }
 }

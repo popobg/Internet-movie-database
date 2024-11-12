@@ -19,7 +19,7 @@ public class FileTools {
         File file;
 
         do {
-            String pathfile = InputTools.getStringInput("Entrez le path absolu vers le fichier JSON 'films.json' installé sur votre machine :");
+            String pathfile = InputTools.getStringInput("Entrez le path absolu vers le fichier JSON 'films.json' téléchargé sur votre machine.");
             file = new File(pathfile);
         } while (!(isFileExisting(file) && isFileJson(file)));
 

@@ -63,7 +63,35 @@
       "roles" : [ ]
     },
     "film" : "tt1801045"
-  } ],
+  }, {
+    "characterName" : "Samantha",
+    "acteur" : {
+      "id" : "nm0424060",
+      "identite" : "Scarlett Johansson",
+      "naissance" : {
+        "dateNaissance" : "1984-11-22",
+        "lieuNaissance" : "Manhattan, New York City, New York, USA"
+      },
+      "url" : "/name/nm0424060?ref_=tt_cl_t_3",
+      "height" : null,
+      "roles" : [ ]
+    },
+    "film" : "tt1798709"
+  },{
+    "characterName" : "Marriage Counselor",
+    "acteur" : {
+      "id" : "nm6130316",
+      "identite" : "Guy Lewis",
+      "naissance" : {
+        "dateNaissance" : "",
+        "lieuNaissance" : ""
+      },
+      "url" : "/name/nm6130316?ref_=tt_cl_t_18",
+      "height" : null,
+      "roles" : [ ]
+    },
+    "film" : "tt1798709"
+  }],
   "genres" : [ "Action", "Adventure", "Comedy" ]
 },
   {
