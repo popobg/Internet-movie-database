@@ -94,7 +94,7 @@ public class Traitement {
         String acteurNom = scannerFilmogarphieActeur.nextLine();
 
         //Requêtage et affichage des résultats
-        List<String> filmographieActeur = querysMenu.getFilmographieActeur(acteurNom);
+        List<String> filmographieActeur = QuerysMenu.getFilmographieActeur(acteurNom);
         if (filmographieActeur.isEmpty()) {
             System.out.println("Aucun film trouvé dans la base de données pour l'acteur "+acteurNom+".");
         } else {
@@ -102,7 +102,7 @@ public class Traitement {
             filmographieActeur.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
 
     }
 
@@ -117,7 +117,7 @@ public class Traitement {
         String filmNom = scannerCastingFilm.nextLine();
 
         //Requêtage et affichage des résultats
-        List<String> castingFilm = querysMenu.getCastingFilm(filmNom);
+        List<String> castingFilm = QuerysMenu.getCastingFilm(filmNom);
         if (castingFilm.isEmpty()) {
             System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour le film "+filmNom+".");
         } else {
@@ -125,7 +125,7 @@ public class Traitement {
             castingFilm.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
 
     }
 
@@ -171,15 +171,15 @@ public class Traitement {
         }
 
         //Requêtage et affichage des résultats
-        List<String> filmsEntreDeuxAnnees = querysMenu.getFilmsEntreDeuxAnnees(anneeDebut, anneeFin);
+        List<String> filmsEntreDeuxAnnees = QuerysMenu.getFilmsEntreDeuxAnnees(anneeDebut, anneeFin);
         if (filmsEntreDeuxAnnees.isEmpty()) {
-            System.out.println("Aucun film trouvé dans la base de données pour entre les années "+anneeDebut+"et "+anneeFin+".");
+            System.out.println("Aucun film trouvé dans la base de données pour entre les années "+anneeDebut+" et "+anneeFin+".");
         } else {
             System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
             filmsEntreDeuxAnnees.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
     }
 
     /**
@@ -198,7 +198,7 @@ public class Traitement {
         String acteurNom2 = scannerCommunsPourDeuxActeurs2.nextLine();
 
         //Requêtage et affichage des résultats
-        List<String> filmsCommunsPourDeuxActeurs = querysMenu.getFilmsCommunsPourDeuxActeurs(acteurNom1, acteurNom2);
+        List<String> filmsCommunsPourDeuxActeurs = QuerysMenu.getFilmsCommunsPourDeuxActeurs(acteurNom1, acteurNom2);
         if (filmsCommunsPourDeuxActeurs.isEmpty()) {
             System.out.println("Aucun film commun trouvé dans la base de données pour "+acteurNom1+"et "+acteurNom2+".");
         } else {
@@ -206,7 +206,7 @@ public class Traitement {
             filmsCommunsPourDeuxActeurs.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
     }
 
     /**
@@ -225,7 +225,7 @@ public class Traitement {
         String film2 = scannerActeursCommunsPourDeuxFilms2.nextLine();
 
         //Requêtage et affichage des résultats
-        List<String> acteursCommunsPourDeuxFilms = querysMenu.getActeursCommunsPourDeuxFilms(film1, film2);
+        List<String> acteursCommunsPourDeuxFilms = QuerysMenu.getActeursCommunsPourDeuxFilms(film1, film2);
         if (acteursCommunsPourDeuxFilms.isEmpty()) {
             System.out.println("Aucun acteur/actrice trouvé(e) dans la base de données pour les films "+film1+"et "+film2+".");
         } else {
@@ -233,7 +233,7 @@ public class Traitement {
             acteursCommunsPourDeuxFilms.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
     }
 
     /**
@@ -283,7 +283,7 @@ public class Traitement {
         }
 
         //Requêtage et affichage des résultats
-        List<String> filmsEntreDeuxAnneesAvecActeur = querysMenu.getFilmsEntreDeuxAnneesAvecActeur(anneeDebut, anneeFin, acteurNom);
+        List<String> filmsEntreDeuxAnneesAvecActeur = QuerysMenu.getFilmsEntreDeuxAnneesAvecActeur(anneeDebut, anneeFin, acteurNom);
         if (filmsEntreDeuxAnneesAvecActeur.isEmpty()) {
             System.out.println("Aucun film trouvé dans la base de données pour "+acteurNom+" entre les années "+anneeDebut+"et "+anneeFin+".");
         } else {
@@ -291,7 +291,7 @@ public class Traitement {
             filmsEntreDeuxAnneesAvecActeur.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        querysMenu.close();
+        QuerysMenu.close();
     }
 }
 
