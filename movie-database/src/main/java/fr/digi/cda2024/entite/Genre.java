@@ -3,6 +3,7 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -40,6 +41,9 @@ public class Genre implements Serializable {
     private Set<Film> films;
 
 
+    {
+        films = new HashSet<>();
+    }
     /** Constructeur vide */
     public Genre() {
     }
