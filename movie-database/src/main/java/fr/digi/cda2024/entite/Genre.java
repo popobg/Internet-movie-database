@@ -115,11 +115,16 @@ public class Genre implements Serializable {
         return Objects.hash(id, nom);
     }
 
+    /**
+     * methode d'affichage
+     */
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Genre{");
         sb.append("id=").append(id);
         sb.append(", nom='").append(nom).append('\'');
+        sb.append(", films=").append(films);
         sb.append("}\n");
         return sb.toString();
     }

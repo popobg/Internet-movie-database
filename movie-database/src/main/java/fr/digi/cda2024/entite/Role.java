@@ -144,6 +144,10 @@ public class Role {
         return Objects.hash(id, acteur, film, url);
     }
 
+    /**
+     * methode d'affichage
+     */
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Role{");

@@ -230,14 +230,19 @@ public class Personne implements Serializable {
         return Objects.hash(id, identite, dateNaissance, taille, adresse);
     }
 
+
+    /**
+     * methode d'affichage
+     */
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Personne{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", identite='").append(identite).append('\'');
-        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append("adresse=").append(adresse);
         sb.append(", taille=").append(taille);
-        sb.append(", adresse=").append(adresse);
+        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", id='").append(id).append('\'');
         sb.append("}\n");
         return sb.toString();
     }

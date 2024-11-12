@@ -153,6 +153,10 @@ public class Pays implements Serializable {
         return Objects.hash(id, nom, url);
     }
 
+    /**
+     * methode d'affichage
+     */
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pays{");

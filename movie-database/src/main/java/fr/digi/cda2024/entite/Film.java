@@ -337,6 +337,10 @@ public class Film implements Serializable {
         return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
     }
 
+    /**
+     * methode d'affichage
+     */
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Film{");

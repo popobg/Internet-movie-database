@@ -90,16 +90,6 @@ public class cleRole implements Serializable {
         this.nomRole = nomRole;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("cleRole{");
-        sb.append("personneId='").append(personneId).append('\'');
-        sb.append(", filmId='").append(filmId).append('\'');
-        sb.append(", nomRole='").append(nomRole).append('\'');
-        sb.append("}\n");
-        return sb.toString();
-    }
-
     /**
      * methode equals permet de verifier l'egalite entre differente instance
      */
@@ -117,5 +107,19 @@ public class cleRole implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(personneId, filmId, nomRole);
+    }
+
+    /**
+     * methode d'affichage
+     */
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("cleRole{");
+        sb.append("personneId='").append(personneId).append('\'');
+        sb.append(", filmId='").append(filmId).append('\'');
+        sb.append(", nomRole='").append(nomRole).append('\'');
+        sb.append("}\n");
+        return sb.toString();
     }
 }
