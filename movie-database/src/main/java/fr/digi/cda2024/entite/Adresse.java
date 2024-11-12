@@ -39,12 +39,12 @@ public class Adresse implements Serializable {
     private String ville;
 
     /** Pays de l'adresse */
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
 
     /** Listes des personnes presente a l'adresse */
-    @OneToMany(mappedBy = "adresse",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "adresse")
     private Set<Personne> personnes;
 
     /** Listes des adresses de tournage du film */

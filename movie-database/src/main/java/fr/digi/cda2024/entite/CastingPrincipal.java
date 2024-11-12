@@ -15,7 +15,7 @@ public class CastingPrincipal implements Serializable {
     private CleDeuxFacteurs id;
 
     /** Liaison entre casting_principal et personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne acteur;

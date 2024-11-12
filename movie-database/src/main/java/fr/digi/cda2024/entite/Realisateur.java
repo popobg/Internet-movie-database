@@ -21,7 +21,7 @@ public class Realisateur implements Serializable {
     private Personne realisateur;
 
     /** Liaison entre realisateur et film */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("facteur2")
     @JoinColumn(name = "ID_FILM")
     private Film film;

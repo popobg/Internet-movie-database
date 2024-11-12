@@ -57,24 +57,24 @@ public class Film implements Serializable {
     private String url;
 
     /** Nombre de films tourne a cette adresse */
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films",cascade = CascadeType.PERSIST)
     private Set<Adresse> adresses;
 
     /** Listes des acteurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film",cascade = CascadeType.PERSIST)
     private Set<Role> acteurs;
 
     /** Ensemble de genre associé au film */
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films",cascade = CascadeType.PERSIST)
     private Set<Genre> genres;
 
     /** Nationalite du film */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
     /** Listes des realisateurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film",cascade = CascadeType.PERSIST)
     private Set<Realisateur> realisateurs;
 
     /** Liste du Casting principal dans le film */

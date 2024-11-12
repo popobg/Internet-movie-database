@@ -37,7 +37,7 @@ public class Personne implements Serializable {
     private Float taille;
 
     /** Adresse de la personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
