@@ -32,9 +32,9 @@ public class cleRole implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personneId
-     * @param filmId
-     * @param nomRole
+     * @param personneId Id d'une personne
+     * @param filmId Id d'un film
+     * @param nomRole nom d'un role
      */
     public cleRole(String personneId, String filmId, String nomRole) {
         this.personneId = personneId;

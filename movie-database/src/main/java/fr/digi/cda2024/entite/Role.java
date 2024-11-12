@@ -16,7 +16,7 @@ public class Role {
     private cleRole id;
 
     /** Liaison entre role et personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("personneId")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne acteur;
@@ -37,10 +37,10 @@ public class Role {
 
     /**
      * Constructeur parametre
-     * @param role
-     * @param personne
-     * @param film
-     * @param url
+     * @param role rôle
+     * @param personne personne
+     * @param film film
+     * @param url url
      */
     public Role(String role, Personne personne, Film film, String url) {
 
@@ -99,7 +99,7 @@ public class Role {
 
     /**
      * Fonction pour associer un acteur et son role
-     * @param acteur
+     * @param acteur acteur
      */
     public void setActeur(Personne acteur) {
         if (this.acteur != null) {
@@ -113,7 +113,7 @@ public class Role {
 
     /**
      * Fonction pour associer un film et un role
-     * @param film
+     * @param film film
      */
     public void setFilm(Film film) {
         if (this.film != null) {

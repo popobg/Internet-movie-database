@@ -15,7 +15,7 @@ public class Realisateur implements Serializable {
     private CleDeuxFacteurs id;
 
     /** Liaison entre realisateur et personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne realisateur;
@@ -36,9 +36,9 @@ public class Realisateur implements Serializable {
 
     /**
      * Constructeur parametre
-     * @param personne
-     * @param film
-     * @param url
+     * @param personne réalisateur
+     * @param film film
+     * @param url url
      */
     public Realisateur(Personne personne, Film film, String url) {
         this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
@@ -63,8 +63,8 @@ public class Realisateur implements Serializable {
     }
 
     /**
-     * Fonction pour associer un realisateur et sa table realiseteur
-     * @param realisateur
+     * Fonction pour associer un réalisateur et sa table realisateur
+     * @param realisateur réalisateur
      */
     public void setRealisateur(Personne realisateur) {
         if (this.realisateur != null) {
@@ -78,7 +78,7 @@ public class Realisateur implements Serializable {
 
     /**
      * Fonction pour associer un film et sa table realisateur
-     * @param film
+     * @param film film
      */
     public void setFilm(Film film) {
         if (this.film != null) {

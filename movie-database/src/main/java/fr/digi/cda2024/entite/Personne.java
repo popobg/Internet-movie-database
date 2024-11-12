@@ -34,23 +34,23 @@ public class Personne implements Serializable {
 
     /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
-    private Float taille;
+    private float taille;
 
     /** Adresse de la personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
-    /** Liste des films ou la personne a etait acteur/actrice */
-    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    /** Liste des rôles que la personne a incarné */
+    @OneToMany(mappedBy = "acteur")
     private Set<Role> roles;
 
     /** Liste des films ou la personne est en casting principal */
-    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "acteur")
     private Set<CastingPrincipal> castingsPrincipaux;
 
     /** Liste des films ou la personne est réalisateur */
-    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "realisateur")
     private Set<Realisateur> realisateurs;
 
     /** Attributs present dans tous les constructeurs */
@@ -64,7 +64,13 @@ public class Personne implements Serializable {
     public Personne() {
     }
 
-    /** Constructeur paremetre */
+    /**
+     * Constructeur paramètres
+     * @param identite identité
+     * @param dateNaissance date de naissance
+     * @param taille taille
+     * @param adresse adresse
+     */
     public Personne(String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
         this.identite = identite;
         this.dateNaissance = dateNaissance;
@@ -138,6 +144,14 @@ public class Personne implements Serializable {
 
     /**
      * Getter
+     * @return adresse
+     */
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    /**
+     * Getter
      * @return roles
      */
     public Set<Role> getRoles() {
@@ -175,9 +189,9 @@ public class Personne implements Serializable {
     }
 
     /**
-     * Ajoute un role et un film a une personne
-     * @param role
-     * @param film
+     * Ajoute un rôle et un film à une personne.
+     * @param role rôle
+     * @param film film
      */
     public void addRole(Role role,Film film) {
         role.setActeur(this);
@@ -185,9 +199,9 @@ public class Personne implements Serializable {
     }
 
     /**
-     * Ajoute un role et un film a une personne
-     * @param castingPrincipal
-     * @param film
+     * Ajoute un rôle et un film à une personne.
+     * @param castingPrincipal casting principal
+     * @param film film
      */
     public void addCastingPrincipal(CastingPrincipal castingPrincipal,Film film) {
         castingPrincipal.setActeur(this);
@@ -195,9 +209,9 @@ public class Personne implements Serializable {
     }
 
     /**
-     * Ajoute un role et un film a une personne
-     * @param realisateur
-     * @param film
+     * Ajoute un film réalisé à une personne.
+     * @param realisateur réalisateur
+     * @param film film
      */
     public void addRealisateur(Realisateur realisateur,Film film) {
         realisateur.setRealisateur(this);

@@ -23,17 +23,17 @@ public class CleDeuxFacteurs implements Serializable{
 
     /**
      * Constructeur parametre
-     * @param facteurUn
-     * @param facteurDeux
+     * @param facteur1 facteur 1
+     * @param facteur2 facteur deux
      */
-    public CleDeuxFacteurs(String facteurUn, String facteurDeux) {
-        this.facteur1 = facteurUn;
-        this.facteur2 = facteurDeux;
+    public CleDeuxFacteurs(String facteur1, String facteur2) {
+        this.facteur1 = facteur1;
+        this.facteur2 = facteur2;
     }
 
     /**
      * Getter
-     * @return facteur un
+     * @return facteur 1
      */
     public String getFacteur1() {
         return facteur1;
@@ -41,10 +41,10 @@ public class CleDeuxFacteurs implements Serializable{
 
     /**
      * Setter
-     * @param facteurUn facteur un
+     * @param facteur1 facteur 1
      */
-    public void setFacteur1(String facteurUn) {
-        this.facteur1 = facteurUn;
+    public void setFacteur1(String facteur1) {
+        this.facteur1 = facteur1;
     }
 
     /**
@@ -57,9 +57,9 @@ public class CleDeuxFacteurs implements Serializable{
 
     /**
      * Setter
-     * @param facteurDeux facteur deux
+     * @param facteur2 facteur deux
      */
-    public void setFacteur2(String facteurDeux) {
-        this.facteur2 = facteurDeux;
+    public void setFacteur2(String facteur2) {
+        this.facteur2 = facteur2;
     }
 }
