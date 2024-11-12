@@ -25,7 +25,7 @@ public class Personne implements Serializable {
      * Nom complet ou identité de la personne.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "IDENTITE", length = 50, nullable = false)
+    @Column(name = "IDENTITE")
     private String identite;
 
     /** Date de naissance de la personne. */
@@ -66,12 +66,14 @@ public class Personne implements Serializable {
 
     /**
      * Constructeur paramètres
+     * @param id id
      * @param identite identité
      * @param dateNaissance date de naissance
      * @param taille taille
      * @param adresse adresse
      */
-    public Personne(String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
+    public Personne(String id, String identite, LocalDate dateNaissance, float taille, Adresse adresse) {
+        this.id = id;
         this.identite = identite;
         this.dateNaissance = dateNaissance;
         this.taille = taille;
