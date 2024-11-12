@@ -5,7 +5,9 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
-/** Sert a creer la cle primaire des classes CastingPrincipal et Realisateur */
+/**
+ * Sert a creer la cle primaire des classes CastingPrincipal et Realisateur
+ */
 @Embeddable
 public class CleDeuxFacteurs implements Serializable{
 
@@ -31,7 +33,7 @@ public class CleDeuxFacteurs implements Serializable{
 
     /**
      * Getter
-     * @return facteur 1
+     * @return facteur un
      */
     public String getFacteur1() {
         return facteur1;

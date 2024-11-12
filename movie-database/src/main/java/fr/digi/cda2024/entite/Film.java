@@ -3,7 +3,6 @@ package fr.digi.cda2024.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -81,7 +80,7 @@ public class Film implements Serializable {
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<CastingPrincipal> castingsPrincipaux = new HashSet<>();
 
-    /** Argument toujours present dans les constructeurs */
+    /** Attributs present dans tous les constructeurs */
     {
         adresses = new HashSet<>();
         acteurs = new HashSet<>();
@@ -301,7 +300,7 @@ public class Film implements Serializable {
     }
 
     /**
-     * set la valeur du pays du film
+     * Set la valeur du pays du film
      * @param pays
      */
     public void setPays(Pays pays) {
@@ -315,9 +314,8 @@ public class Film implements Serializable {
     }
 
     /**
-     * methode equals permet de verifier l'egalite entre differente instance
+     * Methode equals permet de verifier l'egalite entre differente instance
      */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -325,18 +323,13 @@ public class Film implements Serializable {
         return Objects.equals(id, film.id) && Objects.equals(nom, film.nom) && Objects.equals(resume, film.resume) && Objects.equals(langue, film.langue) && Objects.equals(anneeSortie, film.anneeSortie) && Objects.equals(url, film.url) && Objects.equals(pays, film.pays);
     }
 
-    /**
-     * methode hashcode
-     */
+    /** Methode hashcode */
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, resume, langue, anneeSortie, url, pays);
     }
 
-    /**
-     * methode d'affichage
-     */
-
+    /** Methode d'affichage */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Film{");
