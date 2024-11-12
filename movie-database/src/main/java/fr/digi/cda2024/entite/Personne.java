@@ -33,7 +33,7 @@ public class Personne implements Serializable {
 
     /** Taille de la personne en mètres. */
     @Column(name = "TAILLE")
-    private float taille;
+    private Float taille;
 
     /** Adresse de la personne */
     @ManyToOne
