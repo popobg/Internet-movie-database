@@ -15,7 +15,7 @@ public class Realisateur implements Serializable {
     private CleDeuxFacteurs id;
 
     /** Liaison entre realisateur et personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("facteur1")
     @JoinColumn(name = "ID_PERSONNE")
     private Personne realisateur;

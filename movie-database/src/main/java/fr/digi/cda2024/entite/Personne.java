@@ -37,20 +37,20 @@ public class Personne implements Serializable {
     private float taille;
 
     /** Adresse de la personne */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_ADRESSE")
     private Adresse adresse;
 
     /** Liste des rôles que la personne a incarné */
-    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "acteur")
     private Set<Role> roles;
 
     /** Liste des films ou la personne est en casting principal */
-    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "acteur")
     private Set<CastingPrincipal> castingsPrincipaux;
 
     /** Liste des films ou la personne est réalisateur */
-    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "realisateur")
     private Set<Realisateur> realisateurs;
 
     /** Attributs present dans tous les constructeurs */
@@ -62,7 +62,6 @@ public class Personne implements Serializable {
 
     /** Constructeur vide*/
     public Personne() {
-
     }
 
     /**

@@ -28,18 +28,18 @@ public class Adresse implements Serializable {
      * Région de l'adresse.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "REGION", length = 50, nullable = false)
+    @Column(name = "REGION", length = 50)
     private String region;
 
     /**
      * Ville de l'adresse.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "VILLE", length = 50, nullable = false)
+    @Column(name = "VILLE", length = 50)
     private String ville;
 
     /** Pays de l'adresse */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="ID_PAYS")
     private Pays pays;
 

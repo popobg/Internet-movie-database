@@ -42,7 +42,7 @@ public class Film implements Serializable {
      * Langue du film.
      * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
-    @Column(name = "LANGUE", length = 50, nullable = false)
+    @Column(name = "LANGUE", length = 50)
     private String langue;
 
     /** Date de sortie du film */
@@ -57,24 +57,24 @@ public class Film implements Serializable {
     private String url;
 
     /** Liste des lieux de tournage du film */
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films", cascade = CascadeType.PERSIST)
     private Set<Adresse> adresses;
 
     /** Liste des acteurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Role> acteurs;
 
     /** Liste des genres associés au film */
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films", cascade = CascadeType.PERSIST)
     private Set<Genre> genres;
 
     /** Nationalite du film */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_PAYS")
     private Pays pays;
 
     /** Liste des realisateurs dans le film */
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Realisateur> realisateurs;
 
     /** Liste du Casting principal dans le film */
