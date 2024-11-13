@@ -1,5 +1,5 @@
 # MOVIES IMDb DATABASE
-Projet de conception et développement d'une application console de création et requêtage d'une base de données.
+Projet de conception et développement d'une application console Java de création et requêtage d'une base de données MariaDB avec l'aide de l'ORM Hibernate.
 
 ## SOMMAIRE
 1. [Contexte](#1-Contexte)
