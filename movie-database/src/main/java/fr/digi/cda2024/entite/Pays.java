@@ -26,14 +26,13 @@ public class Pays implements Serializable {
 
     /**
      * Nom du pays.
-     * Ce champ est obligatoire, unique, et sa longueur maximale est de 50 caractères.
      */
     @Column(name = "NOM")
     private String nom;
 
     /**
      * URL associée au pays.
-     * Ce champ est obligatoire, unique, et sa longueur maximale est de 100 caractères.
+     * Ce champ est unique.
      */
     @Column(name = "URL", unique = true)
     private String url;

@@ -23,7 +23,6 @@ public class Personne implements Serializable {
 
     /**
      * Nom complet ou identité de la personne.
-     * Ce champ est obligatoire et sa longueur maximale est de 50 caractères.
      */
     @Column(name = "IDENTITE")
     private String identite;

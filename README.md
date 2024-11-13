@@ -134,9 +134,8 @@ Camarades de classe dans la promotion Concepteur Développeur d'Applications dis
 - [Johan Guillen](https://github.com/sioupe)
 - [Pauline Bouyssou](https://github.com/popobg)
 
-## 6. Finalité :
-
-Le programme est fonctionnel et respect les consignes. Le rendu est très satisfaisant (bien qu'on pense à plusieurs changements et optimisation possible). 
+## 6. Finalité
+Le programme est fonctionnel et respect les consignes. Le rendu est très satisfaisant (bien qu'on pense à plusieurs changements et optimisation possible).
 
 La répartition des tâches, en rétrospective, aurait pu être conceptualisée différemment.
 

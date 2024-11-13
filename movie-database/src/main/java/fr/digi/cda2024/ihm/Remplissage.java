@@ -46,7 +46,6 @@ public class Remplissage {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
 
-
             // Configuration en cascade de la persistance des entités
             for (Film film : filmsEntites) {
                 em.persist(film);
