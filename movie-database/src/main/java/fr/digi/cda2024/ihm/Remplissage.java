@@ -1,6 +1,6 @@
 package fr.digi.cda2024.ihm;
 
-import fr.digi.cda2024.dal.PersistenceManager;
+import fr.digi.cda2024.dal.QuerysMenu;
 import fr.digi.cda2024.dto.FilmDTO;
 import fr.digi.cda2024.entite.Film;
 import fr.digi.cda2024.services.DtoEntitesMapper;
@@ -9,12 +9,10 @@ import fr.digi.cda2024.services.JsonParser;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Remplissage {
@@ -42,7 +40,7 @@ public class Remplissage {
 
         // Persistance des données des classes entités en base de données
         // Création d'un EntityManagerFactory à l'aide d'une classe utilitaire
-        EntityManagerFactory emf = PersistenceManager.getEntityManagerFactory();
+        EntityManagerFactory emf = QuerysMenu.getEntityManagerFactory("movies-jpa-creation");
 
         try(EntityManager em = emf.createEntityManager()) {
             EntityTransaction transaction = em.getTransaction();
@@ -56,6 +54,6 @@ public class Remplissage {
 
             transaction.commit();
         }
-        PersistenceManager.closeEntityManagerFactory();
+        QuerysMenu.closeEntityManagerFactory();
     }
 }

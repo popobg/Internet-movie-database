@@ -1,6 +1,6 @@
 package fr.digi.cda2024.ihm;
 
-import fr.digi.cda2024.requetage.QuerysMenu;
+import fr.digi.cda2024.dal.QuerysMenu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -41,6 +41,8 @@ public class Traitement {
 
         }
 
+        QuerysMenu.getEntityManagerFactory("movies-jpa-update");
+
         //switch pour assigner le choix entré par l'utilisateur à une option affiché précédement
         switch (choice) {
             case 1:
@@ -66,6 +68,7 @@ public class Traitement {
                 break;
         }
         scannerMenu.close();
+        QuerysMenu.closeEntityManagerFactory();
     }
 
     /**
@@ -102,7 +105,7 @@ public class Traitement {
             filmographieActeur.forEach(System.out::println);
         }
         //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
+//        QuerysMenu.closeEntityManagerFactory();
         //Fermeture scanner ci-dessus
         scannerFilmogarphieActeur.close();
     }
@@ -125,8 +128,6 @@ public class Traitement {
             System.out.println("Le casting pour le film " + filmNom + " :");
             castingFilm.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
         //Fermeture scanner ci-dessus
         scannerCastingFilm.close();
 
@@ -185,8 +186,6 @@ public class Traitement {
             System.out.println("Les films sortis entre " + anneeDebut + " et " + anneeFin + " :");
             filmsEntreDeuxAnnees.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
         //Fermeture scanner ci-dessus
         scannerfilmsEntreDeuxAnnees1.close();
         scannerfilmsEntreDeuxAnnees2.close();
@@ -215,8 +214,6 @@ public class Traitement {
             System.out.println("Les films communs à " + acteurNom1 + " et " + acteurNom2 + " :");
             filmsCommunsPourDeuxActeurs.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
         //Fermeture scanner ci-dessus
         scannerCommunsPourDeuxActeurs1.close();
         scannerCommunsPourDeuxActeurs2.close();
@@ -245,8 +242,6 @@ public class Traitement {
             System.out.println("Le casting en commun pour les films " + film1 + "et " + film2 + " :");
             acteursCommunsPourDeuxFilms.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
         //Fermeture scanner ci-dessus
         scannerActeursCommunsPourDeuxFilms1.close();
         scannerActeursCommunsPourDeuxFilms2.close();
@@ -310,8 +305,6 @@ public class Traitement {
             System.out.println("\nLes films de " + acteurNom + " entre " + anneeDebut + " et " + anneeFin + " :");
             filmsEntreDeuxAnneesAvecActeur.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-        QuerysMenu.close();
         //Fermeture scanner ci-dessus
         scannerFilmEntreDeuxAnneesAvecActeur1.close();
         scannerFilmEntreDeuxAnneesAvecActeur2.close();

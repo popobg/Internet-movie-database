@@ -1,4 +1,4 @@
-package fr.digi.cda2024.requetage;
+package fr.digi.cda2024.dal;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -16,15 +16,29 @@ import java.util.Set;
 public class QuerysMenu {
 
     /**
-     * Ouverture du EntityManagerfactory
+     * Attribut statique permettant l'utilisation d'un emf unique
+     * qui peut-être appelé à plusieurs endroits du programme.
      */
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("movies-jpa-update");
+    private static EntityManagerFactory emf;
+
+    private QuerysMenu() {}
 
     /**
-     * Methode de fermeture du EntityManagerfactory à appeler après utilisation des méthodes ci-dessous
+     * Retourne l'EntityManagerFactory unique ou le crée s'il est null.
+     * @return EntityManagerFactory
      */
-    public static void close() {
-        if (emf != null && emf.isOpen()) {
+    public static EntityManagerFactory getEntityManagerFactory(String persistenceUnitName) {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory(persistenceUnitName);
+        }
+        return emf;
+    }
+
+    /**
+     * Ferme l'EntityManagerFactory créé.
+     */
+    public static void closeEntityManagerFactory() {
+        if (emf != null) {
             emf.close();
         }
     }
@@ -52,7 +66,6 @@ public class QuerysMenu {
             em.close();
         }
         return filmographie;
-
     }
 
     /**
