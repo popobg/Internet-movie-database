@@ -61,20 +61,29 @@ Ce set est ensuite utilisé pour persister les données en base de données, gr�
 
 ### 3.2. Création des entités
 
-1 - Création du modéle des classes et de leurs interactions via un diagramme.
-2 - Création des entités.
-3 - Etude des relations rôle, castingPrincipal, realisateur et de leur fonctionnement spécifiques.
-4 - Répartition des tâches :
--Johan Guillen sur les relations filme_dans, situe_dans, nait et role.
--Arnaud Clavier sur les relations integre, nationalite, casting_principal et realise.
-5 - Création des classe cleRole utilisé comme méthode pour fusionner les ID de personnes, film, personnage et attribuer cet ID fusionné à la classe role.
-Création de la classe cleDeuxFacteur utilisé pour fusionner les ID de personnes et film et attribuer cette ID fusionné aux classes casting_principal et realise.
-6 - Mise en place de la Javadoc et homogénéisation des classes.
-
+1. Création du modèle des classes et de leurs interactions via un diagramme.
+2. Création des entités.
+3. Etude des relations rôle, castingPrincipal, realisateur et de leur fonctionnement spécifique.
+4. Répartition des tâches :
+    - Johan Guillen sur les relations filme_dans, situe_dans, nait et role.
+    - Arnaud Clavier sur les relations integre, nationalite, casting_principal et realise.
+5. Création de la classe cleRole utilisée comme méthode pour fusionner les ID de personnes, film, personnage et attribuer cet ID fusionné à la classe role.\
+Création de la classe cleDeuxFacteur utilisée pour fusionner les ID de personnes et film et attribuer cet ID fusionné aux classes casting_principal et realise.
+6. Mise en place de la Javadoc et homogénéisation des classes.
 
 ### 3.3. Application de requêtage
+Menu basique sous terminal de commande, qui s'exécute avec la classe "Traitement".
 
-<<<<<<< HEAD
+Le menu est utilisé en deux temps avec deux types d'input :
+- un premier input pour choisir quel type de recherche à faire dans la base de données, avec un choix de 6 options + 1 choix pour quitter le menu.
+- un second input pour rentrer les paramètres de recherche relatifs au choix (en fonction du choix peut-être "nom d'actreur/actrice", "nom film" ou "date").\
+Les paramètres sont ensuite utilisés par la méthode, appelés de la classe "QuerysMenu", qui correspond au choix fait dans le premier input. Elle fait le requêtage correspondant à la base de données et renvoie les données à la classe "Traitement" qui les affiche.
+
+Le code est fonctionnel mais pas très DRY ni très optimisé.
+Manque aussi peut-être d'un menu sur-jacent qui permet en une seule classe exécutable d'utiliser le remplissage (classe "Remplissage") de la base de données et la recherche (classe "Traitement").
+
+On note que les inputs de "nom d'acteur/actice" et de "nom de film" sont de type String (pour les choix 1, 2, 4, 5 et 6). Ici, elles sont sensibles aux espaces en trop et aux fautes d'orthographe. De façon générale, les inputs entrés doivent être strictement égaux au nommage dans la base de données (à la colonne IDENTITE de la table personne pour le nom d'acteur/actice ; à la colonne NOM de la table film pour "nom de film").
+
 ## 4. Pré-requis
 ### 4.1. Dépendances
 - **[JDK Java >= 17.0](https://www.oracle.com/java/technologies/downloads/)**
@@ -98,25 +107,4 @@ Camarades de classe dans la promotion Concepteur Développeur d'Applications dis
 - [Arnaud Clavier](https://github.com/Arnaud-C18)
 - [Johan Guillen](https://github.com/sioupe)
 - [Pauline Bouyssou](https://github.com/popobg)
-=======
-Menu basique sous terminal de commande, qui s'exécute avec la classe "Traitement".
 
-Le menu est utilisé en deux temps avec deux types d'input :
-- un premier input pour choisir quel type de cherche à faire dans la base de données, avec un choix de 6 options + 1 choix pour quitter le menu.
-- un second input pour rentrer les paramètres de recherche relatifs au choix (en fonction du choix peut-être "nom d'actreur/actrice", "nom film" ou "date")
-Les paramètres sont ensuite utilisés par la méthode, appelés de la classe "QuerysMenu", qui correspond au choix fait dans le premier input. Elle fait le requêtage correspondant à la base de données et renvoie les données à la classe "Traitement" qui les affiche.
-
-Le code est fonctionnel mais pas très DRY ni très optimisé.
-Manque aussi peut-être d'un menu sur-jacent qui permet en une seul classe exécutable d'utilisé le remplissage (classe "Remplissage") de la base de données et la recherche (classe "Traitement").
-
-On note que les inputs de "nom d'acteur/actice" et de "nom de film" sont de type sting (pour les choix 1, 2, 4, 5 et 6). Ici, elles sont sensibles aux espaces en trop et aux fautes d'orthographe. De façon générale, les inputs entrés doivent être strictement égaux au nommage dans la base de données (à la colonne IDENTITE de la table personne pour le nom d'acteur/actice ; à la colonne NOM de la table film pour "nom de film").
-
-
-## 4. Collaborateurs
-Camarades de classe dans la promotion Concepteur Développeur d'Applications dispensé par Diginamic, une belle collaboration est née autour de ce projet.
-
-- [Abel Correia](#https://github.com/Erico-Labare)
-- [Arnaud Clavier](#https://github.com/Arnaud-C18)
-- [Johan Guillen](#https://github.com/sioupe)
-- [Pauline Bouyssou](#https://github.com/popobg)
->>>>>>> d8926c509d58abb73da484a8a9586edce88f6e51
