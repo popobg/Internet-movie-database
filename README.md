@@ -40,6 +40,15 @@ Diagramme de classe :
 ### 3.1. Parsing et mapping
 
 ### 3.2. Création des entités
+1 - Création du modéle des classes et de leurs interactions via un diagramme
+2 - Création des entités
+3 - Etude des relations rôle, castingPrincipal, realisateur et de leur fonctionnement spécifiques
+4 - Répartition des tâches :
+Johan Guillen sur les relations filme_dans, situe_dans, nait et role
+Arnaud Clavier sur les relations integre, nationalite, casting_principal et realise
+5 - Création des classe cleRole utilisé comme méthode pour fusionner les ID de personnes, film, personnage et attribuer cet ID fusionné à la classe role 
+Création de la classe cleDeuxFacteur utilisé pour fusionner les ID de personnes et film et attribuer cette ID fusionné aux classes casting_principal et realise
+6 - Mise en place de la Javadoc et homogénéisation des classes
 
 ### 3.3. Application de requêtage
 
