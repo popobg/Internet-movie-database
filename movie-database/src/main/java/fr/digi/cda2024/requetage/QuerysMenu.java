@@ -18,7 +18,7 @@ public class QuerysMenu {
     /**
      * Ouverture du EntityManagerfactory
      */
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("movies");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("movies-jpa-update");
 
     /**
      * Methode de fermeture du EntityManagerfactory à appeler après utilisation des méthodes ci-dessous

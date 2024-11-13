@@ -24,7 +24,7 @@ public final class PersistenceManager {
      */
     public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null) {
-            emf = Persistence.createEntityManagerFactory("movies-jpa");
+            emf = Persistence.createEntityManagerFactory("movies-jpa-creation");
         }
 
         return emf;
