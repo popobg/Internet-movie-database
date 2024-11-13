@@ -12,6 +12,7 @@ Projet de conception et développement d'une application console Java de créati
     4.1. [Dépendances](#41-Dépendances)\
     4.2. [Installation](#42-Installation)
 5. [Collaborateurs du projet](#5-Collaborateurs)
+6. [Finalité](#6-Finalité)
 
 
 ## 1. Contexte
@@ -133,3 +134,10 @@ Camarades de classe dans la promotion Concepteur Développeur d'Applications dis
 - [Johan Guillen](https://github.com/sioupe)
 - [Pauline Bouyssou](https://github.com/popobg)
 
+## 6. Finalité :
+
+Le programme est fonctionnel et respect les consignes. Le rendu est très satisfaisant (bien qu'on pense à plusieurs changements et optimisation possible). 
+
+La répartition des tâches, en rétrospective, aurait pu être conceptualisée différemment.
+
+Pour autant, le projet s'est très bien passé dans son ensemble et a été très formateur sur la dynamique de travail en groupe (organisation, utilisation de git en groupe, méthodologie type agile ...etc).
