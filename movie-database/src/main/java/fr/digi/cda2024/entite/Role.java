@@ -13,7 +13,7 @@ public class Role {
 
     /** L'id de la table de jointure role */
     @EmbeddedId
-    private clePersonneFilmRoleTroisFacteurs id;
+    private ClePersonneFilmRoleTroisFacteurs id;
 
     /** Liaison entre role et personne */
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -44,7 +44,7 @@ public class Role {
      */
     public Role(String role, Personne personne, Film film, String url) {
 
-        this.id = new clePersonneFilmRoleTroisFacteurs(personne.getId(), film.getId(),role);
+        this.id = new ClePersonneFilmRoleTroisFacteurs(personne.getId(), film.getId(),role);
         this.url = url;
         personne.addRole(this, film);
     }
@@ -53,7 +53,7 @@ public class Role {
      * Getter
      * @return id
      */
-    public clePersonneFilmRoleTroisFacteurs getId() {
+    public ClePersonneFilmRoleTroisFacteurs getId() {
         return id;
     }
 
@@ -61,7 +61,7 @@ public class Role {
      * Setter
      * @param id id
      */
-    public void setId(clePersonneFilmRoleTroisFacteurs id) {
+    public void setId(ClePersonneFilmRoleTroisFacteurs id) {
         this.id = id;
     }
 
