@@ -34,7 +34,7 @@ Modèle Logique de Données (MLD) :
 
 Diagramme de classe :
 
-![Diagramme de classes](conception/diagramme_classe.png)
+![Diagramme de classes](Conception/diagramme_classe.png)
 
 ## 3. Fonctionnement
 ### 3.1. Parsing et mapping
