@@ -46,13 +46,9 @@ Diagramme de classe :
 Menu basique sous terminal de commande, qui s'exécute avec la classe "Traitement".
 
 Le menu est utilisé en deux temps avec deux types d'input :
-
 - un premier input pour choisir quel type de cherche à faire dans la base de données, avec un choix de 6 options + 1 choix pour quitter le menu.
-
 - un second input pour rentrer les paramètres de recherche relatifs au choix (en fonction du choix peut-être "nom d'actreur/actrice", "nom film" ou "date")
-
 Les paramètres sont ensuite utilisés par la méthode, appelés de la classe "QuerysMenu", qui correspond au choix fait dans le premier input. Elle fait le requêtage correspondant à la base de données et renvoie les données à la classe "Traitement" qui les affiche.
-
 
 Le code est fonctionnel mais pas très DRY ni très optimisé.
 Manque aussi peut-être d'un menu sur-jacent qui permet en une seul classe exécutable d'utilisé le remplissage (classe "Remplissage") de la base de données et la recherche (classe "Traitement").
