@@ -52,7 +52,7 @@ public class Traitement {
                 affichageCastingFilm();
                 break;
             case 3:
-                affichagefilmsEntreDeuxAnnees();
+                affichageFilmsEntreDeuxAnnees();
                 break;
             case 4:
                 affichageCommunsPourDeuxActeurs();
@@ -136,7 +136,7 @@ public class Traitement {
     /**
      * Methode qui permet de affichage des films sortis entre 2 années données
      */
-    private static void affichagefilmsEntreDeuxAnnees() {
+    private static void affichageFilmsEntreDeuxAnnees() {
 
         int anneeDebut = 0;
         int anneeFin = 0;
