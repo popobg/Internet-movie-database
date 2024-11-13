@@ -22,15 +22,15 @@ A partir d'un fichier JSON contenant des informations sur des films, nous devons
 
 Modèle conceptuel de Données (MCD) :
 
-![MCD](conception/MCD_database.jpg)
+![MCD](Conception/MCD_database.jpg)
 
 Unified Modeling Language (UML) :
 
-![UML](conception/UML_database.jpg)
+![UML](Conception/UML_database.jpg)
 
 Modèle Logique de Données (MLD) :
 
-![MLD](conception/MLD_database.jpg)
+![MLD](Conception/MLD_database.jpg)
 
 Diagramme de classe :
 
