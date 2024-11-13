@@ -1,9 +1,9 @@
-package fr.digi.cda2024.requetage;
+package fr.digi.cda2024.services;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
+import org.junit.jupiter.api.AfterEach;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,12 +13,18 @@ import java.util.Set;
 /**
  * Classe d'appel des méthodes de query
  */
-public class QuerysMenu {
+public class QuerysMenuCopy {
 
-    /**
-     * Ouverture du EntityManagerfactory
-     */
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("movies");
+    private static EntityManagerFactory emf;
+
+    public static void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+        emf = entityManagerFactory;
+    }
+
+    @AfterEach
+    public void tearDown() {
+        QuerysMenuCopy.close();  // Ferme le EntityManagerFactory après chaque test
+    }
 
     /**
      * Methode de fermeture du EntityManagerfactory à appeler après utilisation des méthodes ci-dessous
