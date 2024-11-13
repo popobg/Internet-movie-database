@@ -12,7 +12,7 @@ public class Realisateur implements Serializable {
 
     /** Id issu de la classe CleDeuxFacteurs */
     @EmbeddedId
-    private CleDeuxFacteurs id;
+    private ClePersonneFilmDeuxFacteurs id;
 
     /** Liaison entre realisateur et personne */
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -41,7 +41,7 @@ public class Realisateur implements Serializable {
      * @param url url
      */
     public Realisateur(Personne personne, Film film, String url) {
-        this.id = new CleDeuxFacteurs(personne.getId(), film.getId());
+        this.id = new ClePersonneFilmDeuxFacteurs(personne.getId(), film.getId());
         this.url = url;
         personne.addRealisateur(this, film);
     }

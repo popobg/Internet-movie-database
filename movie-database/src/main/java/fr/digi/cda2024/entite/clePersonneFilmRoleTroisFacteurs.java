@@ -11,7 +11,7 @@ import java.util.Objects;
  * qui est une table de jointure entre personne et film
  */
 @Embeddable
-public class cleRole implements Serializable {
+public class clePersonneFilmRoleTroisFacteurs implements Serializable {
 
     /** Cle permettant la liaison entre role et personne */
     private String personneId;
@@ -27,7 +27,7 @@ public class cleRole implements Serializable {
     private String nomRole;
 
     /** Constructeur vide */
-    public cleRole() {
+    public clePersonneFilmRoleTroisFacteurs() {
     }
 
     /**
@@ -36,7 +36,7 @@ public class cleRole implements Serializable {
      * @param filmId Id d'un film
      * @param nomRole nom d'un role
      */
-    public cleRole(String personneId, String filmId, String nomRole) {
+    public clePersonneFilmRoleTroisFacteurs(String personneId, String filmId, String nomRole) {
         this.personneId = personneId;
         this.filmId = filmId;
         this.nomRole = nomRole;
@@ -94,7 +94,7 @@ public class cleRole implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof cleRole cleRole)) return false;
+        if (!(o instanceof clePersonneFilmRoleTroisFacteurs cleRole)) return false;
         return Objects.equals(personneId, cleRole.personneId) && Objects.equals(filmId, cleRole.filmId) && Objects.equals(nomRole, cleRole.nomRole);
     }
 

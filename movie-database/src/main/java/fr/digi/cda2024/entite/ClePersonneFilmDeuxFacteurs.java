@@ -1,6 +1,5 @@
 package fr.digi.cda2024.entite;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
@@ -9,7 +8,7 @@ import java.io.Serializable;
  * Sert a creer la cle primaire des classes CastingPrincipal et Realisateur
  */
 @Embeddable
-public class CleDeuxFacteurs implements Serializable{
+public class ClePersonneFilmDeuxFacteurs implements Serializable {
 
     /** Cle permettant la liaison entre la table donne et personne */
     private String facteur1;
@@ -18,15 +17,15 @@ public class CleDeuxFacteurs implements Serializable{
     private String facteur2;
 
     /** Constructeur vide */
-    public CleDeuxFacteurs() {
+    public ClePersonneFilmDeuxFacteurs() {
     }
 
     /**
      * Constructeur parametre
      * @param facteur1 facteur 1
-     * @param facteur2 facteur deux
+     * @param facteur2 facteur 2
      */
-    public CleDeuxFacteurs(String facteur1, String facteur2) {
+    public ClePersonneFilmDeuxFacteurs(String facteur1, String facteur2) {
         this.facteur1 = facteur1;
         this.facteur2 = facteur2;
     }
