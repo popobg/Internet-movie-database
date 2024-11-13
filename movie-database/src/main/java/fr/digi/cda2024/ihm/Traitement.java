@@ -67,7 +67,9 @@ public class Traitement {
                 System.out.println("Au revoir !");
                 break;
         }
+        //Fermeture scanner ci-dessus
         scannerMenu.close();
+        //Fermeture du EMF ouvert dans la methode queryMenu
         QuerysMenu.closeEntityManagerFactory();
     }
 
@@ -104,8 +106,6 @@ public class Traitement {
             System.out.println("La filmographieActeur de " + acteurNom + " :");
             filmographieActeur.forEach(System.out::println);
         }
-        //Fermeture du EMF ouvert dans la methode queryMenu
-//        QuerysMenu.closeEntityManagerFactory();
         //Fermeture scanner ci-dessus
         scannerFilmogarphieActeur.close();
     }
