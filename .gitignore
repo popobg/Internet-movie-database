@@ -23,11 +23,11 @@ target/
 .sts4-cache
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -39,9 +39,4 @@ build/
 .DS_Store
 
 ### Customised ###
-<<<<<<< HEAD
-/src/main/resources/META-INF
 *.lo1
-=======
-/src/main/resources/META-INF/persistence.xml
->>>>>>> d95453ef755cd2352906c01d401cc8e99c4b5066
