@@ -35,6 +35,11 @@ Diagramme de classe :
 
 ![Diagramme de classes](Conception/diagramme_classe.png)
 
+Diagramme schématique des classes Traitement et QuerysMenu :
+
+![Diagramme schématique des classes Traitement et QuerysMenu](Conception/diagramme_traitement-menu.png)
+
+
 ## 3. Fonctionnement
 ### 3.1. Parsing et mapping
 ### Récupération du fichier de données
