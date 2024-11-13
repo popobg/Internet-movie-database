@@ -10,8 +10,7 @@ Projet de conception et développement d'une application console de création et
     3.3. [Application de requêtage](#33-Application-de-requêtage)
 4. [Pré-requis](#4-Pré-requis)\
     4.1. [Dépendances](#41-Dépendances)\
-    4.2. [Installation](#42-Installation)\
-    4.3. [Configuration](#43-Configuration)
+    4.2. [Installation](#42-Installation)
 5. [Collaborateurs du projet](#5-Collaborateurs)
 
 
@@ -39,7 +38,7 @@ Diagramme de classe :
 ## 3. Fonctionnement
 ### 3.1. Parsing et mapping
 ### Récupération du fichier de données
-Au lancement du programme de création de la base de données ([classe Remplissage](src/main/java/fr/digi/cda2024/ihm/Remplissage.java)), la console demande à l'utilisateur de lui communiquer le chemin vers son fichier json contenant les données du film.\
+Au lancement du programme de création de la base de données ([classe Remplissage](https://github.com/popobg/Internet-movie-database/blob/main/movie-database/src/main/java/fr/digi/cda2024/ihm/Remplissage.java)), la console demande à l'utilisateur de lui communiquer le chemin vers son fichier json contenant les données du film.\
 Il est recommandé d'utiliser le chemin absolu pour éviter des erreurs, comme par exemple : *D:/dev/JPA/films.json*.
 
 La classe service *FileTools* gère la récupération du chemin et la conversion en objet File.
@@ -95,10 +94,31 @@ On note que les inputs de "nom d'acteur/actice" et de "nom de film" sont de type
 - Bibliothèque parsing JSON-objets JAVA **[Jackson](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind)** (version 2.18.1)
 
 ### 4.2. Installation
+Vous devez créer une base de données dans votre SGBD qui porte le nom "**movies**".\
+Si vous utilisez MariaDB la commande de création sera la suivante :\
+`CREATE DATABASE petstore CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';`.
 
+Vous pouvez lui donner un autre nom si vous le souhaitez, il faudra alors modifier la ligne de connexion à la base de données dans le fichier *[persistence.xml](https://github.com/popobg/Internet-movie-database/blob/main/movie-database/src/main/resources/META-INF/persistence.xml)* : il faut modifier la ligne `<property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3307/???"/>` dans les deux persistence-unit, en remplaçant les "???" par le nom de votre base de données.
 
-### 4.3. Configuration
-Vous pouvez configurer vous-mêmes le comportement de JPA avec la base de données via le fichier *persistence.xml*.
+Si vous utilisez un autre SGBD que MariaDB et que le port d'écoute de votre base de données n'est pas le port 3307, il faudra également modifier cette ligne du fichier de `persistence.xml`.\
+Voici le template à suivre pour les lignes de connexion à la base de données, en remplaçant les valeurs terminant par "??" avec vos valeurs :
+
+```XML
+<persistence-unit name="persistence_unit_name??">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <!-- configurations relatives à la connexion à la base de données -->
+            <property name="jakarta.persistence.jdbc.url" value="protocole_jdbc:sous-protocole_sgbd://adresse_du_serveur:port_d'écoute/nom_base_de_données??"/>
+            <property name="jakarta.persistence.jdbc.user" value="username??"/>
+            <property name="jakarta.persistence.jdbc.password" value="password??"/>
+            <!-- facultatif -->
+            <property name="jakarta.persistence.jdbc.driver" value="sgbd_driver??"/>
+
+            ...
+        </properties>
+</persistence-unit>
+```
 
 ## 5. Collaborateurs
 Camarades de classe dans la promotion Concepteur Développeur d'Applications dispensé par Diginamic (septembre 2024), une belle collaboration est née autour de ce projet.
